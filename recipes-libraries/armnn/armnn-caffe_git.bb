@@ -26,3 +26,5 @@ do_install() {
         install -m 0644 $file ${D}${datadir}/${BPN}/caffe/proto/
     done
 }
+
+COMPATIBLE_MACHINE = "(mx8)"
