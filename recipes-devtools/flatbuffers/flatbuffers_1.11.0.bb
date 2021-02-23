@@ -32,3 +32,5 @@ do_install_append() {
 }
 
 FILES_${PN} += "${libdir}"
+
+COMPATIBLE_MACHINE = "(mx8)"
