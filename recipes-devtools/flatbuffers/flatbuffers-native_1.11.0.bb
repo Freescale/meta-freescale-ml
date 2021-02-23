@@ -35,3 +35,5 @@ do_install() {
 FILES_${PN} += "${bindir}"
 
 #BBCLASSEXTEND = "native nativesdk"
+
+COMPATIBLE_MACHINE = "(mx8)"
