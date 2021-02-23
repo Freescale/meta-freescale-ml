@@ -22,3 +22,5 @@ do_install() {
     done
 
 }
+
+COMPATIBLE_MACHINE = "(mx8)"
