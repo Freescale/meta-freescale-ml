@@ -36,3 +36,5 @@ do_install(){
 }
 
 FILES_${PN} += "${libdir}/python*"
+
+COMPATIBLE_MACHINE = "(mx8)"
