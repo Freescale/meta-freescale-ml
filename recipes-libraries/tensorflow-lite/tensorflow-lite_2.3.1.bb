@@ -108,3 +108,5 @@ INSANE_SKIP_${PN} += " \
 "
 
 FILES_${PN} += "${libdir}/python*"
+
+COMPATIBLE_MACHINE = "(mx8)"
