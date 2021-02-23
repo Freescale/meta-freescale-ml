@@ -35,3 +35,5 @@ do_install() {
 }
 
 FILES_${PN} += "${datadir}"
+
+COMPATIBLE_MACHINE = "(mx8)"
