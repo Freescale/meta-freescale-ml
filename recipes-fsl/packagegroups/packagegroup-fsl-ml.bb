@@ -5,11 +5,15 @@ inherit packagegroup
 ML_PKGS    ?= ""
 ML_PKGS_mx8 = " \
     armnn \
-    pyarmnn \
-    tensorflow-lite \
+    armnn-swig \
+    deepview-rt \
+    eiq-apps \
     onnxruntime \
+    pyarmnn \
     pytorch \
+    tensorflow-lite \
     torchvision \
+    tvm \
 "
 RDEPENDS_${PN} = " \
     ${ML_PKGS} \
