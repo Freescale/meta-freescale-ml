@@ -66,3 +66,5 @@ def swiglib_relpath(d):
 do_install:append_class-native() {
     create_wrapper ${D}${bindir}/swig SWIG_LIB='`dirname $''realpath`'/${@swiglib_relpath(d)}
 }
+
+FILES:${PN} += "${datadir}/swig/*/*"
