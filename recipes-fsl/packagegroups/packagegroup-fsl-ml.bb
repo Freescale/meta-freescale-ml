@@ -9,7 +9,6 @@ ML_PKGS_mx8 = " \
     deepview-rt \
     eiq-apps \
     onnxruntime \
-    pyarmnn \
     pytorch \
     tensorflow-lite \
     torchvision \
