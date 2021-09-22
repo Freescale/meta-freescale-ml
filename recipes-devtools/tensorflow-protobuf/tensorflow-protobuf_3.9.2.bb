@@ -48,5 +48,3 @@ LDFLAGS:append:powerpc = " -latomic"
 LDFLAGS:append:mipsel = " -latomic"
 
 INSANE_SKIP:${PN} = "dev-so"
-
-COMPATIBLE_MACHINE = "(mx8)"
