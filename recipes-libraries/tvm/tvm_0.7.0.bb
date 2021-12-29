@@ -12,22 +12,23 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e313a9b6eda820e35716d9529001537f \
 "
 
 DEPENDS = "tim-vx"
-RDEPENDS_${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
+RDEPENDS:${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
 
-SRCBRANCH = "lf-5.10.y_2.0.0"
+SRCBRANCH = "lf-5.10.72_2.2.0"
 TVM_SRC ?= "git://source.codeaurora.org/external/imx/eiq-tvm-imx.git;protocol=ssh"
 SRC_URI = "${TVM_SRC};branch=${SRCBRANCH}\
                git://github.com/dmlc/dlpack;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/dlpack;name=dlpack \
                git://github.com/dmlc/dmlc-core;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/dmlc-core;name=dmlc-core \
                git://github.com/agauniyal/rang;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/rang;name=rang \
                git://github.com/apache/incubator-tvm-vta;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/vta-hw;name=vta-hw \
+               file://0001-tvm-CMakeLists.txt-Use-CMAKE-variables-for-libs-inst.patch \
 "
 
-SRCREV = "bdd6f15285385bc354e9d61b20e1703c217cfcaa"
-SRCREV_dlpack = "3ec04430e89a6834e5a1b99471f415fa939bf642"
-SRCREV_dmlc-core = "6c401e242c59a1f4c913918246591bb13fd714e7"
-SRCREV_rang = "cabe04d6d6b05356fa8f9741704924788f0dd762"
-SRCREV_vta-hw = "87ce9acfae550d1a487746e9d06c2e250076e54c"
+SRCREV = "d56c112ef65fc0ce18249c32041d1377b98c9e9d"
+SRCREV:dlpack = "3ec04430e89a6834e5a1b99471f415fa939bf642"
+SRCREV:dmlc-core = "6c401e242c59a1f4c913918246591bb13fd714e7"
+SRCREV:rang = "cabe04d6d6b05356fa8f9741704924788f0dd762"
+SRCREV:vta-hw = "87ce9acfae550d1a487746e9d06c2e250076e54c"
 
 S = "${WORKDIR}/git"
 
