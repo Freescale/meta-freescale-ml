@@ -7,13 +7,13 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSE;md5=55899200c3031a66eb11a57a52
 DEPENDS = "tensorflow-lite flatbuffers"
 
 GOOGLE_CORAL_POSENET_SRC ?= "git://source.codeaurora.org/external/imx/coral-posenet-imx.git;protocol=https"
-SRCBRANCH = "lf-5.10.y_2.0.0"
+SRCBRANCH = "lf-5.10.72_2.2.0"
 
 SRC_URI = "${GOOGLE_CORAL_POSENET_SRC};branch=${SRCBRANCH} \
            git://github.com/google-coral/project-posenet.git;protocol=https;name=project-posenet;subpath=models;destsuffix=git/edgetpu/models \
 "
-SRCREV = "21e8d00dcd3c0dc4fd3cf91378f75ee3d1eef1e4"
-SRCREV_project-posenet = "58a611ed1135852b8e97a7626777a7304e8ecc21"
+SRCREV = "938fb3bc4e78d4eaa3cf91baceaa87893547fa55"
+SRCREV:project-posenet = "58a611ed1135852b8e97a7626777a7304e8ecc21"
 
 SRC_URI += "https://dl.google.com/coral/canned_models/all_models.tar.gz;name=canned-models;subdir=canned-models"
 SRC_URI[canned-models.md5sum] = "432acbb54f0219f349a648c3af244731"
