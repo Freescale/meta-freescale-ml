@@ -2,18 +2,26 @@
 DESCRIPTION = "cross-platform, high performance scoring engine for ML models"
 SECTION = "devel"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=980784f0a7f667becbed133924b263bf"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=0f7e3b1308cb5c00b372a6e78835732d"
 
 DEPENDS = "libpng zlib ${BPN}-native"
 
 ONNXRUNTIME_SRC ?= "gitsm://source.codeaurora.org/external/imx/onnxruntime-imx.git;protocol=https"
-SRCBRANCH = "lf-5.10.y_2.0.0"
+SRCBRANCH = "lf-5.10.72_2.2.0"
 
-SRCREV = "0a15796c7108521f91c6ae3ecd870fd173491250"
+SRCREV = "d5d8898338f8713d09ff0e85b6ddbe464138baf7"
 
-SRC_URI = "\
-    ${ONNXRUNTIME_SRC};branch=${SRCBRANCH} \
-"
+SRC_URI = "${ONNXRUNTIME_SRC};branch=${SRCBRANCH}"
+
+# Squeezenet sample model
+SRC_URI += "https://github.com/onnx/models/raw/6ab957a2fe61f34a76c670946f7cbd806d2cacca/vision/classification/squeezenet/model/squeezenet1.0-9.tar.gz;name=squeezenet-model"
+SRC_URI[squeezenet-model.md5sum] = "92e240a948f9bbc92534d752eb465317"
+SRC_URI[squeezenet-model.sha256sum] = "f4c9a2906a949f089bee5ef1bf9ea1c0dc1b49d5abeb1874fff3d206751d0f3b"
+SRC_URI += "https://github.com/onnx/models/raw/6ab957a2fe61f34a76c670946f7cbd806d2cacca/LICENSE;name=squeezenet-license"
+SRC_URI[squeezenet-license.md5sum] = "3b83ef96387f14655fc854ddc3c6bd57"
+SRC_URI[squeezenet-license.sha256sum] = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+
+
 S = "${WORKDIR}/git"
 
 inherit cmake python3native
@@ -34,12 +42,18 @@ EXTRA_OECMAKE += "\
 -DONNX_CUSTOM_PROTOC_EXECUTABLE=${STAGING_BINDIR_NATIVE}/${PN}-native/protoc \
 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 "
+
+PYTHON_DEPENDS = "${PYTHON_PN}-native ${PYTHON_PN}-pip-native ${PYTHON_PN}-wheel-native ${PYTHON_PN}-setuptools-native ${PYTHON_PN}-numpy-native"
+PYTHON_RDEPENDS = "${PYTHON_PN} ${PYTHON_PN}-numpy ${PYTHON_PN}-protobuf flatbuffers-${PYTHON_PN}"
+
 PACKAGECONFIG_VSI_NPU       = ""
 PACKAGECONFIG_VSI_NPU:mx8   = "vsi_npu"
 PACKAGECONFIG_VSI_NPU:mx8mm = ""
 PACKAGECONFIG_VSI_NPU:mx8mnul = ""
+PACKAGECONFIG_VSI_NPU:mx8mpul = ""
+PACKAGECONFIG_VSI_NPU:mx8ulp = ""
 
-PACKAGECONFIG ?= "openmp test reports sharedlib armnn eigenblas acl acl-2102 ${PACKAGECONFIG_VSI_NPU}"
+PACKAGECONFIG ?= "openmp reports sharedlib armnn eigenblas acl acl-2108 nnapi python ${PACKAGECONFIG_VSI_NPU}"
 
 PACKAGECONFIG[nsync] = "-Donnxruntime_USE_NSYNC=ON, -Donnxruntime_USE_NSYNC=OFF"
 PACKAGECONFIG[prebuilt] = "-Donnxruntime_USE_PREBUILT_PB=ON, -Donnxruntime_USE_PREBUILT_PB=OFF"
@@ -47,7 +61,7 @@ PACKAGECONFIG[openmp] = "-Donnxruntime_USE_OPENMP=ON, -Donnxruntime_USE_OPENMP=O
 PACKAGECONFIG[trt] = "-Donnxruntime_USE_TRT=ON, -Donnxruntime_USE_TRT=OFF"
 PACKAGECONFIG[nuphar] = "-Donnxruntime_USE_NUPHAR=ON, -Donnxruntime_USE_NUPHAR=OFF"
 PACKAGECONFIG[brainslice] = "-Donnxruntime_USE_BRAINSLICE=ON, -Donnxruntime_USE_BRAINSLICE=OFF"
-PACKAGECONFIG[python] = "-Donnxruntime_ENABLE_PYTHON=ON, -Donnxruntime_ENABLE_PYTHON=OFF"
+PACKAGECONFIG[python] = "-Donnxruntime_ENABLE_PYTHON=ON, -Donnxruntime_ENABLE_PYTHON=OFF, ${PYTHON_DEPENDS}, ${PYTHON_RDEPENDS}"
 PACKAGECONFIG[sharedlib] = "-Donnxruntime_BUILD_SHARED_LIB=ON, -Donnxruntime_BUILD_SHARED_LIB=OFF"
 PACKAGECONFIG[eigenblas] = "-Donnxruntime_USE_EIGEN_FOR_BLAS=ON, -Donnxruntime_USE_EIGEN_FOR_BLAS=OFF"
 PACKAGECONFIG[openblas] = "-Donnxruntime_USE_OPENBLAS=ON, -Donnxruntime_USE_OPENBLAS=OFF"
@@ -62,7 +76,7 @@ PACKAGECONFIG[telemetry] = "-Donnxruntime_USE_TELEMETRY=ON, -Donnxruntime_USE_TE
 PACKAGECONFIG[armnn-relu] = "-Donnxruntime_ARMNN_RELU_USE_CPU=ON, -Donnxruntime_ARMNN_RELU_USE_CPU=OFF"
 PACKAGECONFIG[armnn-bn] = "-Donnxruntime_ARMNN_BN_USE_CPU=ON, -Donnxruntime_ARMNN_BN_USE_CPU=OFF"
 PACKAGECONFIG[opschema] = "-Donnxruntime_PYBIND_EXPORT_OPSCHEMA=ON, -Donnxruntime_PYBIND_EXPORT_OPSCHEMA=OFF"
-PACKAGECONFIG[nnapi] = "-Donnxruntime_USE_NNAPI=ON, -Donnxruntime_USE_NNAPI=OFF"
+PACKAGECONFIG[nnapi] = "-Donnxruntime_USE_NNAPI_BUILTIN=ON, -Donnxruntime_USE_NNAPI_BUILTIN=OFF"
 PACKAGECONFIG[tvm] = "-Donnxruntime_USE_TVM=ON, -Donnxruntime_USE_TVM=OFF"
 PACKAGECONFIG[llvm] = "-Donnxruntime_USE_LLVM=ON, -Donnxruntime_USE_LLVM=OFF"
 PACKAGECONFIG[microsoft] = "-Donnxruntime_ENABLE_MICROSOFT_INTERNAL=ON, -Donnxruntime_ENABLE_MICROSOFT_INTERNAL=OFF"
@@ -74,8 +88,6 @@ PACKAGECONFIG[x86] = "-Donnxruntime_BUILD_x86=ON, -Donnxruntime_BUILD_x86=OFF"
 PACKAGECONFIG[fullprotobuf] = "-Donnxruntime_USE_FULL_PROTOBUF=ON, -Donnxruntime_USE_FULL_PROTOBUF=OFF"
 PACKAGECONFIG[ops] = "-Donnxruntime_DISABLE_CONTRIB_OPS=ON, -Donnxruntime_DISABLE_CONTRIB_OPS=OFF"
 PACKAGECONFIG[staticruntime] = "-Donnxruntime_MSVC_STATIC_RUNTIME=ON, -Donnxruntime_MSVC_STATIC_RUNTIME=OFF"
-PACKAGECONFIG[test] = "-Donnxruntime_BUILD_UNIT_TESTS=ON, -Donnxruntime_BUILD_UNIT_TESTS=OFF"
-PACKAGECONFIG[benchmark] = "-Donnxruntime_BUILD_BENCHMARKS=ON, -Donnxruntime_BUILD_BENCHMARKS=OFF"
 PACKAGECONFIG[runtests] = "-Donnxruntime_RUN_ONNX_TESTS=ON, -Donnxruntime_RUN_ONNX_TESTS=OFF"
 PACKAGECONFIG[reports] = "-Donnxruntime_GENERATE_TEST_REPORTS=ON, -Donnxruntime_GENERATE_TEST_REPORTS=OFF"
 PACKAGECONFIG[devmode] = "-Donnxruntime_DEV_MODE=ON, -Donnxruntime_DEV_MODE=OFF"
@@ -92,6 +104,57 @@ PACKAGECONFIG[acl-1908] = "-Donnxruntime_USE_ACL_1908=ON, -Donnxruntime_USE_ACL_
 PACKAGECONFIG[acl-2002] = "-Donnxruntime_USE_ACL_2002=ON, -Donnxruntime_USE_ACL_2002=OFF, arm-compute-library"
 PACKAGECONFIG[acl-2008] = "-Donnxruntime_USE_ACL_2008=ON, -Donnxruntime_USE_ACL_2008=OFF, arm-compute-library"
 PACKAGECONFIG[acl-2102] = "-Donnxruntime_USE_ACL_2102=ON, -Donnxruntime_USE_ACL_2102=OFF, arm-compute-library"
+PACKAGECONFIG[acl-2108] = "-Donnxruntime_USE_ACL_2108=ON, -Donnxruntime_USE_ACL_2108=OFF, arm-compute-library"
 PACKAGECONFIG[vsi_npu] = "-Donnxruntime_USE_VSI_NPU=ON -Donnxruntime_OVXLIB_INCLUDE=${STAGING_INCDIR}/OVXLIB, -Donnxruntime_USE_VSI_NPU=OFF, nn-imx"
 
-COMPATIBLE_MACHINE = "(mx8)"
+do_compile:prepend() {
+    if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
+        # required to pull pybind11
+        export HTTP_PROXY=${http_proxy}
+        export HTTPS_PROXY=${https_proxy}
+        export http_proxy=${http_proxy}
+        export https_proxy=${https_proxy}
+    fi
+}
+
+do_compile:append() {
+    if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
+        cd ${WORKDIR}/build
+        ${PYTHON} ${S}/setup.py bdist_wheel
+    fi
+}
+
+do_install:append() {
+    CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
+    
+    # copy extracted squeezenet tarball and add Apache2 license
+    cp $CP_ARGS ${WORKDIR}/squeezenet ${D}${bindir}/${BP}
+    install -m 0644 ${WORKDIR}/LICENSE ${D}${bindir}/${BP}/squeezenet
+
+    if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
+        export PIP_DISABLE_PIP_VERSION_CHECK=1
+        export PIP_NO_CACHE_DIR=1
+        install -d ${D}/${PYTHON_SITEPACKAGES_DIR}
+        ${STAGING_BINDIR_NATIVE}/pip3 install -v \
+            -t ${D}/${PYTHON_SITEPACKAGES_DIR} --no-deps \
+            ${WORKDIR}/build/dist/onnxruntime-*.whl
+        find ${D}/${PYTHON_SITEPACKAGES_DIR} -type d -name "__pycache__" -exec rm -Rf {} +
+    fi
+}
+
+# libonnxruntime_providers_shared.so is being packaged into -dev which is intended
+INSANE_SKIP:${PN}-dev += "dev-elf"
+
+# a separate tests package for the test binaries not appearing in the main package
+PACKAGE_BEFORE_PN = "${PN}-tests"
+FILES:${PN}-tests = "${bindir}/${BP}/tests/*"
+FILES:${PN} += "${PYTHON_SITEPACKAGES_DIR}"
+FILES:${PN} += "${bindir}/${BP}/squeezenet"
+
+# libcustom_op_library.so is in bindir, which is intended;
+# onnxruntime_shared_lib_test requires the shlib to be in the same directory as testdata to run properly
+INSANE_SKIP:${PN}-tests += "libdir"
+INSANE_SKIP:${PN}-dbg += "libdir"
+
+RDEPENDS:${PN}-tests += "arm-compute-library"
+
