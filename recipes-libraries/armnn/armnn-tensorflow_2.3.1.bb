@@ -34,6 +34,6 @@ do_install() {
     done
 }
 
-FILES:${PN} += "${datadir}"
+FILES_${PN} += "${datadir}"
 
 COMPATIBLE_MACHINE = "(mx8)"
