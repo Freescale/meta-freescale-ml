@@ -3,9 +3,9 @@ DESCRIPTION = "TensorFlow Lite C++ Library"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=64a34301f8e355f57ec992c2af3e5157"
 
-DEPENDS_MX8:mx8 =     "tim-vx"
-DEPENDS_MX8:mx8mm =   ""
-DEPENDS_MX8:mx8mnul = ""
+DEPENDS_MX8_mx8 =     "tim-vx"
+DEPENDS_MX8_mx8mm =   ""
+DEPENDS_MX8_mx8mnul = ""
 DEPENDS =              "zlib unzip-native python3 python3-numpy-native python3-pip-native python3-wheel-native python3-pybind11-native tensorflow-protobuf jpeg ${DEPENDS_MX8}"
 
 
@@ -24,15 +24,15 @@ inherit python3native cmake
 S = "${WORKDIR}/git"
 
 # Set the CMAKE_SYSROOT, as it is not set in CMAKE_TOOLCHAIN_FILE
-EXTRA_OECMAKE_MX8:mx8 =       " -DTFLITE_ENABLE_VX=off  -DTIM_VX_INSTALL=${STAGING_DIR_HOST}/usr "
-EXTRA_OECMAKE_MX8:mx8mm =     ""
-EXTRA_OECMAKE_MX8:mx8mnul =   ""
+EXTRA_OECMAKE_MX8_mx8 =       " -DTFLITE_ENABLE_VX=off  -DTIM_VX_INSTALL=${STAGING_DIR_HOST}/usr "
+EXTRA_OECMAKE_MX8_mx8mm =     ""
+EXTRA_OECMAKE_MX8_mx8mnul =   ""
 EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR=}"
 EXTRA_OECMAKE += "-DTFLITE_ENABLE_XNNPACK=on -DTFLITE_ENABLE_RUY=on -DTFLITE_ENABLE_NNAPI=on ${EXTRA_OECMAKE_MX8} -DTFLITE_BUILD_EVALTOOLS=on -DTFLITE_BUILD_SHARED_LIB=on  ${S}/tensorflow/lite/"
 
 CXXFLAGS += "-fPIC"
 
-do_configure:prepend(){
+do_configure_prepend(){
     export HTTP_PROXY=${http_proxy}
     export HTTPS_PROXY=${https_proxy}
     export http_proxy=${http_proxy}
@@ -42,7 +42,7 @@ do_configure:prepend(){
 }
 
 
-do_compile:append () {
+do_compile_append () {
     # build pip package
     export PYTHONPATH="${STAGING_LIBDIR_NATIVE}/${PYTHON_DIR}/site-packages"
     export PIP_BUILD_ROOT="${WORKDIR}"
@@ -97,10 +97,10 @@ do_install() {
 }
 
 RDEPENDS_MX8       = ""
-RDEPENDS_MX8:mx8   = "libnn-imx nn-imx"
-RDEPENDS_MX8:mx8mm = ""
-RDEPENDS_MX8:mx8mnul = ""
-RDEPENDS:${PN}   = " \
+RDEPENDS_MX8_mx8   = "libnn-imx nn-imx"
+RDEPENDS_MX8_mx8mm = ""
+RDEPENDS_MX8_mx8mnul = ""
+RDEPENDS_${PN}   = " \
     flatbuffers \
     python3 \
     python3-numpy \
@@ -112,11 +112,11 @@ SSTATE_DUPWHITELIST = "/"
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 
-INSANE_SKIP:${PN} += " \
+INSANE_SKIP_${PN} += " \
     already-stripped \
     staticdev \
 "
 
-FILES:${PN} += "${libdir}/python*"
+FILES_${PN} += "${libdir}/python*"
 
 COMPATIBLE_MACHINE = "(mx8)"
