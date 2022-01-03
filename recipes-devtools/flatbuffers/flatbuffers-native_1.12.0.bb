@@ -33,7 +33,7 @@ do_install() {
     install -m 0755 ${B}/flatc ${STAGING_BINDIR_NATIVE}
 }
 
-FILES:${PN} += "${bindir}"
+FILES_${PN} += "${bindir}"
 
 #BBCLASSEXTEND = "native nativesdk"
 
