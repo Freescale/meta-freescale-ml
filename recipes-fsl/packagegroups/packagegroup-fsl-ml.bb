@@ -3,7 +3,7 @@ DESCRIPTION = "Add packages for AI/ML build"
 inherit packagegroup
 
 ML_PKGS    ?= ""
-ML_PKGS:mx8 = " \
+ML_PKGS_mx8 = " \
     armnn \
     armnn-swig \
     onnxruntime \
@@ -11,20 +11,20 @@ ML_PKGS:mx8 = " \
     tensorflow-lite \
     torchvision \
 "
-ML_PKGS:mx8mq = " \
+ML_PKGS_mx8mq = " \
     deepview-rt \
     tvm \
 "
-ML_PKGS:mx8mp = " \
+ML_PKGS_mx8mp = " \
     deepview-rt \
     tvm \
 "
-ML_PKGS:mx8mm = " \
+ML_PKGS_mx8mm = " \
     eiq-apps \
 "
-ML_PKGS:mx8mp = " \
+ML_PKGS_mx8mp = " \
     eiq-apps \
 "
-RDEPENDS:${PN} = " \
+RDEPENDS_${PN} = " \
     ${ML_PKGS} \
 "
