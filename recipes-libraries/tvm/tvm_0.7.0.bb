@@ -52,9 +52,9 @@ do_install () {
     rm -fr ${D}${datadir}
 }
 
-INSANE_SKIP:${PN} += "dev-deps"
+INSANE_SKIP_${PN} += "dev-deps"
 
 FILES_SOLIBSDEV = ""
-FILES:${PN} = "${bindir}/* ${libdir}/*"
+FILES_${PN} = "${bindir}/* ${libdir}/*"
 
 COMPATIBLE_MACHINE = "(mx8)"
