@@ -6,9 +6,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=bba6cdb9c2b03c849ed4975ed9ed90dc"
 
 DEPENDS = "imx-gpu-viv"
 NN_IMX_SRC ?= "git://source.codeaurora.org/external/imx/nn-imx.git;protocol=https"
-SRCBRANCH = "nn_1.2.y"
+SRCBRANCH = "imx_1.2.0"
 
-SRCREV = "04025d70f060f279f54b1393cf69a2a7185e0094"
+SRCREV = "1ca1ed528ff0117e4fef3975fda8252c322605a8"
 
 SRC_URI = "${NN_IMX_SRC};branch=${SRCBRANCH}"
 
@@ -28,6 +28,17 @@ do_install () {
     cp -r ${S}/include/nnrt/* ${D}/${includedir}/nnrt
 }
 
-COMPATIBLE_MACHINE = "(mx8)"
-COMPATIBLE_MACHINE_mx8mm = "(^$)"
-COMPATIBLE_MACHINE_mx8mnul = "(^$)"
+# libneuralnetworks.so is dynamically loaded and thus needed in the
+# main package
+FILES_${PN}-dev_remove = "${libdir}/lib*.so"
+FILES_${PN} += "${libdir}/libneuralnetworks${SOLIBSDEV}"
+FILES_${PN}-dev += " \
+    ${libdir}/libnnrt${SOLIBSDEV} \
+    ${libdir}/libovxlib${SOLIBSDEV} \
+"
+INSANE_SKIP_${PN} += "dev-so"
+
+# Works for i.MX 8 with GPU except for 8M Mini
+COMPATIBLE_MACHINE        = "(^$)"
+COMPATIBLE_MACHINE_imxgpu = "(mx8)"
+COMPATIBLE_MACHINE_mx8mm  = "(^$)"
