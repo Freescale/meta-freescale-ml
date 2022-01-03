@@ -41,6 +41,6 @@ do_install(){
     rm -fr ${D}${PYTHON_SITEPACKAGES_DIR}/torch/bin/test_cpp_rpc
 }
 
-FILES:${PN} += "${libdir}/python*"
+FILES_${PN} += "${libdir}/python*"
 
 COMPATIBLE_MACHINE = "(mx8)"
