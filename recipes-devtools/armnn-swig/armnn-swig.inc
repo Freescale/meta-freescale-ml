@@ -50,11 +50,11 @@ BBCLASSEXTEND = "native nativesdk"
 
 # necessary together with bison dependency until a new upstream version after
 # 3.0.12 includes 0001-Fix-generated-code-for-constant-expressions-containi.patch
-do_configure:append() {
+do_configure_append() {
     mkdir -p ${B}/Source/CParse
 }
 
-do_install:append_class-nativesdk() {
+do_install_append_class-nativesdk() {
     cd ${D}${bindir}
     ln -s swig swig4.0
 }
@@ -63,9 +63,9 @@ def swiglib_relpath(d):
     swiglib = d.getVar('datadir') + "/" + 'swig' + "/" + d.getVar('PV')
     return os.path.relpath(swiglib, d.getVar('bindir'))
 
-do_install:append_class-native() {
+do_install_append_class-native() {
     create_wrapper ${D}${bindir}/swig SWIG_LIB='`dirname $''realpath`'/${@swiglib_relpath(d)}
 }
 
-FILES:${PN}-dev += "${datadir}/swig/*/*"
-ALLOW_EMPTY:${PN} = "1"
+FILES_${PN}-dev += "${datadir}/swig/*/*"
+ALLOW_EMPTY_${PN} = "1"
