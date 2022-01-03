@@ -27,19 +27,19 @@ DEPENDS = " \
     half \
 "
 RDEPENDS_MX8       = ""
-RDEPENDS_MX8:mx8   = "nn-imx"
-RDEPENDS_MX8:mx8mm = ""
-RDEPENDS_MX8:mx8mnul = ""
-RDEPENDS:${PN}   = " \
+RDEPENDS_MX8_mx8   = "nn-imx"
+RDEPENDS_MX8_mx8mm = ""
+RDEPENDS_MX8_mx8mnul = ""
+RDEPENDS_${PN}   = " \
     arm-compute-library \
     protobuf \
     boost \
     ${RDEPENDS_MX8} \
 "
 PACKAGECONFIG_VSI_NPU       = ""
-PACKAGECONFIG_VSI_NPU:mx8   = "vsi-npu"
-PACKAGECONFIG_VSI_NPU:mx8mm = ""
-PACKAGECONFIG_VSI_NPU:mx8mnul = ""
+PACKAGECONFIG_VSI_NPU_mx8   = "vsi-npu"
+PACKAGECONFIG_VSI_NPU_mx8mm = ""
+PACKAGECONFIG_VSI_NPU_mx8mnul = ""
 
 PACKAGECONFIG ??= "neon ref caffe tensorflow tensorflow-lite onnx tests pyarmnn ${PACKAGECONFIG_VSI_NPU}"
 
@@ -64,7 +64,7 @@ ARMNN_INSTALL_DIR = "${bindir}/${P}"
 PYARMNN_INSTALL_DIR = "${ARMNN_INSTALL_DIR}/pyarmnn"
 PYARMNN_GENERATED_DIR = "${PYTHON_SITEPACKAGES_DIR}/pyarmnn/_generated"
 
-do_compile:append() {
+do_compile_append() {
     if ${@bb.utils.contains('PACKAGECONFIG', 'pyarmnn', 'true', 'false', d)}; then
         # copy required to link against pyarmnn wrappers
         # due to a bug in python/setuptools an explicit path cannot be set
@@ -87,7 +87,7 @@ do_compile:append() {
     fi
 }
 
-do_install:append() {
+do_install_append() {
     if ${@bb.utils.contains('PACKAGECONFIG', 'tests', 'true', 'false', d)}; then
         install -d ${D}${ARMNN_INSTALL_DIR}
         CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
@@ -121,8 +121,8 @@ do_install:append() {
 CXXFLAGS += "-fopenmp"
 LIBS += "-larmpl_lp64_mp"
 
-FILES:${PN} += "${libdir}/python*"
-FILES:${PN} += "${PYARMNN_INSTALL_DIR}/examples*"
+FILES_${PN} += "${libdir}/python*"
+FILES_${PN} += "${PYARMNN_INSTALL_DIR}/examples*"
 
 # We support i.MX8 only (for now)
 COMPATIBLE_MACHINE = "(mx8)"
