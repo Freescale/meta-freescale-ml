@@ -13,7 +13,7 @@ S = "${WORKDIR}/${BPN}-${PV}"
 inherit fsl-eula-unpack
 
 DEPENDS = "deepview-rt deepview-rt-extras opencv"
-RDEPENDS:${PN} += "deepview-rt deepview-rt-extras"
+RDEPENDS_${PN} += "deepview-rt deepview-rt-extras"
 
 EXTRA_OEMAKE += "SDK_SYSROOT=${RECIPE_SYSROOT}"
 
@@ -26,9 +26,9 @@ do_install () {
     chown -R root:root "${D}"
 }
 
-INSANE_SKIP:${PN} += "rpaths dev-deps ldflags"
+INSANE_SKIP_${PN} += "rpaths dev-deps ldflags"
 CLEANBROKEN = "1"
 
 COMPATIBLE_MACHINE = "(mx8)"
-COMPATIBLE_MACHINE:mx8mm = "(^$)"
-COMPATIBLE_MACHINE:mx8mnlite = "(^$)"
+COMPATIBLE_MACHINE_mx8mm = "(^$)"
+COMPATIBLE_MACHINE_mx8mnlite = "(^$)"
