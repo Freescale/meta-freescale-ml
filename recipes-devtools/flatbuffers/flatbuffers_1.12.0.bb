@@ -27,11 +27,11 @@ inherit cmake
 
 S = "${WORKDIR}/git"
 
-do_install:append() {
+do_install_append() {
     install -d ${D}${bindir}
     install -m 0755 ${B}/flatc ${D}${bindir}
 }
 
-FILES:${PN} += "${libdir}"
+FILES_${PN} += "${libdir}"
 
 COMPATIBLE_MACHINE = "(mx8)"
