@@ -29,5 +29,5 @@ do_install () {
 }
 
 COMPATIBLE_MACHINE = "(mx8)"
-COMPATIBLE_MACHINE:mx8mm = "(^$)"
-COMPATIBLE_MACHINE:mx8mnul = "(^$)"
+COMPATIBLE_MACHINE_mx8mm = "(^$)"
+COMPATIBLE_MACHINE_mx8mnul = "(^$)"
