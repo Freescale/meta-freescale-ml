@@ -13,7 +13,7 @@ S = "${WORKDIR}/${BPN}-${PV}"
 inherit fsl-eula-unpack cmake
 
 DEPENDS = "deepview-rt"
-RDEPENDS:${PN} += "deepview-rt"
+RDEPENDS_${PN} += "deepview-rt"
 
 OECMAKE_GENERATOR = "Unix Makefiles"
 
@@ -31,8 +31,8 @@ do_install () {
 }
 
 COMPATIBLE_MACHINE = "(mx8)"
-COMPATIBLE_MACHINE:mx8mm = "(^$)"
-COMPATIBLE_MACHINE:mx8mnlite = "(^$)"
+COMPATIBLE_MACHINE_mx8mm = "(^$)"
+COMPATIBLE_MACHINE_mx8mnlite = "(^$)"
 BBCLASSEXTEND = "nativesdk"
-INSANE_SKIP:${PN} += "rpaths dev-deps"
+INSANE_SKIP_${PN} += "rpaths dev-deps"
 
