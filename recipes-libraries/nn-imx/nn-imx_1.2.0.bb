@@ -30,7 +30,7 @@ do_install () {
 
 # libneuralnetworks.so is dynamically loaded and thus needed in the
 # main package
-FILES:${PN}-dev_remove = "${libdir}/lib*.so"
+FILES:${PN}-dev:remove = "${libdir}/lib*.so"
 FILES:${PN} += "${libdir}/libneuralnetworks${SOLIBSDEV}"
 FILES:${PN}-dev += " \
     ${libdir}/libnnrt${SOLIBSDEV} \
