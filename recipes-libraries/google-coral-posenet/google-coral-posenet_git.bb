@@ -10,7 +10,7 @@ GOOGLE_CORAL_POSENET_SRC ?= "git://source.codeaurora.org/external/imx/coral-pose
 SRCBRANCH = "lf-5.10.72_2.2.0"
 
 SRC_URI = "${GOOGLE_CORAL_POSENET_SRC};branch=${SRCBRANCH} \
-           git://github.com/google-coral/project-posenet.git;protocol=https;name=project-posenet;subpath=models;destsuffix=git/edgetpu/models \
+           git://github.com/google-coral/project-posenet.git;branch=master;protocol=https;name=project-posenet;subpath=models;destsuffix=git/edgetpu/models \
 "
 SRCREV = "938fb3bc4e78d4eaa3cf91baceaa87893547fa55"
 SRCREV_project-posenet = "58a611ed1135852b8e97a7626777a7304e8ecc21"
