@@ -45,7 +45,7 @@ INHIBIT_SYSROOT_STRIP = "1"
 
 INSANE_SKIP:${PN} += "dev-so dev-deps ldflags"
 
-COMPATIBLE_MACHINE = "(mx8)"
-COMPATIBLE_MACHINE:mx8mm = "(^$)"
-COMPATIBLE_MACHINE:mx8mnlite = "(^$)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
+COMPATIBLE_MACHINE:mx8mm-nxp-bsp = "(^$)"
+COMPATIBLE_MACHINE:mx8mnlite-nxp-bsp = "(^$)"
 BBCLASSEXTEND = "nativesdk"

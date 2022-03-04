@@ -43,4 +43,4 @@ do_install() {
 FILES:${PN} += "${datadir}/gstnninferencedemo/*"
 FILES:${PN} += "${libdir}"
 
-COMPATIBLE_MACHINE = "(mx8)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"

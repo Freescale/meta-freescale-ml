@@ -43,4 +43,4 @@ do_install(){
 
 FILES:${PN} += "${libdir}/python*"
 
-COMPATIBLE_MACHINE = "(mx8)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
