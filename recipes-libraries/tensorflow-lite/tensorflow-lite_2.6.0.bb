@@ -106,8 +106,8 @@ RDEPENDS:${PN}   = " \
     python3-numpy \
 "
 # TensorFlow and TensorFlow Lite both exports few files, suppres the error
-# SSTATE_DUPWHITELIST = "${D}${includedir}"
-SSTATE_DUPWHITELIST = "/"
+# SSTATE_ALLOW_OVERLAP_FILES = "${D}${includedir}"
+SSTATE_ALLOW_OVERLAP_FILES = "/"
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 
