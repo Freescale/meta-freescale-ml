@@ -29,6 +29,6 @@ do_install () {
 INSANE_SKIP:${PN} += "rpaths dev-deps ldflags"
 CLEANBROKEN = "1"
 
-COMPATIBLE_MACHINE = "(mx8)"
-COMPATIBLE_MACHINE:mx8mm = "(^$)"
-COMPATIBLE_MACHINE:mx8mnlite = "(^$)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
+COMPATIBLE_MACHINE:mx8mm-nxp-bsp = "(^$)"
+COMPATIBLE_MACHINE:mx8mnlite-nxp-bsp = "(^$)"

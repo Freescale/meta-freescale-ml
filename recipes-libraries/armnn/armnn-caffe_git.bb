@@ -27,4 +27,4 @@ do_install() {
     done
 }
 
-COMPATIBLE_MACHINE = "(mx8)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
