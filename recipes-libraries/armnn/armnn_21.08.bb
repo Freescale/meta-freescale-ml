@@ -126,7 +126,7 @@ do_install:append() {
     fi
 }
 
-CXXFLAGS += "-fopenmp"
+CXXFLAGS += "-fopenmp -Wno-error=uninitialized"
 LIBS += "-larmpl_lp64_mp"
 
 FILES:${PN} += "${PYTHON_SITEPACKAGES_DIR}"
