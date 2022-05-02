@@ -4,10 +4,10 @@ This layer provides support for building Machine learning and AI applications an
 This layer depends on:
 
 URI: git://git.openembedded.org/meta-openembedded
-branch: master
+branch: kirkstone
 
 URI: git://git.yoctoproject.org/meta-freescale
-branch: master
+branch: kirkstone
 
 URI: git://git.yoctoproject.org/meta-freescale-distro
-branch: master
+branch: kirkstone
