@@ -1,26 +1,27 @@
-# Copyright 2020-2021
+# Copyright 2020-2022 NXP
 DESCRIPTION = "cross-platform, high performance scoring engine for ML models"
 SECTION = "devel"
-LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=0f7e3b1308cb5c00b372a6e78835732d"
+LICENSE = "MIT & Apache-2.0"
+LIC_FILES_CHKSUM_runtime = "file://LICENSE;md5=0f7e3b1308cb5c00b372a6e78835732d"
+LIC_FILES_CHKSUM_model = "file://${WORKDIR}/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
+LIC_FILES_CHKSUM = "${LIC_FILES_CHKSUM_runtime} ${LIC_FILES_CHKSUM_model}"
 
 DEPENDS = "libpng zlib ${BPN}-native"
 
 ONNXRUNTIME_SRC ?= "gitsm://source.codeaurora.org/external/imx/onnxruntime-imx.git;protocol=https"
-SRCBRANCH = "lf-5.10.72_2.2.0"
-
-SRCREV = "d5d8898338f8713d09ff0e85b6ddbe464138baf7"
-
-SRC_URI = "${ONNXRUNTIME_SRC};branch=${SRCBRANCH}"
-
-# Squeezenet sample model
-SRC_URI += "https://github.com/onnx/models/raw/6ab957a2fe61f34a76c670946f7cbd806d2cacca/vision/classification/squeezenet/model/squeezenet1.0-9.tar.gz;name=squeezenet-model"
-SRC_URI[squeezenet-model.md5sum] = "92e240a948f9bbc92534d752eb465317"
-SRC_URI[squeezenet-model.sha256sum] = "f4c9a2906a949f089bee5ef1bf9ea1c0dc1b49d5abeb1874fff3d206751d0f3b"
-SRC_URI += "https://github.com/onnx/models/raw/6ab957a2fe61f34a76c670946f7cbd806d2cacca/LICENSE;name=squeezenet-license"
-SRC_URI[squeezenet-license.md5sum] = "3b83ef96387f14655fc854ddc3c6bd57"
-SRC_URI[squeezenet-license.sha256sum] = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-
+SRCBRANCH_runtime = "lf-5.15.32_2.0.0"
+SRC_URI = " \
+    ${ONNXRUNTIME_SRC};branch=${SRCBRANCH_runtime};name=runtime \
+    https://github.com/onnx/models/raw/${SRCREV_model}/LICENSE;name=model-license \
+    https://github.com/onnx/models/raw/${SRCREV_model}/vision/classification/squeezenet/model/squeezenet1.0-9.tar.gz;name=model-squeezenet \
+"
+SRC_URI[model-license.md5sum] = "3b83ef96387f14655fc854ddc3c6bd57"
+SRC_URI[model-license.sha256sum] = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+SRC_URI[model-squeezenet.md5sum] = "92e240a948f9bbc92534d752eb465317"
+SRC_URI[model-squeezenet.sha256sum] = "f4c9a2906a949f089bee5ef1bf9ea1c0dc1b49d5abeb1874fff3d206751d0f3b"
+SRCREV_runtime = "7c06686b4260a22bdf0e24e06c120882dc5eaa78"
+SRCREV_model = "6ab957a2fe61f34a76c670946f7cbd806d2cacca"
+SRCREV_FORMAT = "runtime_model"
 
 S = "${WORKDIR}/git"
 
@@ -30,11 +31,11 @@ OECMAKE_SOURCEPATH = "${S}/cmake"
 OECMAKE_GENERATOR = "Unix Makefiles"
 
 # Notes:
-# Protobuff/Protoc:
+# Protobuff/Protoc: 
 #   - protobuf is essetially built twice for native and target system
 #   - DONNX_CUSTOM_PROTOC_EXECUTABLE  - use native protoc
 #   - onnxruntime_USE_PREBUILT_PB=OFF - we still need protobuf compiled from target system; although we already have native version
-# Eigen:
+# Eigen: 
 #   - the git operation within CMake fails, so we treat it as 'pre-installed' although it's fetched during fetch phase
 #   - the eigen_SOURCE_PATH needs to match 'destsuffix' in SRC_URI for eigen
 
@@ -43,7 +44,7 @@ EXTRA_OECMAKE += "\
 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
 "
 
-PYTHON_DEPENDS = "${PYTHON_PN}-native ${PYTHON_PN}-pip-native ${PYTHON_PN}-wheel-native ${PYTHON_PN}-setuptools-native ${PYTHON_PN}-numpy-native"
+PYTHON_DEPENDS = "${PYTHON_PN} ${PYTHON_PN}-native ${PYTHON_PN}-pip-native ${PYTHON_PN}-wheel-native ${PYTHON_PN}-setuptools-native ${PYTHON_PN}-numpy-native"
 PYTHON_RDEPENDS = "${PYTHON_PN} ${PYTHON_PN}-numpy ${PYTHON_PN}-protobuf flatbuffers-${PYTHON_PN}"
 
 PACKAGECONFIG_VSI_NPU       = ""
@@ -53,7 +54,7 @@ PACKAGECONFIG_VSI_NPU:mx8mnul-nxp-bsp = ""
 PACKAGECONFIG_VSI_NPU:mx8mpul-nxp-bsp = ""
 PACKAGECONFIG_VSI_NPU:mx8ulp-nxp-bsp = ""
 
-PACKAGECONFIG ?= "openmp reports sharedlib armnn eigenblas acl acl-2108 nnapi python ${PACKAGECONFIG_VSI_NPU}"
+PACKAGECONFIG ?= "openmp reports sharedlib eigenblas nnapi python ${PACKAGECONFIG_VSI_NPU}"
 
 PACKAGECONFIG[nsync] = "-Donnxruntime_USE_NSYNC=ON, -Donnxruntime_USE_NSYNC=OFF"
 PACKAGECONFIG[prebuilt] = "-Donnxruntime_USE_PREBUILT_PB=ON, -Donnxruntime_USE_PREBUILT_PB=OFF"
@@ -84,7 +85,7 @@ PACKAGECONFIG[eigenthreadpool] = "-Donnxruntime_USE_EIGEN_THREADPOOL=ON, -Donnxr
 PACKAGECONFIG[tensorrt] = "-Donnxruntime_USE_TENSORRT=ON, -Donnxruntime_USE_TENSORRT=OFF"
 PACKAGECONFIG[crosscompiling] = "-Donnxruntime_CROSS_COMPILING=ON, -Donnxruntime_CROSS_COMPILING=OFF "
 PACKAGECONFIG[server] = "-Donnxruntime_BUILD_SERVER=ON, -Donnxruntime_BUILD_SERVER=OFF"
-PACKAGECONFIG[x86] = "-Donnxruntime_BUILD_x86=ON, -Donnxruntime_BUILD_x86=OFF"
+PACKAGECONFIG[x86] = "-Donnxruntime_BUILD:x86=ON, -Donnxruntime_BUILD:x86=OFF"
 PACKAGECONFIG[fullprotobuf] = "-Donnxruntime_USE_FULL_PROTOBUF=ON, -Donnxruntime_USE_FULL_PROTOBUF=OFF"
 PACKAGECONFIG[ops] = "-Donnxruntime_DISABLE_CONTRIB_OPS=ON, -Donnxruntime_DISABLE_CONTRIB_OPS=OFF"
 PACKAGECONFIG[staticruntime] = "-Donnxruntime_MSVC_STATIC_RUNTIME=ON, -Donnxruntime_MSVC_STATIC_RUNTIME=OFF"
@@ -97,16 +98,9 @@ PACKAGECONFIG[jemalloc] = "-Donnxruntime_USE_JEMALLOC=ON, -Donnxruntime_USE_JEMA
 PACKAGECONFIG[mimalloc] = "-Donnxruntime_USE_MIMALLOC=ON, -Donnxruntime_USE_MIMALLOC=OFF"
 PACKAGECONFIG[csharp] = "-Donnxruntime_BUILD_CSHARP=ON, -Donnxruntime_BUILD_CSHARP=OFF"
 PACKAGECONFIG[java] = "-Donnxruntime_BUILD_JAVA=ON, -Donnxruntime_BUILD_JAVA=OFF"
-
-PACKAGECONFIG[armnn] = "-Donnxruntime_USE_ARMNN=ON, -Donnxruntime_USE_ARMNN=OFF, armnn"
-PACKAGECONFIG[acl] = "-Donnxruntime_USE_ACL=ON, -Donnxruntime_USE_ACL=OFF, arm-compute-library, arm-compute-library"
-PACKAGECONFIG[acl-1908] = "-Donnxruntime_USE_ACL_1908=ON, -Donnxruntime_USE_ACL_1908=OFF, arm-compute-library"
-PACKAGECONFIG[acl-2002] = "-Donnxruntime_USE_ACL_2002=ON, -Donnxruntime_USE_ACL_2002=OFF, arm-compute-library"
-PACKAGECONFIG[acl-2008] = "-Donnxruntime_USE_ACL_2008=ON, -Donnxruntime_USE_ACL_2008=OFF, arm-compute-library"
-PACKAGECONFIG[acl-2102] = "-Donnxruntime_USE_ACL_2102=ON, -Donnxruntime_USE_ACL_2102=OFF, arm-compute-library"
-PACKAGECONFIG[acl-2108] = "-Donnxruntime_USE_ACL_2108=ON, -Donnxruntime_USE_ACL_2108=OFF, arm-compute-library"
 PACKAGECONFIG[vsi_npu] = "-Donnxruntime_USE_VSI_NPU=ON -Donnxruntime_OVXLIB_INCLUDE=${STAGING_INCDIR}/OVXLIB, -Donnxruntime_USE_VSI_NPU=OFF, nn-imx"
 
+do_compile[network] = "1"
 do_compile:prepend() {
     if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
         # required to pull pybind11
@@ -121,6 +115,7 @@ do_compile:append() {
     if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
         cd ${WORKDIR}/build
         ${PYTHON} ${S}/setup.py bdist_wheel
+        git config --global --add safe.directory ${WORKDIR}/build/pybind11/src/pybind11
     fi
 }
 
@@ -149,7 +144,6 @@ INSANE_SKIP:${PN}-dev += "dev-elf"
 PACKAGE_BEFORE_PN = "${PN}-tests"
 FILES:${PN}-tests = "${bindir}/${BP}/tests/*"
 FILES:${PN} += "${PYTHON_SITEPACKAGES_DIR}"
-FILES:${PN} += "${bindir}/${BP}/squeezenet"
 
 # libcustom_op_library.so is in bindir, which is intended;
 # onnxruntime_shared_lib_test requires the shlib to be in the same directory as testdata to run properly
@@ -157,4 +151,3 @@ INSANE_SKIP:${PN}-tests += "libdir"
 INSANE_SKIP:${PN}-dbg += "libdir"
 
 RDEPENDS:${PN}-tests += "arm-compute-library"
-
