@@ -1,21 +1,21 @@
 # Copyright 2020-2021 NXP
 DESCRIPTION = "TensorFlow Lite VX Delegate"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=7d6260e4f3f6f85de05af9c8f87e6fb5"
 
 DEPENDS = "tensorflow-lite tim-vx"
 
 require tensorflow-lite-${PV}.inc
 
-#TODO check when CAF repository is created
-TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://source.codeaurora.org/external/imx/tflite-vx-delegate-imx.git;protocol=https"
-SRCBRANCH_vx = "lf-5.10.72_2.2.0"
-SRCREV_vx = "1d786dd1ab579bf957a99ec79d171112aee4623d"
+TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://source.codeaurora.org/external/imx/tflite-vx-delegate-imx.git;protocol=https" 
+SRCBRANCH_vx = "lf-5.15.32_2.0.0"
+SRCREV_vx = "b2db210794da007a31d75835af20b79a50d16c30"
 
 SRCREV_FORMAT = "vx_tf"
+
 SRC_URI = "${TENSORFLOW_LITE_VX_DELEGATE_SRC};branch=${SRCBRANCH_vx};name=vx \
            ${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf;destsuffix=tfgit \
-           file://0001-CMakeLists.txt-Fix-TIM_VX-library-path.patch \
+           file://0001-Findtim-vx.cmake-Fix-LIBDIR-for-multilib-environment.patch \
 "
 
 S = "${WORKDIR}/git"
@@ -24,6 +24,7 @@ inherit python3native cmake
 
 EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR}"
 EXTRA_OECMAKE += " \
+     -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
      -DTIM_VX_INSTALL=${STAGING_DIR_HOST}/usr \
      -DFETCHCONTENT_SOURCE_DIR_TENSORFLOW=${WORKDIR}/tfgit \
      -DVX_DELEGATE_USE_TFLITE_LIB_FROM_SDK=on \
@@ -37,6 +38,7 @@ do_configure:prepend() {
     export HTTPS_PROXY=${https_proxy}
     export http_proxy=${http_proxy}
     export https_proxy=${https_proxy}
+    
 }
 
 do_install() {
