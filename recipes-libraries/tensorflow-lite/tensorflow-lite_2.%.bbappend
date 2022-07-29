@@ -1,4 +1,3 @@
-
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI:append = " file://tensorflow-lite.pc.in"

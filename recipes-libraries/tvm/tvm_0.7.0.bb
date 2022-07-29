@@ -14,8 +14,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e313a9b6eda820e35716d9529001537f \
 DEPENDS = "tim-vx"
 RDEPENDS:${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
 
-SRCBRANCH = "lf-5.10.72_2.2.0"
-TVM_SRC ?= "git://source.codeaurora.org/external/imx/eiq-tvm-imx.git"
+SRCBRANCH = "lf-5.15.32_2.0.0"
+TVM_SRC ?= "git://source.codeaurora.org/external/imx/eiq-tvm-imx.git;protocol=ssh"
 SRC_URI = "${TVM_SRC};branch=${SRCBRANCH}\
                git://github.com/dmlc/dlpack;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/dlpack;name=dlpack \
                git://github.com/dmlc/dmlc-core;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/dmlc-core;name=dmlc-core \
@@ -24,32 +24,32 @@ SRC_URI = "${TVM_SRC};branch=${SRCBRANCH}\
                file://0001-tvm-CMakeLists.txt-Use-CMAKE-variables-for-libs-inst.patch \
 "
 
-SRCREV = "d56c112ef65fc0ce18249c32041d1377b98c9e9d"
+SRCREV = "7042d137a6a50588363c27297e0ab57b3e7f43a8"
 SRCREV_dlpack = "3ec04430e89a6834e5a1b99471f415fa939bf642"
 SRCREV_dmlc-core = "6c401e242c59a1f4c913918246591bb13fd714e7"
 SRCREV_rang = "cabe04d6d6b05356fa8f9741704924788f0dd762"
 SRCREV_vta-hw = "87ce9acfae550d1a487746e9d06c2e250076e54c"
 
 S = "${WORKDIR}/git"
+SETUPTOOLS_SETUP_PATH = "${S}/python"
 
 inherit setuptools3 cmake python3native
 
 EXTRA_OECMAKE += "-DUSE_VSI_NPU=ON -DUSE_VSI_NPU_RUNTIME=ON"
 
+do_compile:append() {
+    export TVM_LIBRARY_PATH=${WORKDIR}/build/
+    setuptools3_do_compile
+}
+
 do_install () {
     cmake_do_install
-
-    cp -d ${WORKDIR}/build/*.so* ${S}/python/tvm
 
     install -d ${D}${bindir}/${PN}-${PV}/examples
     # Install python example
     cp ${S}/tests/python/contrib/test_vsi_npu/label_image.py ${D}${bindir}/${PN}-${PV}/examples
 
-    rm -f ${S}/setup.py ${S}/tvm
-    ln -s ${S}/python/setup.py ${S}/setup.py
-    ln -s ${S}/python/tvm ${S}/tvm
-    distutils3_do_install
-
+    setuptools3_do_install
     rm -fr ${D}${datadir}
 }
 
