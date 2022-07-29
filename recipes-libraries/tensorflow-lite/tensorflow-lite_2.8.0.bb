@@ -1,10 +1,10 @@
 # Copyright 2020-2021 NXP
 DESCRIPTION = "TensorFlow Lite C++ Library"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=c7e17cca1ef4230861fb7868e96c387e"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 
 DEPENDS = "python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
-    python3 tensorflow-protobuf jpeg zlib"
+    python3 tensorflow-protobuf jpeg zlib ${BPN}-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
 SRC_URI = "${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf"
@@ -18,7 +18,7 @@ S = "${WORKDIR}/git"
 inherit python3native cmake
 
 PACKAGECONFIG_OPENVX = ""
-PACKAGECONFIG_OPENVX_imxgpu3d:mx8-nxp-bsp = "openvx"
+PACKAGECONFIG_OPENVX:mx8-nxp-bsp:imxgpu3d = "openvx"
 PACKAGECONFIG_OPENVX:mx8mm-nxp-bsp = ""
 PACKAGECONFIG_OPENVX:mx8ulp-nxp-bsp = ""
 
@@ -26,11 +26,13 @@ PACKAGECONFIG ?= "${PACKAGECONFIG_OPENVX}"
 
 PACKAGECONFIG[openvx] = ",,,libnn-imx nn-imx"
 
-EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR}"
-EXTRA_OECMAKE += " \
-    -DTFLITE_BUILD_EVALTOOLS=on \
+EXTRA_OECMAKE = " \
+    -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
+    -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
+    -DTFLITE_EVAL_TOOLS=on \
+    -DTFLITE_HOST_TOOLS_DIR=${STAGING_BINDIR_NATIVE} \
     -DTFLITE_BUILD_SHARED_LIB=on \
-    -DTFLITE_ENABLE_NNAPI=on \
+    -DTFLITE_ENABLE_NNAPI=off \
     -DTFLITE_ENABLE_NNAPI_VERBOSE_VALIDATION=on \
     -DTFLITE_ENABLE_RUY=on \
     -DTFLITE_ENABLE_XNNPACK=on \
@@ -41,6 +43,7 @@ EXTRA_OECMAKE += " \
 
 CXXFLAGS += "-fPIC"
 
+do_configure[network] = "1"
 do_configure:prepend() {
     export HTTP_PROXY=${http_proxy}
     export HTTPS_PROXY=${https_proxy}
@@ -78,9 +81,9 @@ do_install() {
     install -d ${D}${bindir}/${PN}-${PV}/examples
     install -m 0555 ${B}/examples/label_image/label_image ${D}${bindir}/${PN}-${PV}/examples
     install -m 0555 ${B}/tools/benchmark/benchmark_model ${D}${bindir}/${PN}-${PV}/examples
-    install -m 0555 ${B}/coco_object_detection_run_eval ${D}${bindir}/${PN}-${PV}/examples
-    install -m 0555 ${B}/imagenet_image_classification_run_eval ${D}${bindir}/${PN}-${PV}/examples
-    install -m 0555 ${B}/inference_diff_run_eval ${D}${bindir}/${PN}-${PV}/examples
+    install -m 0555 ${B}/tools/evaluation/coco_object_detection_run_eval ${D}${bindir}/${PN}-${PV}/examples
+    install -m 0555 ${B}/tools/evaluation/imagenet_image_classification_run_eval ${D}${bindir}/${PN}-${PV}/examples
+    install -m 0555 ${B}/tools/evaluation/inference_diff_run_eval ${D}${bindir}/${PN}-${PV}/examples
 
     # install label_image data
     cp ${S}/tensorflow/lite/examples/label_image/testdata/grace_hopper.bmp ${D}${bindir}/${PN}-${PV}/examples
@@ -95,7 +98,7 @@ do_install() {
 
     # Install pip package
     install -d ${D}/${PYTHON_SITEPACKAGES_DIR}
-    ${STAGING_BINDIR_NATIVE}/pip3 install --disable-pip-version-check -v \
+    ${STAGING_BINDIR_NATIVE}/pip3 install --disable-pip-version-check -vvv --platform linux_${TARGET_ARCH} \
         -t ${D}/${PYTHON_SITEPACKAGES_DIR} --no-cache-dir --no-deps \
         ${B}/tflite_pip/dist/tflite_runtime-*.whl
 }
@@ -105,7 +108,7 @@ RDEPENDS:${PN}   = " \
     python3 \
     python3-numpy \
 "
-# TensorFlow and TensorFlow Lite both exports few files, suppres the error
+# TensorFlow and TensorFlow Lite both exports few files, suppress the error
 # SSTATE_ALLOW_OVERLAP_FILES = "${D}${includedir}"
 SSTATE_ALLOW_OVERLAP_FILES = "/"
 
