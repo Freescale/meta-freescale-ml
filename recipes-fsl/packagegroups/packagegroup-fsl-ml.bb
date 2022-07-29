@@ -19,12 +19,6 @@ ML_PKGS:mx8mp-nxp-bsp = " \
     deepview-rt \
     tvm \
 "
-ML_PKGS:mx8mm-nxp-bsp = " \
-    eiq-apps \
-"
-ML_PKGS:mx8mp-nxp-bsp = " \
-    eiq-apps \
-"
 RDEPENDS:${PN} = " \
     ${ML_PKGS} \
 "
