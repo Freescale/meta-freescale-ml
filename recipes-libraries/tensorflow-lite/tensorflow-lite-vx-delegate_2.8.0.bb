@@ -33,12 +33,12 @@ EXTRA_OECMAKE += " \
 
 CXXFLAGS += "-fPIC"
 
+do_configure[network] = "1"
 do_configure:prepend() {
     export HTTP_PROXY=${http_proxy}
     export HTTPS_PROXY=${https_proxy}
     export http_proxy=${http_proxy}
     export https_proxy=${https_proxy}
-    
 }
 
 do_install() {
