@@ -2,12 +2,17 @@ DESCRIPTION = "Add packages for AI/ML build"
 
 inherit packagegroup
 
-ML_PKGS    ?= ""
-ML_PKGS:mx8-nxp-bsp = " \
+ML_NNSTREAMER_PKGS_LIST = " \
     nnstreamer \
     nnstreamer-protobuf \
     nnstreamer-python3 \
     nnstreamer-tensorflow-lite \
+"
+ML_NNSTREAMER_PKGS = ""
+ML_NNSTREAMER_PKGS:mx8-nxp-bsp:imxgpu = "${ML_NNSTREAMER_PKGS_LIST}"
+
+ML_PKGS    ?= ""
+ML_PKGS:mx8-nxp-bsp = " \
     onnxruntime \
     pytorch \
     tensorflow-lite \
@@ -24,4 +29,5 @@ ML_PKGS:mx8mp-nxp-bsp = " \
 "
 RDEPENDS:${PN} = " \
     ${ML_PKGS} \
+    ${ML_NNSTREAMER_PKGS} \
 "
