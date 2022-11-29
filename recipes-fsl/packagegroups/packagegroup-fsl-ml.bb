@@ -1,5 +1,7 @@
 DESCRIPTION = "Add packages for AI/ML build"
 
+PACKAGE_ARCH = "${MACHINE_SOCARCH}"
+
 inherit packagegroup
 
 ML_NNSTREAMER_PKGS_LIST = " \
