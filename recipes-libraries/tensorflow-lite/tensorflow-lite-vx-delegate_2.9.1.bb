@@ -7,9 +7,9 @@ DEPENDS = "tensorflow-lite tim-vx"
 
 require tensorflow-lite-${PV}.inc
 
-TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://source.codeaurora.org/external/imx/tflite-vx-delegate-imx.git;protocol=https" 
-SRCBRANCH_vx = "lf-5.15.32_2.0.0"
-SRCREV_vx = "b2db210794da007a31d75835af20b79a50d16c30"
+TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-vx-delegate-imx.git;protocol=https" 
+SRCBRANCH_vx = "lf-5.15.52_2.1.0"
+SRCREV_vx = "1e1669714c6fdc70fbd0f42e4c2b346073e805fd"
 
 SRCREV_FORMAT = "vx_tf"
 
@@ -27,7 +27,7 @@ EXTRA_OECMAKE += " \
      -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
      -DTIM_VX_INSTALL=${STAGING_DIR_HOST}/usr \
      -DFETCHCONTENT_SOURCE_DIR_TENSORFLOW=${WORKDIR}/tfgit \
-     -DVX_DELEGATE_USE_TFLITE_LIB_FROM_SDK=on \
+     -DTFLITE_LIB_LOC=${STAGING_DIR_HOST}/usr/lib/libtensorflow-lite.so \
      ${S} \
 "
 
@@ -39,6 +39,10 @@ do_configure:prepend() {
     export HTTPS_PROXY=${https_proxy}
     export http_proxy=${http_proxy}
     export https_proxy=${https_proxy}
+
+    # There is no Fortran compiler in the toolchain, but bitbake sets this variable anyway
+    # with unavailable binary.
+    export FC=""
 }
 
 do_install() {
