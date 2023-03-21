@@ -7,8 +7,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=f3c5879801d3cffc4ac2399f2b8e8ec5 \
 
 SRC_URI = "${ARM_COMPUTELIBRARY_SRC};branch=${SRCBRANCH}"
 ARM_COMPUTELIBRARY_SRC ?= "git://github.com/nxp-imx/arm-computelibrary-imx.git;protocol=https"
-SRCBRANCH = "lf-5.15.52_2.1.0"
-SRCREV = "25b8037e3e85f8253463056e044897b1b3bf5803"
+SRCBRANCH = "lf-5.15.71_2.2.0"
+SRCREV = "a3f4331dc076f4e7d117fd6a2d4ef6c390fb383e"
 
 S = "${WORKDIR}/git"
 
@@ -115,4 +115,4 @@ FILES_SOLIBSDEV = ""
 
 RDEPENDS:${PN} = "bash"
 
-COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp|mx9-nxp-bsp)"
