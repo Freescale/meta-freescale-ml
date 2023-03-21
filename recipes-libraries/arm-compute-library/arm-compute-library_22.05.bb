@@ -14,6 +14,9 @@ S = "${WORKDIR}/git"
 
 inherit scons
 
+# recipe uses older scons which does not support MAXLINELENGTH, so need to clear variable inherited in scons class
+SCONS_MAXLINELENGTH = ""
+
 PACKAGECONFIG ?= "cppthreads examples"
 
 PACKAGECONFIG[Werror] = "Werror=1,Werror=0"
