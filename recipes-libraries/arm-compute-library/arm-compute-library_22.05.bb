@@ -1,4 +1,4 @@
-# Copyright 2019-2022 NXP
+# Copyright 2019-2023 NXP
 SUMMARY = "The ARM Computer Vision and Machine Learning library"
 DESCRIPTION = "The ARM Computer Vision and Machine Learning library is a set of functions optimised for both ARM CPUs and GPUs."
 LICENSE = "MIT"
@@ -7,8 +7,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=f3c5879801d3cffc4ac2399f2b8e8ec5 \
 
 SRC_URI = "${ARM_COMPUTELIBRARY_SRC};branch=${SRCBRANCH}"
 ARM_COMPUTELIBRARY_SRC ?= "git://github.com/nxp-imx/arm-computelibrary-imx.git;protocol=https"
-SRCBRANCH = "lf-5.15.71_2.2.0"
-SRCREV = "a3f4331dc076f4e7d117fd6a2d4ef6c390fb383e"
+SRCBRANCH = "lf-6.1.1_1.0.0"
+SRCREV = "e9658b24c2dfac18961b0b098173732f39f4a31b"
 
 S = "${WORKDIR}/git"
 

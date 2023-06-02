@@ -9,8 +9,8 @@ RDEPENDS:${PN} += "pytorch python3-numpy python3-future python3-pillow libjpeg-t
 PV = "0.10.0"
 PYV = "cp310"
 
-PYTORCH_SRC ?= "git://github.com/nxpmicro/pytorch-release.git;protocol=https"
-SRCBRANCH = "lf-5.15.52_2.1.0"
+PYTORCH_SRC ?= "git://github.com/nxp-imx/pytorch-release.git;protocol=https"
+SRCBRANCH = "lf-6.1.1_1.0.0"
 SRCREV = "ef997d8f79877295e69e5cf34b524eea603c1fae"
 
 SRC_URI = " \
@@ -30,5 +30,3 @@ do_install(){
 }
 
 FILES:${PN} += "${libdir}/python*"
-
-COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"

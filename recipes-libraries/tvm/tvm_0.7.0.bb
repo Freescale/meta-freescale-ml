@@ -14,7 +14,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e313a9b6eda820e35716d9529001537f \
 DEPENDS = "tim-vx"
 RDEPENDS:${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
 
-SRCBRANCH = "lf-5.15.32_2.0.0"
+SRCBRANCH = "lf-6.1.1_1.0.0"
 TVM_SRC ?= "git://github.com/nxp-imx/eiq-tvm-imx.git;protocol=https"
 SRC_URI = "${TVM_SRC};branch=${SRCBRANCH}\
                git://github.com/dmlc/dlpack;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/dlpack;name=dlpack \
@@ -22,9 +22,10 @@ SRC_URI = "${TVM_SRC};branch=${SRCBRANCH}\
                git://github.com/agauniyal/rang;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/rang;name=rang \
                git://github.com/apache/incubator-tvm-vta;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/vta-hw;name=vta-hw \
                file://0001-tvm-CMakeLists.txt-Use-CMAKE-variables-for-libs-inst.patch \
+               file://tvm_runtime.pc.in \
 "
 
-SRCREV = "7042d137a6a50588363c27297e0ab57b3e7f43a8"
+SRCREV = "c8fc7971a23cb2da3154eb19e41d546ad9e77e65" 
 SRCREV_dlpack = "3ec04430e89a6834e5a1b99471f415fa939bf642"
 SRCREV_dmlc-core = "6c401e242c59a1f4c913918246591bb13fd714e7"
 SRCREV_rang = "cabe04d6d6b05356fa8f9741704924788f0dd762"
@@ -51,6 +52,25 @@ do_install () {
 
     setuptools3_do_install
     rm -fr ${D}${datadir}
+
+    # Install pkgconfig file for tvm_runtime lib
+    install -d ${D}${libdir}/pkgconfig
+    install -m 0644 ${WORKDIR}/tvm_runtime.pc.in ${D}${libdir}/pkgconfig/tvm_runtime.pc
+
+    sed -i 's:@version@:${PV}:g
+        s:@libdir@:${libdir}:g
+        s:@includedir@:${includedir}:g' ${D}${libdir}/pkgconfig/tvm_runtime.pc
+
+    # Install additional header files that tvm public interface depends on
+    cd ${S}/3rdparty/dlpack/include
+    cp --parents \
+        $(find . -name "*.h*") \
+        ${D}${includedir}
+
+    cd ${S}/3rdparty/dmlc-core/include
+    cp --parents \
+        $(find . -name "*.h*") \
+        ${D}${includedir}
 }
 
 INSANE_SKIP:${PN} += "dev-deps"
@@ -58,4 +78,4 @@ INSANE_SKIP:${PN} += "dev-deps"
 FILES_SOLIBSDEV = ""
 FILES:${PN} = "${bindir}/* ${libdir}/*"
 
-COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(mx8mp-nxp-bsp)"

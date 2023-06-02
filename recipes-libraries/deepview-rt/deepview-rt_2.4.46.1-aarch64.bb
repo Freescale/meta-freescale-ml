@@ -1,12 +1,12 @@
 DESCRIPTION = "This package includes the updated and experimental ModelRunner for TensorFlow Lite and ARM NN. Also in this repository is a pre-release of DeepViewRT with support for the OpenVX backend."
 LICENSE = "Proprietary"
-LIC_FILES_CHKSUM = "file://COPYING;md5=5a0bf11f745e68024f37b4724a5364fe"
+LIC_FILES_CHKSUM = "file://COPYING;md5=ea25d099982d035af85d193c88a1b479"
 
 DEPENDS = "python3 python3-pip-native"
 
 SRC_URI = "${FSL_MIRROR}/${BPN}-${PV}.bin;fsl-eula=true"
-SRC_URI[md5sum] = "c9693b096ad75852ad82f4e53062edbe"
-SRC_URI[sha256sum] = "c2bf31107b288d5cac8e5a17e555f30da07a9b99b4a3547f4dbf35544210995f"
+SRC_URI[md5sum] = "a4782e44df2254d30f7c6b0a45c4102e"
+SRC_URI[sha256sum] = "40d6c12bbe5fc29a257a1717684ec650bd390eb1565c5bca82ec56e3ffbcf918"
 S = "${WORKDIR}/${BPN}-${PV}"
 
 inherit fsl-eula-unpack python3native
@@ -18,6 +18,7 @@ PACKAGECONFIG_OPENVX:mx8mm-nxp-bsp      = ""
 # The tensorflow-lite implementation for 8ULP uses CPU, and so doesn't
 # support OpenVX
 PACKAGECONFIG_OPENVX:mx8ulp-nxp-bsp     = ""
+
 PACKAGECONFIG[openvx] = ",,,libopenvx-imx"
 
 do_install () {
@@ -53,4 +54,4 @@ INSANE_SKIP:${PN} += "dev-so dev-deps ldflags"
 
 BBCLASSEXTEND = "nativesdk"
 
-COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp|mx9-nxp-bsp)"

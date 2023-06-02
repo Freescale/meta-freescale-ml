@@ -3,7 +3,7 @@ DESCRIPTION = "TensorFlow Lite C++ Library"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 
-DEPENDS = "python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
+DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
     python3 tensorflow-protobuf jpeg zlib ${BPN}-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
@@ -16,6 +16,12 @@ SRC_URI[model-mobv1.sha256sum] = "d32432d28673a936b2d6281ab0600c71cf7226dfe4cdce
 S = "${WORKDIR}/git"
 
 inherit python3native cmake
+
+PACKAGECONFIG ??= "${PACKAGECONFIG_ETHOSU}"
+PACKAGECONFIG_ETHOSU              = ""
+PACKAGECONFIG_ETHOSU:mx93-nxp-bsp = "ethosu"
+
+PACKAGECONFIG[ethosu] = "-DTFLITE_ENABLE_ETHOSU=on,-DTFLITE_ENABLE_ETHOSU=off,ethos-u-driver-stack"
 
 EXTRA_OECMAKE = " \
     -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
@@ -100,7 +106,6 @@ do_install() {
 }
 
 RDEPENDS:${PN}   = " \
-    flatbuffers \
     python3 \
     python3-numpy \
     ${RDEPENDS_OPENVX} \
