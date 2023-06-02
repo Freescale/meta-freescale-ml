@@ -2,7 +2,7 @@ From 1ba241438dcc14852017757451521f5e27690290 Mon Sep 17 00:00:00 2001
 From: Cristinel Panfir <cristinel.panfir@nxp.com>
 Date: Mon, 2 May 2022 15:18:46 +0000
 Subject: [PATCH] Findtim-vx.cmake: Fix LIBDIR for multilib environment
-Upstream-Status: Pending
+
 Signed-off-by: Cristinel Panfir <cristinel.panfir@nxp.com>
 ---
  cmake/modules/Findtim-vx.cmake | 2 +-
