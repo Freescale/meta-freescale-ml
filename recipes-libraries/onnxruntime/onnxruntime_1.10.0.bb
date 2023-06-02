@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "${LIC_FILES_CHKSUM_runtime} ${LIC_FILES_CHKSUM_model}"
 DEPENDS = "libpng zlib ${BPN}-native"
 
 ONNXRUNTIME_SRC ?= "gitsm://github.com/nxp-imx/onnxruntime-imx.git;protocol=https"
-SRCBRANCH_runtime = "lf-5.15.32_2.0.0"
+SRCBRANCH_runtime = "lf-6.1.1_1.0.0"
 SRC_URI = " \
     ${ONNXRUNTIME_SRC};branch=${SRCBRANCH_runtime};name=runtime \
     https://github.com/onnx/models/raw/${SRCREV_model}/LICENSE;name=model-license \
@@ -19,7 +19,7 @@ SRC_URI[model-license.md5sum] = "3b83ef96387f14655fc854ddc3c6bd57"
 SRC_URI[model-license.sha256sum] = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
 SRC_URI[model-squeezenet.md5sum] = "92e240a948f9bbc92534d752eb465317"
 SRC_URI[model-squeezenet.sha256sum] = "f4c9a2906a949f089bee5ef1bf9ea1c0dc1b49d5abeb1874fff3d206751d0f3b"
-SRCREV_runtime = "7c06686b4260a22bdf0e24e06c120882dc5eaa78"
+SRCREV_runtime = "66e3e9a93840ed1e55dc2d7e894c0ae26fb0e51e"
 SRCREV_model = "6ab957a2fe61f34a76c670946f7cbd806d2cacca"
 SRCREV_FORMAT = "runtime_model"
 
@@ -45,14 +45,14 @@ EXTRA_OECMAKE += "\
 "
 
 PYTHON_DEPENDS = "${PYTHON_PN} ${PYTHON_PN}-native ${PYTHON_PN}-pip-native ${PYTHON_PN}-wheel-native ${PYTHON_PN}-setuptools-native ${PYTHON_PN}-numpy-native"
-PYTHON_RDEPENDS = "${PYTHON_PN} ${PYTHON_PN}-numpy ${PYTHON_PN}-protobuf flatbuffers-${PYTHON_PN}"
+PYTHON_RDEPENDS = "${PYTHON_PN} ${PYTHON_PN}-numpy ${PYTHON_PN}-protobuf ${PYTHON_PN}-flatbuffers"
 
-PACKAGECONFIG_VSI_NPU       = ""
-PACKAGECONFIG_VSI_NPU:mx8-nxp-bsp   = "vsi_npu"
-PACKAGECONFIG_VSI_NPU:mx8mm-nxp-bsp = ""
-PACKAGECONFIG_VSI_NPU:mx8mnul-nxp-bsp = ""
-PACKAGECONFIG_VSI_NPU:mx8mpul-nxp-bsp = ""
-PACKAGECONFIG_VSI_NPU:mx8ulp-nxp-bsp = ""
+PACKAGECONFIG_VSI_NPU                    = ""
+PACKAGECONFIG_VSI_NPU:mx8-nxp-bsp:imxgpu = "vsi_npu"
+PACKAGECONFIG_VSI_NPU:mx8mm-nxp-bsp      = ""
+# The tensorflow-lite implementation for 8ULP uses CPU, and so doesn't
+# support OpenVX
+PACKAGECONFIG_VSI_NPU:mx8ulp-nxp-bsp     = ""
 
 PACKAGECONFIG ?= "openmp reports sharedlib eigenblas nnapi python ${PACKAGECONFIG_VSI_NPU}"
 
