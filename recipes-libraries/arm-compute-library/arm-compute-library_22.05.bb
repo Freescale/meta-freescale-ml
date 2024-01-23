@@ -38,6 +38,18 @@ EXTRA_OESCONS:append:aarch64 = " arch=arm64-v8a neon=1"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
 
+# Override scons_do_configure which includes unknown variables PREFIX and prefix
+do_configure() {
+	if [ -n "${CONFIGURESTAMPFILE}" -a "${S}" = "${B}" ]; then
+		if [ -e "${CONFIGURESTAMPFILE}" -a "`cat ${CONFIGURESTAMPFILE}`" != "${BB_TASKHASH}" -a "${CLEANBROKEN}" != "1" ]; then
+			${STAGING_BINDIR_NATIVE}/scons --directory=${S} --clean ${EXTRA_OESCONS}
+		fi
+
+		mkdir -p `dirname ${CONFIGURESTAMPFILE}`
+		echo ${BB_TASKHASH} > ${CONFIGURESTAMPFILE}
+	fi
+}
+
 # Override scons_do_compile which includes unknown variables PREFIX and prefix
 do_compile() {
     ${STAGING_BINDIR_NATIVE}/scons --directory=${S} ${PARALLEL_MAKE} ${EXTRA_OESCONS} || \
