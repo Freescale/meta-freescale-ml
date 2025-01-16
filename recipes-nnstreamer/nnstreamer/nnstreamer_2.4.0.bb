@@ -18,10 +18,11 @@ DEPENDS = "\
 	libpng \
 "
 
-SRCREV = "f82789170b8f2696e50cbc5027b74b767f5e9415"
-SRC_URI = "\
-    git://github.com/nnstreamer/nnstreamer.git;branch=main;protocol=https \
-"
+SRCREV = "807060954acfdb6cec130559d00eef1af61457cf"
+SRC_URI = "git://github.com/nnstreamer/nnstreamer.git;branch=lts/2.4.0.b;protocol=https \
+           file://0001-PATCH-increase-to-cpp17-version.patch \
+           file://0001-AIR-11938-tensor-filter-use-memcpy-ethosu-delegate.patch \
+           "
 
 # Use git instead of quilt as patch tool to support patches with binary content
 PATCHTOOL = "git"
@@ -32,16 +33,11 @@ inherit meson pkgconfig
 
 PACKAGECONFIG ??= "protobuf python3 query ${PACKAGECONFIG_SOC}"
 PACKAGECONFIG_SOC                    ??= ""
-PACKAGECONFIG_SOC:mx8-nxp-bsp:imxgpu ??= "deepview-rt tensorflow-lite"
-PACKAGECONFIG_SOC:mx8mp-nxp-bsp      ??= "deepview-rt tensorflow-lite tvm"
-PACKAGECONFIG_SOC:mx9-nxp-bsp        ??= "deepview-rt tensorflow-lite"
 
-PACKAGECONFIG[deepview-rt] = "\
-       -Ddeepview-rt-support=enabled, \
-       -Ddeepview-rt-support=disabled, \
-       deepview-rt, \
-       ,,\
-"
+
+PACKAGECONFIG_SOC:mx8-nxp-bsp:imxgpu ??= "tensorflow-lite"
+PACKAGECONFIG_SOC:mx8mp-nxp-bsp      ??= "tensorflow-lite tvm"
+PACKAGECONFIG_SOC:mx9-nxp-bsp        ??= "tensorflow-lite"
 
 PACKAGECONFIG[flatbuf] = "\
 	-Dflatbuf-support=enabled, \
@@ -110,8 +106,6 @@ do_install:append() {
 
 PACKAGES =+ "\
 	${PN}-unittest \
-	${@bb.utils.contains('PACKAGECONFIG', 'armnn','${PN}-armnn', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'deepview-rt','${PN}-deepview-rt', '', d)} \
 	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
 	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
 	${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
@@ -128,8 +122,6 @@ RDEPENDS:${PN} = "\
 "
 
 RDEPENDS:${PN}-unittest = "gstreamer1.0-plugins-good nnstreamer ssat \
-	${@bb.utils.contains('PACKAGECONFIG', 'armnn','${PN}-armnn', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'deepview-rt','${PN}-deepview-rt', '', d)} \
 	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
 	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
 	${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
@@ -146,14 +138,6 @@ FILES:${PN} += "\
 	${libdir}/gstreamer-1.0/*.so \
 	${libdir}/nnstreamer/decoders/* \
 	${sysconfdir}/nnstreamer.ini \
-"
-
-FILES:${PN}-armnn = "\
-	${libdir}/nnstreamer/filters/libnnstreamer_filter_armnn.so \
-"
-
-FILES:${PN}-deepview-rt = "\
-	${libdir}/nnstreamer/filters/libnnstreamer_filter_deepview-rt.so \
 "
 
 FILES:${PN}-dev = "\
