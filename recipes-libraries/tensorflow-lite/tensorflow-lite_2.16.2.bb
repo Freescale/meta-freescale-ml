@@ -1,27 +1,28 @@
-# Copyright 2020-2021 NXP
+# Copyright 2020-2021, 2024 NXP
 DESCRIPTION = "TensorFlow Lite C++ Library"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 
+
 DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
-    python3 tensorflow-protobuf jpeg zlib ${BPN}-host-tools-native"
+    python3 jpeg zlib ${BPN}-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
 SRC_URI = "${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf"
 
 SRC_URI += "https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tgz;name=model-mobv1"
-SRC_URI[model-mobv1.md5sum] = "36af340c00e60291931cb30ce32d4e86"
 SRC_URI[model-mobv1.sha256sum] = "d32432d28673a936b2d6281ab0600c71cf7226dfe4cdcef3012555f691744166"
 
 S = "${WORKDIR}/git"
 
 inherit python3native cmake
 
-PACKAGECONFIG ??= "${PACKAGECONFIG_ETHOSU}"
-PACKAGECONFIG_ETHOSU              = ""
-PACKAGECONFIG_ETHOSU:mx93-nxp-bsp = "ethosu"
+PACKAGECONFIG ??= "python-example ${PACKAGECONFIG_GPU_DELEGATE}"
+PACKAGECONFIG_GPU_DELEGATE              = ""
+PACKAGECONFIG_GPU_DELEGATE:mx95-nxp-bsp = "gpu-delegate"
 
-PACKAGECONFIG[ethosu] = "-DTFLITE_ENABLE_ETHOSU=on,-DTFLITE_ENABLE_ETHOSU=off,ethos-u-driver-stack"
+PACKAGECONFIG[gpu-delegate] = "-DTFLITE_ENABLE_GPU=on,-DTFLITE_ENABLE_GPU=off"
+PACKAGECONFIG[python-example] = ",,,python3-pillow"
 
 EXTRA_OECMAKE = " \
     -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
@@ -40,6 +41,7 @@ EXTRA_OECMAKE = " \
 EXTRA_OECMAKE_BUILD = "benchmark_model label_image"
 
 CXXFLAGS += "-fPIC"
+
 
 do_configure[network] = "1"
 do_configure:prepend() {
@@ -79,6 +81,14 @@ do_install() {
     install -d ${D}${includedir}/tensorflow/core/public
     cp ${S}/tensorflow/core/public/version.h ${D}${includedir}/tensorflow/core/public
 
+    # install ctstring_internal.h from core
+    install -d ${D}${includedir}/tensorflow/core/platform
+    cp ${S}/tensorflow/core/platform/ctstring_internal.h ${D}${includedir}/tensorflow/core/platform
+
+    # install ctstring_internal.h from tsl
+    install -d ${D}${includedir}/tsl/platform
+    cp ${S}/third_party/xla/third_party/tsl/tsl/platform/ctstring_internal.h ${D}${includedir}/tsl/platform
+
     # install examples
     install -d ${D}${bindir}/${PN}-${PV}/examples
     install -m 0555 ${B}/examples/label_image/label_image ${D}${bindir}/${PN}-${PV}/examples
@@ -93,7 +103,9 @@ do_install() {
 
 
     # Install python example
-    cp ${S}/tensorflow/lite/examples/python/label_image.py ${D}${bindir}/${PN}-${PV}/examples
+    if ${@bb.utils.contains('PACKAGECONFIG', 'python-example', 'true', 'false', d)}; then
+        cp ${S}/tensorflow/lite/examples/python/label_image.py ${D}${bindir}/${PN}-${PV}/examples
+    fi
 
     # Install mobilenet tflite file
     cp ${WORKDIR}/mobilenet_*.tflite ${D}${bindir}/${PN}-${PV}/examples
@@ -105,17 +117,17 @@ do_install() {
         ${B}/tflite_pip/dist/tflite_runtime-*.whl
 }
 
+PACKAGE_ARCH = "${MACHINE_SOCARCH}"
+
 RDEPENDS:${PN}   = " \
     python3 \
     python3-numpy \
-    ${RDEPENDS_OPENVX} \
+    ${RDEPENDS_OPENCL} \
 "
-RDEPENDS_OPENVX                    = ""
-RDEPENDS_OPENVX:mx8-nxp-bsp:imxgpu = "libnn-imx nn-imx"
-RDEPENDS_OPENVX:mx8mm-nxp-bsp      = ""
-# The tensorflow-lite implementation for 8ULP uses CPU, and so doesn't
-# support OpenVX
-RDEPENDS_OPENVX:mx8ulp-nxp-bsp     = ""
+RDEPENDS_OPENCL               = "opencl-icd-loader-dev"
+RDEPENDS_OPENCL:mx8mm-nxp-bsp = ""
+
+INSANE_SKIP:${PN} += "dev-deps"
 
 # TensorFlow and TensorFlow Lite both exports few files, suppress the error
 # SSTATE_ALLOW_OVERLAP_FILES = "${D}${includedir}"
