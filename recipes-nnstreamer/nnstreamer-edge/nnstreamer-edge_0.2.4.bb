@@ -8,8 +8,8 @@ DEPENDS = "\
 "
 
 NNS_EDGE_SRC ?= "git://github.com/nnstreamer/nnstreamer-edge.git;protocol=https"
-SRCBRANCH = "lts/0.1.0.b"
-SRCREV = "2efc10afd1161a025fa3848aca487fb9a665f3c0"
+SRCBRANCH = "lts/0.2.4.b"
+SRCREV = "2bf50d57f0f8d856ae38cf82b0a0f3746f46a08a"
 SRC_URI = "${NNS_EDGE_SRC};branch=${SRCBRANCH}"
 
 S = "${WORKDIR}/git"
