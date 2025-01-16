@@ -5,7 +5,7 @@ DESCRIPTION = "Add packages for AI/ML build"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-PACKAGE_ARCH = "${TUNE_PKGARCH}"
+PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
 inherit packagegroup
 
@@ -24,9 +24,9 @@ ML_NNSTREAMER_PKGS:mx9-nxp-bsp        = "${ML_NNSTREAMER_PKGS_LIST}"
 
 # i.MX8MP uses nnshark - other i.MX8/9 use raw gstshark
 ML_GST_PROFILER = ""
-#ML_GST_PROFILER:mx8-nxp-bsp   = "gst-shark"
-#ML_GST_PROFILER:mx8mp-nxp-bsp = "nnshark"
-#ML_GST_PROFILER:mx9-nxp-bsp   = "gst-shark"
+ML_GST_PROFILER:mx8-nxp-bsp   = "gst-shark"
+ML_GST_PROFILER:mx8mp-nxp-bsp = "nnshark"
+ML_GST_PROFILER:mx9-nxp-bsp   = "gst-shark"
 
 # These packages don't require any acceleration
 ML_PKGS            = ""
