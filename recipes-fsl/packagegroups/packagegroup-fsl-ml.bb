@@ -32,10 +32,12 @@ ML_GST_PROFILER = ""
 ML_PKGS            = ""
 ML_PKGS:mx8-nxp-bsp = " \
     onnxruntime-tests \
+    pytorch \
     tensorflow-lite \
 "
 ML_PKGS:mx9-nxp-bsp = " \
     onnxruntime-tests \
+    pytorch \
     tensorflow-lite \
 "
 # These packages require acceleration, which currently maps to
