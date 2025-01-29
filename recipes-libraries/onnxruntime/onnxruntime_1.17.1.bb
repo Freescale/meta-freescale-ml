@@ -1,27 +1,19 @@
-# Copyright 2020-2022 NXP
+# Copyright 2020-2023 NXP
 DESCRIPTION = "cross-platform, high performance scoring engine for ML models"
 SECTION = "devel"
 LICENSE = "MIT & Apache-2.0"
 LIC_FILES_CHKSUM_runtime = "file://LICENSE;md5=0f7e3b1308cb5c00b372a6e78835732d"
-LIC_FILES_CHKSUM_model = "file://${WORKDIR}/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
+LIC_FILES_CHKSUM_model = "file://${S}/example-models/squeezenet/LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 LIC_FILES_CHKSUM = "${LIC_FILES_CHKSUM_runtime} ${LIC_FILES_CHKSUM_model}"
 
-DEPENDS = "libpng zlib ${BPN}-native"
+DEPENDS = "libpng zlib"
 
+inherit setuptools3
+
+SRC_URI = "${ONNXRUNTIME_SRC};branch=${SRCBRANCH}"
 ONNXRUNTIME_SRC ?= "gitsm://github.com/nxp-imx/onnxruntime-imx.git;protocol=https"
-SRCBRANCH_runtime = "lf-6.1.1_1.0.0"
-SRC_URI = " \
-    ${ONNXRUNTIME_SRC};branch=${SRCBRANCH_runtime};name=runtime \
-    https://github.com/onnx/models/raw/${SRCREV_model}/LICENSE;name=model-license \
-    https://github.com/onnx/models/raw/${SRCREV_model}/vision/classification/squeezenet/model/squeezenet1.0-9.tar.gz;name=model-squeezenet \
-"
-SRC_URI[model-license.md5sum] = "3b83ef96387f14655fc854ddc3c6bd57"
-SRC_URI[model-license.sha256sum] = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
-SRC_URI[model-squeezenet.md5sum] = "92e240a948f9bbc92534d752eb465317"
-SRC_URI[model-squeezenet.sha256sum] = "f4c9a2906a949f089bee5ef1bf9ea1c0dc1b49d5abeb1874fff3d206751d0f3b"
-SRCREV_runtime = "66e3e9a93840ed1e55dc2d7e894c0ae26fb0e51e"
-SRCREV_model = "6ab957a2fe61f34a76c670946f7cbd806d2cacca"
-SRCREV_FORMAT = "runtime_model"
+SRCBRANCH = "lf-6.6.52_2.2.0"
+SRCREV = "3616ba2f9cd2b7b882252a95e171f0c0c0f1826f" 
 
 S = "${WORKDIR}/git"
 
@@ -31,30 +23,36 @@ OECMAKE_SOURCEPATH = "${S}/cmake"
 OECMAKE_GENERATOR = "Unix Makefiles"
 
 # Notes:
-# Protobuff/Protoc: 
-#   - protobuf is essetially built twice for native and target system
-#   - DONNX_CUSTOM_PROTOC_EXECUTABLE  - use native protoc
-#   - onnxruntime_USE_PREBUILT_PB=OFF - we still need protobuf compiled from target system; although we already have native version
-# Eigen: 
-#   - the git operation within CMake fails, so we treat it as 'pre-installed' although it's fetched during fetch phase
-#   - the eigen_SOURCE_PATH needs to match 'destsuffix' in SRC_URI for eigen
+# Abseil:
+#   - FETCHCONTENT_FULLY_DISCONNECTED=OFF and do_configure:prepend() added to allow
+#     abseil build process (the issue was related to CMake not fetching sources)
 
 EXTRA_OECMAKE += "\
--DONNX_CUSTOM_PROTOC_EXECUTABLE=${STAGING_BINDIR_NATIVE}/${PN}-native/protoc \
--DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -Donnxruntime_BUILD_UNIT_TESTS=ON \
 "
 
-PYTHON_DEPENDS = "${PYTHON_PN} ${PYTHON_PN}-native ${PYTHON_PN}-pip-native ${PYTHON_PN}-wheel-native ${PYTHON_PN}-setuptools-native ${PYTHON_PN}-numpy-native"
-PYTHON_RDEPENDS = "${PYTHON_PN} ${PYTHON_PN}-numpy ${PYTHON_PN}-protobuf ${PYTHON_PN}-flatbuffers"
+PYTHON_DEPENDS = "\
+    ${PYTHON_PN} \
+    ${PYTHON_PN}-pip-native \
+    ${PYTHON_PN}-numpy \
+    ${PYTHON_PN}-numpy-native \
+    ${PYTHON_PN}-packaging-native\
+    ${PYTHON_PN}-pybind11\
+    ${PYTHON_PN}-pybind11-native\
+"
 
-PACKAGECONFIG_VSI_NPU                    = ""
-PACKAGECONFIG_VSI_NPU:mx8-nxp-bsp:imxgpu = "vsi_npu"
-PACKAGECONFIG_VSI_NPU:mx8mm-nxp-bsp      = ""
-# The tensorflow-lite implementation for 8ULP uses CPU, and so doesn't
-# support OpenVX
-PACKAGECONFIG_VSI_NPU:mx8ulp-nxp-bsp     = ""
+PYTHON_RDEPENDS = "\
+    ${PYTHON_PN} \
+    ${PYTHON_PN}-numpy \
+    ${PYTHON_PN}-protobuf \
+    ${PYTHON_PN}-coloredlogs \
+    ${PYTHON_PN}-flatbuffers \
+    ${PYTHON_PN}-sympy \
+"
 
-PACKAGECONFIG ?= "openmp reports sharedlib eigenblas nnapi python ${PACKAGECONFIG_VSI_NPU}"
+PACKAGECONFIG ?= "crosscompiling sharedlib python"
 
 PACKAGECONFIG[nsync] = "-Donnxruntime_USE_NSYNC=ON, -Donnxruntime_USE_NSYNC=OFF"
 PACKAGECONFIG[prebuilt] = "-Donnxruntime_USE_PREBUILT_PB=ON, -Donnxruntime_USE_PREBUILT_PB=OFF"
@@ -98,7 +96,14 @@ PACKAGECONFIG[jemalloc] = "-Donnxruntime_USE_JEMALLOC=ON, -Donnxruntime_USE_JEMA
 PACKAGECONFIG[mimalloc] = "-Donnxruntime_USE_MIMALLOC=ON, -Donnxruntime_USE_MIMALLOC=OFF"
 PACKAGECONFIG[csharp] = "-Donnxruntime_BUILD_CSHARP=ON, -Donnxruntime_BUILD_CSHARP=OFF"
 PACKAGECONFIG[java] = "-Donnxruntime_BUILD_JAVA=ON, -Donnxruntime_BUILD_JAVA=OFF"
-PACKAGECONFIG[vsi_npu] = "-Donnxruntime_USE_VSI_NPU=ON -Donnxruntime_OVXLIB_INCLUDE=${STAGING_INCDIR}/OVXLIB, -Donnxruntime_USE_VSI_NPU=OFF, nn-imx"
+
+do_configure[network] = "1"
+do_configure:prepend() {
+    export HTTP_PROXY=${http_proxy}
+    export HTTPS_PROXY=${https_proxy}
+    export http_proxy=${http_proxy}
+    export https_proxy=${https_proxy}
+}
 
 do_compile[network] = "1"
 do_compile:prepend() {
@@ -111,10 +116,18 @@ do_compile:prepend() {
     fi
 }
 
+SETUPTOOLS_SETUP_PATH = "${B}"
+
 do_compile:append() {
     if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
-        cd ${WORKDIR}/build
-        ${PYTHON} ${S}/setup.py bdist_wheel
+        # Copy 'setup.py' to build dir
+        cp ${S}/setup.py ${B}
+
+        # Copy path file with path 'docs/python/README.rst' to build dir
+        mkdir -p ${B}/docs/python && cp ${S}/docs/python/README.rst ${B}/docs/python
+        
+        setuptools3_do_compile
+        
         git config --global --add safe.directory ${WORKDIR}/build/pybind11/src/pybind11
     fi
 }
@@ -122,32 +135,51 @@ do_compile:append() {
 do_install:append() {
     CP_ARGS="-Prf --preserve=mode,timestamps --no-preserve=ownership"
     
-    # copy extracted squeezenet tarball and add Apache2 license
-    cp $CP_ARGS ${WORKDIR}/squeezenet ${D}${bindir}/${BP}
-    install -m 0644 ${WORKDIR}/LICENSE ${D}${bindir}/${BP}/squeezenet
+    # Ensure target dir exists
+    install -d ${D}${bindir}/${BP}
+
+    # Copy squeezenet updated model from imx-onnxruntime repo
+    if [ -d ${S}/example-models/ ]; then
+        cp $CP_ARGS ${S}/example-models/squeezenet ${D}${bindir}/${BP}/
+    fi
+
+    # If cmake installs 'onnx_test_runner' at bindir level, move to package
+    if [ -f ${D}${bindir}/onnx_test_runner ]; then
+        mv ${D}${bindir}/onnx_test_runner ${D}${bindir}/${BP}/
+    fi
+
+    # Install onnxruntime_perf_test in main package
+    install -m 0755 ${B}/onnxruntime_perf_test ${D}${bindir}/${BP}
+
+    # Install test binaries and data in test package
+    install -d ${D}${bindir}/${BP}/tests
+    install -m 0744 ${B}/libcustom_op_library.so ${D}${bindir}/${BP}/tests
+    install -m 0744 ${B}/onnxruntime_global_thread_pools_test ${D}${bindir}/${BP}/tests
+    install -m 0744 ${B}/onnxruntime_mlas_test ${D}${bindir}/${BP}/tests
+    install -m 0744 ${B}/onnxruntime_shared_lib_test ${D}${bindir}/${BP}/tests
+    install -m 0744 ${B}/onnxruntime_test_all ${D}${bindir}/${BP}/tests
+    cp $CP_ARGS ${B}/testdata ${D}${bindir}/${BP}/tests
 
     if ${@bb.utils.contains('PACKAGECONFIG', 'python', 'true', 'false', d)}; then
-        export PIP_DISABLE_PIP_VERSION_CHECK=1
-        export PIP_NO_CACHE_DIR=1
-        install -d ${D}/${PYTHON_SITEPACKAGES_DIR}
-        ${STAGING_BINDIR_NATIVE}/pip3 install -v \
-            -t ${D}/${PYTHON_SITEPACKAGES_DIR} --no-deps \
-            ${WORKDIR}/build/dist/onnxruntime-*.whl
+        setuptools3_do_install
         find ${D}/${PYTHON_SITEPACKAGES_DIR} -type d -name "__pycache__" -exec rm -Rf {} +
+        git config --global --unset-all safe.directory ${TMPDIR}/.*/${PN}/.*/build/pybind11/src/pybind11
     fi
 }
+
+# Adjust the Python runtime dependency inherited from setuptools3-base.bbclass
+# since Python support for this recipe is conditional
+RDEPENDS:${PN}:remove:class-target = " \
+    ${@bb.utils.contains('PACKAGECONFIG', 'python', '', '${PYTHON_PN}-core', d)}"
 
 # libonnxruntime_providers_shared.so is being packaged into -dev which is intended
 INSANE_SKIP:${PN}-dev += "dev-elf"
 
-# a separate tests package for the test binaries not appearing in the main package
+# A separate tests package for the test binaries not appearing in the main package
 PACKAGE_BEFORE_PN = "${PN}-tests"
 FILES:${PN}-tests = "${bindir}/${BP}/tests/*"
-FILES:${PN} += "${PYTHON_SITEPACKAGES_DIR}"
 
 # libcustom_op_library.so is in bindir, which is intended;
 # onnxruntime_shared_lib_test requires the shlib to be in the same directory as testdata to run properly
 INSANE_SKIP:${PN}-tests += "libdir"
 INSANE_SKIP:${PN}-dbg += "libdir"
-
-RDEPENDS:${PN}-tests += "arm-compute-library"

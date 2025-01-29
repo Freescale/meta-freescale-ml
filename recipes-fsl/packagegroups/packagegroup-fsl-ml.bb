@@ -5,13 +5,12 @@ DESCRIPTION = "Add packages for AI/ML build"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-PACKAGE_ARCH = "${TUNE_PKGARCH}"
+PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
 inherit packagegroup
 
 ML_NNSTREAMER_PKGS_LIST = " \
     nnstreamer \
-    nnstreamer-deepview-rt \
     nnstreamer-protobuf \
     nnstreamer-python3 \
     nnstreamer-query \
@@ -25,23 +24,21 @@ ML_NNSTREAMER_PKGS:mx9-nxp-bsp        = "${ML_NNSTREAMER_PKGS_LIST}"
 
 # i.MX8MP uses nnshark - other i.MX8/9 use raw gstshark
 ML_GST_PROFILER = ""
-#ML_GST_PROFILER:mx8-nxp-bsp   = "gst-shark"
-#ML_GST_PROFILER:mx8mp-nxp-bsp = "nnshark"
-#ML_GST_PROFILER:mx9-nxp-bsp   = "gst-shark"
+ML_GST_PROFILER:mx8-nxp-bsp   = "gst-shark"
+ML_GST_PROFILER:mx8mp-nxp-bsp = "nnshark"
+ML_GST_PROFILER:mx9-nxp-bsp   = "gst-shark"
 
 # These packages don't require any acceleration
 ML_PKGS            = ""
 ML_PKGS:mx8-nxp-bsp = " \
-    deepview-rt-examples \
     onnxruntime-tests \
+    pytorch \
     tensorflow-lite \
-    torchvision \
 "
 ML_PKGS:mx9-nxp-bsp = " \
-    deepview-rt-examples \
     onnxruntime-tests \
+    pytorch \
     tensorflow-lite \
-    torchvision \
 "
 # These packages require acceleration, which currently maps to
 # all SOCs with GPU except for 8M Mini
@@ -65,6 +62,12 @@ ETHOS_U_PKGS:mx93-nxp-bsp = " \
     eiq-examples \
 "
 
+# Neutron package
+NEUTRON_PKGS = ""
+NEUTRON_PKGS:mx95-nxp-bsp = " \
+    neutron \
+    tensorflow-lite-neutron-delegate \
+"
 
 RDEPENDS:${PN} = " \
     ${ML_PKGS} \
@@ -72,4 +75,5 @@ RDEPENDS:${PN} = " \
     ${ML_NNSTREAMER_PKGS} \
     ${ML_GST_PROFILER} \
     ${ETHOS_U_PKGS} \
+    ${NEUTRON_PKGS} \
 "

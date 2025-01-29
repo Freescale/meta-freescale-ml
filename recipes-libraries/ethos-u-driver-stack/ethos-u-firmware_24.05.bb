@@ -9,14 +9,15 @@ LIC_FILES_CHKSUM = "\
 
 SRC_URI = "${ETHOS_U_FIRMWARE_SRC};branch=${SRCBRANCH}"
 ETHOS_U_FIRMWARE_SRC ?= "git://github.com/nxp-imx/ethos-u-firmware.git;protocol=https"
-SRCBRANCH = "lf-6.1.1_1.0.0"
-SRCREV = "c80a413664f650c366fc4721474a3fe1d1503eb5"
+SRCBRANCH = "lf-6.6.52_2.2.0"
+SRCREV = "3dbedc11bd2a4ba56af9fbe9d285b5bf13f1a088"
 
 S = "${WORKDIR}/git"
 
 ETHOS_U_FIRMWARE = "ethosu_firmware"
 ETHOS_U_FIRMWARE:imx93-9x9-lpddr4-qsb    = "ethosu_firmware_9x9"
 ETHOS_U_FIRMWARE:imx93-11x11-lpddr4x-evk = "ethosu_firmware_11x11"
+ETHOS_U_FIRMWARE:imx93-14x14-lpddr4x-evk = "ethosu_firmware_14x14"
 
 do_install () {
     install -d ${D}${nonarch_base_libdir}/firmware

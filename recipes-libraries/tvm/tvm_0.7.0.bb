@@ -14,7 +14,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e313a9b6eda820e35716d9529001537f \
 DEPENDS = "tim-vx"
 RDEPENDS:${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
 
-SRCBRANCH = "lf-6.1.1_1.0.0"
+SRCBRANCH = "lf-6.6.52_2.2.0"
 TVM_SRC ?= "git://github.com/nxp-imx/eiq-tvm-imx.git;protocol=https"
 SRC_URI = "${TVM_SRC};branch=${SRCBRANCH}\
                git://github.com/dmlc/dlpack;protocol=https;nobranch=1;destsuffix=${S}/3rdparty/dlpack;name=dlpack \
@@ -25,11 +25,13 @@ SRC_URI = "${TVM_SRC};branch=${SRCBRANCH}\
                file://tvm_runtime.pc.in \
 "
 
-SRCREV = "c8fc7971a23cb2da3154eb19e41d546ad9e77e65" 
+SRCREV = "4f710ec5796ac0eb0b0a23d3c808ca68e13173f6" 
 SRCREV_dlpack = "3ec04430e89a6834e5a1b99471f415fa939bf642"
 SRCREV_dmlc-core = "6c401e242c59a1f4c913918246591bb13fd714e7"
 SRCREV_rang = "cabe04d6d6b05356fa8f9741704924788f0dd762"
 SRCREV_vta-hw = "87ce9acfae550d1a487746e9d06c2e250076e54c"
+
+SRCREV_FORMAT = "default_dlpack_dmlc-core_rang_vta-hw"
 
 S = "${WORKDIR}/git"
 SETUPTOOLS_SETUP_PATH = "${S}/python"

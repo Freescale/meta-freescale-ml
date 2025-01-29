@@ -3,14 +3,14 @@ DESCRIPTION = "TIM-VX is a software integration module provided by VeriSilicon \
 to facilitate deployment of Neural-Networks on OpenVX enabled ML accelerators. It serves as \
 the backend binding for runtime frameworks such as Android NN, Tensorflow-Lite, MLIR, TVM and more."
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=ededf2503f5d147ae718276dfd28801f"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=a223f028c6a73fd2bd9223b79a38dcf6"
 
-DEPENDS = "imx-gpu-viv nn-imx"
+DEPENDS = "imx-gpu-viv"
 
-TIM_VX_SRC ?= "git://github.com/nxp-imx/tim-vx-imx.git;protocol=https"
-SRCBRANCH = "lf-6.1.1_1.0.0"
-SRCREV = "f66e297e4bd4e4ef810f4fd527ff49559c01438d"
 SRC_URI = "${TIM_VX_SRC};branch=${SRCBRANCH}"
+TIM_VX_SRC ?= "git://github.com/nxp-imx/tim-vx-imx.git;protocol=https"
+SRCBRANCH = "lf-6.6.52_2.2.0"
+SRCREV = "8c5bf6150903e14275b5c6b6b63a7035ce60dde1" 
 
 S = "${WORKDIR}/git"
 
@@ -20,8 +20,7 @@ EXTRA_OECMAKE =  " \
     -DCONFIG=YOCTO \
     -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
     -DTIM_VX_ENABLE_TEST=off \
-    -DTIM_VX_USE_EXTERNAL_OVXLIB=on \
-    -DOVXLIB_INC=${PKG_CONFIG_SYSROOT_DIR}/usr/include/OVXLIB \
+    -DTIM_VX_USE_EXTERNAL_OVXLIB=off \
 "
 
 # Output library is unversioned
