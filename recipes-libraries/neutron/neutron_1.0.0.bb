@@ -1,17 +1,18 @@
 SUMMARY = "The firmware, library and converter for i.MX Neutron NPU"
 DESCRIPTION = "The firmware library and converter for i.MX Neutron NPU"
 LICENSE = "Proprietary"
-LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=ca53281cc0caa7e320d4945a896fb837"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=a93b654673e1bc8398ed1f30e0813359"
 
 SRC_URI = "${NEUTRON_SRC};branch=${SRCBRANCH}"
 NEUTRON_SRC ?= "git://github.com/nxp-imx/neutron.git;protocol=https"
-SRCBRANCH = "lf-6.6.52_2.2.0"
-SRCREV = "1c32f65741c827aabf2ab3edb03227fd25c7cfca"
+SRCBRANCH = "lf-6.12.20_2.0.0"
+SRCREV = "1e636c9bce8490929d492c8cecea2263c302a99f"
 
 S = "${WORKDIR}/git"
 
 NEUTRON_TARGET = ""
-NEUTRON_TARGET:mx95-nxp-bsp= "imx95"
+NEUTRON_TARGET:mx943-nxp-bsp = "imx943"
+NEUTRON_TARGET:mx95-nxp-bsp  = "imx95"
 
 do_install () {
     # install firmware
@@ -40,4 +41,4 @@ FILES_SOLIBSDEV = ""
 FILES:${PN} += "${nonarch_base_libdir}/firmware/*"
 INSANE_SKIP:${PN} = "arch"
 
-COMPATIBLE_MACHINE = "(mx95-nxp-bsp)"
+COMPATIBLE_MACHINE = "(mx943-nxp-bsp|mx95-nxp-bsp)"
