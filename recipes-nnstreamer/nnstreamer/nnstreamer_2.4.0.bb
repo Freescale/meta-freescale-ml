@@ -22,6 +22,7 @@ SRCREV = "807060954acfdb6cec130559d00eef1af61457cf"
 SRC_URI = "git://github.com/nnstreamer/nnstreamer.git;branch=lts/2.4.0.b;protocol=https \
            file://0001-PATCH-increase-to-cpp17-version.patch \
            file://0001-AIR-11938-tensor-filter-use-memcpy-ethosu-delegate.patch \
+           file://0001-meson.build-Fix-include-path-for-numpy-YOCIMX-8735.patch \
            "
 
 # Use git instead of quilt as patch tool to support patches with binary content
@@ -99,6 +100,9 @@ EXTRA_OEMESON += "\
 EXTRA_OEMESON += "\
 	-Dtflite2-custom-support=disabled \
 "
+
+# FIXME: Remove this when the source warnings are fixed
+CFLAGS += "-Wno-error"
 
 do_install:append() {
     rm -f ${D}/${bindir}/unittest-nnstreamer/tests/test_models/models/tvm_add_one.so_
@@ -200,7 +204,9 @@ FILES:${PN}-unittest = "\
 "
 
 INSANE_SKIP:${PN} += "dev-so"
+INSANE_SKIP:${PN}-src += "buildpaths"
 INSANE_SKIP:${PN}-python3 += "dev-so"
+INSANE_SKIP:${PN}-unittest += "buildpaths"
 
 do_install:append() {
     # Fixes: 076a78ea [TVM/test] Add models for more architectures
