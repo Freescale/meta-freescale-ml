@@ -1,21 +1,20 @@
-# Copyright 2020-2021 NXP
+# Copyright 2020-2025 NXP
 DESCRIPTION = "TensorFlow Lite VX Delegate"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=7d6260e4f3f6f85de05af9c8f87e6fb5"
 
-DEPENDS = "tensorflow-lite tim-vx"
+DEPENDS = "tensorflow-lite tim-vx tensorflow-lite-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
 
 TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-vx-delegate-imx.git;protocol=https" 
-SRCBRANCH_vx = "lf-6.6.52_2.2.0"
-SRCREV_vx = "4277fd719fc1849c3d448d77ac01af1a84dd3bf3" 
+SRCBRANCH_vx = "lf-6.12.20_2.0.0"
+SRCREV_vx = "b8c95c9a1b22461307b280f90618d879b547491e"
 
 SRCREV_FORMAT = "vx_tf"
 
 SRC_URI = "${TENSORFLOW_LITE_VX_DELEGATE_SRC};branch=${SRCBRANCH_vx};name=vx \
            ${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf;destsuffix=tfgit \
-           file://0001-Findtim-vx.cmake-Fix-LIBDIR-for-multilib-environment.patch \
 "
 
 S = "${WORKDIR}/git"
@@ -25,8 +24,9 @@ inherit python3native cmake
 EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR}"
 EXTRA_OECMAKE += " \
      -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
+     -DTFLITE_HOST_TOOLS_DIR=${STAGING_BINDIR_NATIVE} \
      -DTIM_VX_INSTALL=${STAGING_DIR_HOST}/usr \
-     -DFETCHCONTENT_SOURCE_DIR_TENSORFLOW=${WORKDIR}/tfgit \
+     -DFETCHCONTENT_SOURCE_DIR_TENSORFLOW=${UNPACKDIR}/tfgit \
      -DTFLITE_LIB_LOC=${STAGING_DIR_HOST}${libdir}/libtensorflow-lite.so \
      ${S} \
 "
