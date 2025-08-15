@@ -77,6 +77,12 @@ do_install() {
         $(find . -name "*.h*") \
         ${D}${includedir}/tensorflow/lite
 
+    install -d ${D}${includedir}/tensorflow/compiler/mlir/lite
+    cd ${S}/tensorflow/compiler/mlir/lite
+    cp --parents \
+        $(find . -name "*.h*") \
+        ${D}${includedir}/tensorflow/compiler/mlir/lite
+
     # install version.h from core
     install -d ${D}${includedir}/tensorflow/core/public
     cp ${S}/tensorflow/core/public/version.h ${D}${includedir}/tensorflow/core/public
@@ -108,7 +114,7 @@ do_install() {
     fi
 
     # Install mobilenet tflite file
-    cp ${WORKDIR}/mobilenet_*.tflite ${D}${bindir}/${PN}-${PV}/examples
+    cp ${UNPACKDIR}/mobilenet_*.tflite ${D}${bindir}/${PN}-${PV}/examples
 
     # Install pip package
     install -d ${D}/${PYTHON_SITEPACKAGES_DIR}
@@ -138,6 +144,7 @@ INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 INSANE_SKIP:${PN} += " \
     already-stripped \
     staticdev \
+    buildpaths \
 "
 
 FILES:${PN} += "${libdir}/python*"

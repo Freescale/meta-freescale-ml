@@ -9,8 +9,8 @@ DEPENDS = "imx-gpu-viv"
 
 SRC_URI = "${TIM_VX_SRC};branch=${SRCBRANCH}"
 TIM_VX_SRC ?= "git://github.com/nxp-imx/tim-vx-imx.git;protocol=https"
-SRCBRANCH = "lf-6.6.52_2.2.0"
-SRCREV = "8c5bf6150903e14275b5c6b6b63a7035ce60dde1" 
+SRCBRANCH = "lf-6.12.20_2.0.0"
+SRCREV = "73eb7f51980ed51a49db3ebcb620af8e637af0a8"
 
 S = "${WORKDIR}/git"
 
@@ -27,6 +27,6 @@ EXTRA_OECMAKE =  " \
 SOLIBS = ".so"
 FILES_SOLIBSDEV = ""
 
-COMPATIBLE_MACHINE          = "(^$)"
-COMPATIBLE_MACHINE:imxgpu3d = "(mx8-nxp-bsp)"
-COMPATIBLE_MACHINE:mx8mm-nxp-bsp    = "(^$)"
+COMPATIBLE_MACHINE               = "(^$)"
+COMPATIBLE_MACHINE:mx8-nxp-bsp   = "(imxviv)"
+COMPATIBLE_MACHINE:mx8mm-nxp-bsp = "(^$)"

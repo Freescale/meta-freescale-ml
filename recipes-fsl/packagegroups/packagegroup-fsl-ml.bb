@@ -1,4 +1,4 @@
-# Copyright 2019-2021 NXP
+# Copyright 2019-2025 NXP
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 DESCRIPTION = "Add packages for AI/ML build"
@@ -31,11 +31,13 @@ ML_GST_PROFILER:mx9-nxp-bsp   = "gst-shark"
 # These packages don't require any acceleration
 ML_PKGS            = ""
 ML_PKGS:mx8-nxp-bsp = " \
+    litert \
     onnxruntime-tests \
     pytorch \
     tensorflow-lite \
 "
 ML_PKGS:mx9-nxp-bsp = " \
+    litert \
     onnxruntime-tests \
     pytorch \
     tensorflow-lite \
@@ -44,9 +46,11 @@ ML_PKGS:mx9-nxp-bsp = " \
 # all SOCs with GPU except for 8M Mini
 ML_ACCELERATED_PKGS                    = ""
 ML_ACCELERATED_PKGS:mx8-nxp-bsp:imxgpu = " \
+    litert-vx-delegate \
     tensorflow-lite-vx-delegate \
 "
 ML_ACCELERATED_PKGS:mx8mp-nxp-bsp      = " \
+    litert-vx-delegate \
     tensorflow-lite-vx-delegate \
     tvm \
 "
@@ -58,13 +62,20 @@ ETHOS_U_PKGS = ""
 ETHOS_U_PKGS:mx93-nxp-bsp = " \
     ethos-u-vela \
     ethos-u-driver-stack \
+    litert-ethosu-delegate \
     tensorflow-lite-ethosu-delegate \
     eiq-examples \
 "
 
 # Neutron package
 NEUTRON_PKGS = ""
+NEUTRON_PKGS:mx943-nxp-bsp = " \
+    litert-neutron-delegate \
+    neutron \
+    tensorflow-lite-neutron-delegate \
+"
 NEUTRON_PKGS:mx95-nxp-bsp = " \
+    litert-neutron-delegate \
     neutron \
     tensorflow-lite-neutron-delegate \
 "

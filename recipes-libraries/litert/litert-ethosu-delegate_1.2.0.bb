@@ -1,20 +1,20 @@
-# Copyright 2020-2023 NXP
-DESCRIPTION = "TensorFlow Lite Ethos-u Delegate"
+# Copyright 2025 NXP
+DESCRIPTION = "LiteRT Ethos-u Delegate"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-DEPENDS = "tensorflow-lite ethos-u-driver-stack"
+DEPENDS = "litert ethos-u-driver-stack tensorflow-lite-host-tools-native"
 
-require tensorflow-lite-${PV}.inc
+require litert-${PV}.inc
 
 TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-ethosu-delegate-imx.git;protocol=https" 
-SRCBRANCH_ethosu = "lf-6.6.52_2.2.0"
-SRCREV_ethosu = "d23886fa1fb5dc9cb2aac00f4bd85d550d33fcdf" 
+SRCBRANCH_ethosu = "lf-6.12.20_2.0.0"
+SRCREV_ethosu = "1d027aca2880a86b5cb500d3928cf9b6df780765" 
 
 SRCREV_FORMAT = "ethosu_tf"
 
 SRC_URI = "${TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC};branch=${SRCBRANCH_ethosu};name=ethosu \
-           ${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf;destsuffix=tfgit \
+           ${LITERT_SRC};branch=${SRCBRANCH_litert};name=litert;destsuffix=litertgit \
 "
 
 S = "${WORKDIR}/git"
@@ -23,13 +23,14 @@ inherit python3native cmake
 
 EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR}"
 EXTRA_OECMAKE += " \
+     -DBUILD_FOR_LITERT=ON \
      -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
-     -DFETCHCONTENT_SOURCE_DIR_TENSORFLOW=${WORKDIR}/tfgit \
-     -DTFLITE_LIB_LOC=${STAGING_DIR_HOST}${libdir}/libtensorflow-lite.so \
+     -DTFLITE_HOST_TOOLS_DIR=${STAGING_BINDIR_NATIVE} \
+     -DFETCHCONTENT_SOURCE_DIR_TENSORFLOW=${UNPACKDIR}/litertgit \
      ${S} \
 "
 
-CXXFLAGS += "-fPIC"
+CXXFLAGS += "-fPIC -ffile-prefix-map=${WORKDIR}="
 
 do_configure[network] = "1"
 do_configure:prepend() {
@@ -53,7 +54,6 @@ do_install() {
 }
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
-
 # Output library is unversioned
 SOLIBS = ".so"
 FILES_SOLIBSDEV = ""
