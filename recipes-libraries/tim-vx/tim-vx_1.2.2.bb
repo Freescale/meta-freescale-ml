@@ -12,8 +12,6 @@ TIM_VX_SRC ?= "git://github.com/nxp-imx/tim-vx-imx.git;protocol=https"
 SRCBRANCH = "lf-6.12.20_2.0.0"
 SRCREV = "73eb7f51980ed51a49db3ebcb620af8e637af0a8"
 
-S = "${WORKDIR}/git"
-
 inherit cmake
 
 EXTRA_OECMAKE =  " \

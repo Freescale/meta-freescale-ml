@@ -18,7 +18,6 @@ SRC_URI = " \
 
 inherit python3native
 
-S = "${WORKDIR}/git"
 
 do_install(){
     install -d ${D}${bindir}

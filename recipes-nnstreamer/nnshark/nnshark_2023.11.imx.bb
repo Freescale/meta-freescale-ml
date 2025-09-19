@@ -18,7 +18,6 @@ SRCBRANCH ?= "2023.11.imx"
 SRC_URI = "${NNSHARK_SRC};branch=${SRCBRANCH}"
 SRCREV = "4ed66906b889e66a6458a1d2692790f64bf1c556"
 
-S = "${WORKDIR}/git"
 
 inherit pkgconfig autotools-brokensep
 

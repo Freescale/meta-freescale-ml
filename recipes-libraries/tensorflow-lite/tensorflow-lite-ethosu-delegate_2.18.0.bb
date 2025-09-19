@@ -17,7 +17,6 @@ SRC_URI = "${TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC};branch=${SRCBRANCH_ethosu};nam
            ${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf;destsuffix=tfgit \
 "
 
-S = "${WORKDIR}/git"
 
 inherit python3native cmake
 

@@ -9,7 +9,6 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327 \
 SRCBRANCH = "main"
 SRC_URI = "git://github.com/myungjoo/SSAT;protocol=https;branch=${SRCBRANCH}"
 
-S = "${WORKDIR}/git"
 
 do_install () {
      install -d ${D}${bindir}
