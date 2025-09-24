@@ -33,7 +33,6 @@ SRCREV_vta-hw = "87ce9acfae550d1a487746e9d06c2e250076e54c"
 
 SRCREV_FORMAT = "default_dlpack_dmlc-core_rang_vta-hw"
 
-S = "${WORKDIR}/git"
 SETUPTOOLS_SETUP_PATH = "${S}/python"
 
 inherit setuptools3 cmake python3native

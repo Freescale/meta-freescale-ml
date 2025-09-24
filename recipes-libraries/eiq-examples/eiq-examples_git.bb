@@ -8,7 +8,6 @@ EIQ_EXAMPLES_SRC ?= "git://github.com/nxp-imx/eiq-example.git;protocol=https"
 SRCBRANCH = "lf-6.12.20_2.0.0"
 SRCREV = "2abf8ced16ab43b5136c920a0326906b85f0733f"
 
-S = "${WORKDIR}/git"
 
 do_install () {
     # install scripts to /usr/bin

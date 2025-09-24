@@ -12,7 +12,6 @@ SRCBRANCH = "lts/0.2.4.b"
 SRCREV = "2bf50d57f0f8d856ae38cf82b0a0f3746f46a08a"
 SRC_URI = "${NNS_EDGE_SRC};branch=${SRCBRANCH}"
 
-S = "${WORKDIR}/git"
 
 inherit cmake pkgconfig
 

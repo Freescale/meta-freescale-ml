@@ -28,7 +28,6 @@ SRC_URI = "git://github.com/nnstreamer/nnstreamer.git;branch=lts/2.4.0.b;protoco
 # Use git instead of quilt as patch tool to support patches with binary content
 PATCHTOOL = "git"
 
-S = "${WORKDIR}/git"
 
 inherit meson pkgconfig
 
