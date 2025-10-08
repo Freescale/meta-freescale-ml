@@ -1,22 +1,21 @@
-# Copyright 2023-2025 NXP
-DESCRIPTION = "TensorFlow Lite Neutron Delegate"
+# Copyright 2020-2025 NXP
+DESCRIPTION = "TensorFlow Lite Ethos-u Delegate"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=86d3f3a95c324c9479bd8986968f4327"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-DEPENDS = "tensorflow-lite neutron tensorflow-lite-host-tools-native"
+DEPENDS = "tensorflow-lite ethos-u-driver-stack tensorflow-lite-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
 
-NEUTRON_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-neutron-delegate.git;protocol=https"
-SRCBRANCH_neutron = "lf-6.12.20_2.0.0"
-SRCREV_neutron = "a5d640e64a2e7fb73a66ba2091cbe46b2dc4b45e"
+TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-ethosu-delegate-imx.git;protocol=https" 
+SRCBRANCH_ethosu = "lf-6.12.34_2.1.0"
+SRCREV_ethosu = "b6e7baa28be57196e14535e8a8c94a40c8f959eb"
 
-SRCREV_FORMAT = "neutron_tf"
+SRCREV_FORMAT = "ethosu_tf"
 
-SRC_URI = "${NEUTRON_DELEGATE_SRC};branch=${SRCBRANCH_neutron};name=neutron \
+SRC_URI = "${TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC};branch=${SRCBRANCH_ethosu};name=ethosu \
            ${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf;destsuffix=tfgit \
 "
-
 
 inherit python3native cmake
 
@@ -58,7 +57,4 @@ INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 SOLIBS = ".so"
 FILES_SOLIBSDEV = ""
 
-# Work around do_package_qa error
-INSANE_SKIP:${PN} += "buildpaths rpaths"
-
-COMPATIBLE_MACHINE = "(mx943-nxp-bsp|mx95-nxp-bsp)"
+COMPATIBLE_MACHINE = "(mx93-nxp-bsp)"
