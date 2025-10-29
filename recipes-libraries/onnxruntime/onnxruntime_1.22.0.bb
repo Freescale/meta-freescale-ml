@@ -10,7 +10,8 @@ DEPENDS = "libpng zlib"
 
 inherit setuptools3
 
-SRC_URI = "${ONNXRUNTIME_SRC};branch=${SRCBRANCH}"
+SRC_URI = "${ONNXRUNTIME_SRC};branch=${SRCBRANCH} \
+           file://0001-optimizer_api.h-Fix-gcc15-build-issues.patch"
 ONNXRUNTIME_SRC ?= "gitsm://github.com/nxp-imx/onnxruntime-imx.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "868cb88cd799d12d201829d51f93c72365567957"
@@ -30,6 +31,7 @@ EXTRA_OECMAKE += "\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -Donnxruntime_BUILD_UNIT_TESTS=ON \
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 "
 
 PYTHON_DEPENDS = "\
@@ -100,7 +102,7 @@ PACKAGECONFIG[mimalloc] = "-Donnxruntime_USE_MIMALLOC=ON, -Donnxruntime_USE_MIMA
 PACKAGECONFIG[csharp] = "-Donnxruntime_BUILD_CSHARP=ON, -Donnxruntime_BUILD_CSHARP=OFF"
 PACKAGECONFIG[java] = "-Donnxruntime_BUILD_JAVA=ON, -Donnxruntime_BUILD_JAVA=OFF"
 PACKAGECONFIG[kleidiai] = "-Donnxruntime_USE_KLEIDIAI=ON, -Donnxruntime_USE_KLEIDIAI=OFF"
-PACKAGECONFIG[neutron] = "-Donnxruntime_USE_NEUTRON=ON, -Donnxruntime_USE_NEUTRON=OFF, neutron"
+PACKAGECONFIG[neutron] = "-Donnxruntime_USE_NEUTRON=ON, -Donnxruntime_USE_NEUTRON=OFF, neutron nlohmann-json"
 PACKAGECONFIG[vsinpu] = "-Donnxruntime_USE_VSINPU=ON, -Donnxruntime_USE_VSINPU=OFF, tim-vx"
 
 do_configure[network] = "1"
@@ -146,7 +148,7 @@ do_install:append() {
     # Ensure target dir exists
     install -d ${D}${bindir}/${BP}
 
-    # Copy squeezenet updated model from imx-onnxruntime repo
+    # Copy squeezenet updated model from onnxruntime-imx repo
     if [ -d ${S}/example-models/ ]; then
         cp $CP_ARGS ${S}/example-models/squeezenet ${D}${bindir}/${BP}/
     fi
