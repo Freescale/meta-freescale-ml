@@ -8,15 +8,19 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
 DEPENDS = "flatbuffers python3-pybind11 python3-pybind11-native"
 
-SRC_URI = "${ETHOS_U_SRC};branch=${SRCBRANCH}"
+SRC_URI = "${ETHOS_U_SRC};branch=${SRCBRANCH} \
+           file://0001-ethosu.hpp-Fix-gcc15-build-issues.patch"
 ETHOS_U_SRC ?= "git://github.com/nxp-imx/ethos-u-driver-stack-imx.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "caf5daf63fc2a69733eb92387ba69bef033926b3"
 
-
 inherit cmake setuptools3
 
 SETUPTOOLS_BUILD_ARGS = "build_ext --library-dirs ${B}/driver_library"
+
+EXTRA_OECMAKE += "\
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+"
 
 do_configure() {
     cmake_do_configure
