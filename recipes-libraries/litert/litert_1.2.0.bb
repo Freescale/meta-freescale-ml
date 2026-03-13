@@ -79,7 +79,7 @@ RDEPENDS:${PN}   = " \
     python3-numpy \
     ${RDEPENDS_OPENCL} \
 "
-RDEPENDS_OPENCL               = "opencl-icd-loader-dev"
+RDEPENDS_OPENCL               = "virtual-opencl-icd"
 RDEPENDS_OPENCL:mx8mm-nxp-bsp = ""
 
 INSANE_SKIP:${PN} += "dev-deps"
