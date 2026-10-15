@@ -8,14 +8,14 @@ LIC_FILES_CHKSUM = "\
 "
 
 DEPENDS = "\
-	bison-native \
-	flex-native \
-	orc-native \
-	glib-2.0 \
-	gstreamer1.0 \
-	gstreamer1.0-plugins-base \
-	gtest \
-	libpng \
+    bison-native \
+    flex-native \
+    orc-native \
+    glib-2.0 \
+    gstreamer1.0 \
+    gstreamer1.0-plugins-base \
+    gtest \
+    libpng \
 "
 
 SRCREV = "9cf11e0768892636622480fe1b5fc042b5a224ad"
@@ -89,9 +89,9 @@ PACKAGECONFIG[tvm] = "\
 "
 
 EXTRA_OEMESON += "\
-	-Denable-float16=true \
-	-Denable-test=true \
-	-Dinstall-test=true \
+    -Denable-float16=true \
+    -Denable-test=true \
+    -Dinstall-test=true \
 "
 
 # FIXME: Remove this when the source warnings are fixed
@@ -102,32 +102,35 @@ do_install:append() {
 }
 
 PACKAGES =+ "\
-	${PN}-unittest \
-	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
+    ${PN}-unittest \
+    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
 "
 
 RDEPENDS:${PN} = "\
-	gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-base \
 "
 
-RDEPENDS:${PN}-unittest = "gstreamer1.0-plugins-good nnstreamer ssat \
-	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
-	${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
+RDEPENDS:${PN}-unittest = "\
+    gstreamer1.0-plugins-good \
+    nnstreamer \
+    ssat \
+    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
 "
 
 # The libraries are unversioned
@@ -135,60 +138,60 @@ SOLIBS = ".so"
 FILES_SOLIBSDEV = ""
 
 FILES:${PN} += "\
-	${libdir}/gstreamer-1.0/lib*${SOLIBS} \
+    ${libdir}/gstreamer-1.0/lib*${SOLIBS} \
 "
 
 FILES:${PN}-flatbuf = "\
-	${libdir}/nnstreamer/converters/libnnstreamer_converter_flatbuf.so \
-	${libdir}/nnstreamer/converters/libnnstreamer_converter_flexbuf.so \
-	${libdir}/nnstreamer/decoders/libnnstreamer_decoder_flatbuf.so \
-	${libdir}/nnstreamer/decoders/libnnstreamer_decoder_flexbuf.so \
+    ${libdir}/nnstreamer/converters/libnnstreamer_converter_flatbuf.so \
+    ${libdir}/nnstreamer/converters/libnnstreamer_converter_flexbuf.so \
+    ${libdir}/nnstreamer/decoders/libnnstreamer_decoder_flatbuf.so \
+    ${libdir}/nnstreamer/decoders/libnnstreamer_decoder_flexbuf.so \
 "
 
 FILES:${PN}-grpc = "\
-	${libdir}/gstreamer-1.0/libnnstreamer-grpc.so \
+    ${libdir}/gstreamer-1.0/libnnstreamer-grpc.so \
 "
 
 FILES:${PN}-grpc-flatbuf = "\
-	${libdir}/libnnstreamer_grpc_flatbuf.so \
+    ${libdir}/libnnstreamer_grpc_flatbuf.so \
 "
 
 FILES:${PN}-grpc-protobuf = "\
-	${libdir}/libnnstreamer_grpc_protobuf.so \
+    ${libdir}/libnnstreamer_grpc_protobuf.so \
 "
 
 FILES:${PN}-protobuf = "\
-	${libdir}/nnstreamer/converters/libnnstreamer_converter_protobuf.so \
-	${libdir}/nnstreamer/decoders/libnnstreamer_decoder_protobuf.so \
-	${libdir}/libnnstreamer_protobuf.so \
+    ${libdir}/nnstreamer/converters/libnnstreamer_converter_protobuf.so \
+    ${libdir}/nnstreamer/decoders/libnnstreamer_decoder_protobuf.so \
+    ${libdir}/libnnstreamer_protobuf.so \
 "
 
 FILES:${PN}-python3 = "\
-	${libdir}/nnstreamer/converters/libnnstreamer_converter_python3.so \
-	${libdir}/nnstreamer/decoders/libnnstreamer_decoder_python3.so \
-	${libdir}/nnstreamer/filters/libnnstreamer_filter_python3.so \
-	${libdir}/nnstreamer_python3.so \
-	${PYTHON_SITEPACKAGES_DIR}/nnstreamer_python.so \
+    ${libdir}/nnstreamer/converters/libnnstreamer_converter_python3.so \
+    ${libdir}/nnstreamer/decoders/libnnstreamer_decoder_python3.so \
+    ${libdir}/nnstreamer/filters/libnnstreamer_filter_python3.so \
+    ${libdir}/nnstreamer_python3.so \
+    ${PYTHON_SITEPACKAGES_DIR}/nnstreamer_python.so \
 "
 
 FILES:${PN}-query = "\
-	${libdir}/gstreamer-1.0/libgstedge.so \
+    ${libdir}/gstreamer-1.0/libgstedge.so \
 "
 
 FILES:${PN}-tensorflow-lite = "\
-	${libdir}/nnstreamer/filters/libnnstreamer_filter_tensorflow2-lite.so \
+    ${libdir}/nnstreamer/filters/libnnstreamer_filter_tensorflow2-lite.so \
 "
 
 FILES:${PN}-tvm = "\
-	${libdir}/nnstreamer/filters/libnnstreamer_filter_tvm.so \
+    ${libdir}/nnstreamer/filters/libnnstreamer_filter_tvm.so \
 "
 
 FILES:${PN}-unittest = "\
-	${bindir}/unittest-nnstreamer/* \
-	${libdir}/libnnstreamer_unittest_util.so \
-	${libdir}/libcppfilter_test.so \
-	${libdir}/nnstreamer/customfilters/* \
-	${libdir}/nnstreamer/unittest/* \
+    ${bindir}/unittest-nnstreamer/* \
+    ${libdir}/libnnstreamer_unittest_util.so \
+    ${libdir}/libcppfilter_test.so \
+    ${libdir}/nnstreamer/customfilters/* \
+    ${libdir}/nnstreamer/unittest/* \
 "
 
 # Libraries are unversioned, and the main package requires the symlink
