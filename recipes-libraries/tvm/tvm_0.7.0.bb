@@ -38,6 +38,9 @@ SETUPTOOLS_SETUP_PATH = "${S}/python"
 inherit setuptools3 cmake python3native
 
 EXTRA_OECMAKE += "-DUSE_VSI_NPU=ON -DUSE_VSI_NPU_RUNTIME=ON"
+# TVM and its bundled dlpack/dmlc-core declare a CMake minimum below 3.5,
+# which CMake 4 no longer accepts
+EXTRA_OECMAKE += "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
 
 do_compile:append() {
     export TVM_LIBRARY_PATH=${WORKDIR}/build/
