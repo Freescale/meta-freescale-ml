@@ -6,6 +6,8 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=86d3f3a95c324c9479bd8986968f4327"
 DEPENDS = "litert neutron tensorflow-lite-host-tools-native"
 
 require litert-${PV}.inc
+require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
+require recipes-libraries/tflite-delegate/tflite-delegate-abseil.inc
 
 NEUTRON_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-neutron-delegate.git;protocol=https"
 SRCBRANCH_neutron = "lf-6.12.34_2.1.0"

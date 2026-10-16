@@ -1,0 +1,71 @@
+From dead8217982a238b5dc7a5b973838bc18ef4724e Mon Sep 17 00:00:00 2001
+From: MyungJoo Ham <myungjoo.ham@samsung.com>
+Date: Fri, 4 Sep 2026 15:11:41 -0300
+Subject: [PATCH] [Build] Compile on Ubuntu 26.04 (gcc 15, C23, gtest 1.17)
+
+gcc 15 compiles C as C23 by default. There glibc's strchr() and strstr()
+keep the constness of their argument, so storing the result in a
+"char *" is -Werror=discarded-qualifiers:
+
+  nnstreamer-edge-util.c:131: initialization discards 'const' qualifier
+  nnstreamer-edge-internal.c:2038: assignment discards 'const' qualifier
+
+Both pointers are only read, so "const char *" is the correct type and
+builds identically on older compilers.
+
+The unit tests need C++17 on that release: googletest 1.17, which Ubuntu
+26.04 ships, refuses anything older. Only the tests are C++, and
+nnstreamer itself is already C++17, so raise CMAKE_CXX_STANDARD.
+
+Upstream-Status: Backport [https://github.com/nnstreamer/nnstreamer-edge/commit/e836ff1b4a45b692bd88ab22a6111f8807ef8b41]
+
+Signed-off-by: MyungJoo Ham <myungjoo.ham@samsung.com>
+Signed-off-by: Luciano Dittgen <luciano.dittgen@ossystems.com.br>
+---
+ CMakeLists.txt                                    | 5 +++--
+ src/libnnstreamer-edge/nnstreamer-edge-internal.c | 2 +-
+ src/libnnstreamer-edge/nnstreamer-edge-util.c     | 2 +-
+ 3 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7497a88..9e8cdd7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,8 +14,9 @@ IF (NOT DEFINED VERSION)
+     SET(VERSION    0.2.6)
+ ENDIF()
+ 
+-# GoogleTest requires at least C++11 and match the nnstreamer cpp version.
+-SET(CMAKE_CXX_STANDARD 14)
++# Only the unit tests are C++. GoogleTest 1.17 (Ubuntu 26.04) needs C++17,
++# and nnstreamer itself builds as C++17.
++SET(CMAKE_CXX_STANDARD 17)
+ 
+ # Set CFLAGS
+ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror")
+diff --git a/src/libnnstreamer-edge/nnstreamer-edge-internal.c b/src/libnnstreamer-edge/nnstreamer-edge-internal.c
+index 862905b..c186615 100644
+--- a/src/libnnstreamer-edge/nnstreamer-edge-internal.c
++++ b/src/libnnstreamer-edge/nnstreamer-edge-internal.c
+@@ -2009,7 +2009,7 @@ nns_edge_set_info (nns_edge_h edge_h, const char *key, const char *value)
+     nns_edge_loge ("Cannot update %s.", key);
+     ret = NNS_EDGE_ERROR_INVALID_PARAMETER;
+   } else if (0 == strcasecmp (key, "QUEUE_SIZE")) {
+-    char *s;
++    const char *s;
+     unsigned int limit;
+     nns_edge_queue_leak_e leaky = NNS_EDGE_QUEUE_LEAK_NEW;
+ 
+diff --git a/src/libnnstreamer-edge/nnstreamer-edge-util.c b/src/libnnstreamer-edge/nnstreamer-edge-util.c
+index 206619b..78e7c64 100644
+--- a/src/libnnstreamer-edge/nnstreamer-edge-util.c
++++ b/src/libnnstreamer-edge/nnstreamer-edge-util.c
+@@ -128,7 +128,7 @@ nns_edge_get_host_string (const char *host, const int port)
+ void
+ nns_edge_parse_host_string (const char *host_str, char **host, int *port)
+ {
+-  char *p = strchr (host_str, ':');
++  const char *p = strchr (host_str, ':');
+ 
+   if (p) {
+     *host = nns_edge_strndup (host_str, (p - host_str));

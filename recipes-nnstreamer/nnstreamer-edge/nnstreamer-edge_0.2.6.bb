@@ -11,7 +11,8 @@ NNS_EDGE_SRC ?= "git://github.com/nnstreamer/nnstreamer-edge.git;protocol=https"
 SRCBRANCH = "prod/tizen-9.0"
 SRCREV = "e73acb740dce3ecbf8a650f45fab790afb400a95"
 SRC_URI = "${NNS_EDGE_SRC};branch=${SRCBRANCH} \
-           file://0001-CMakeLists.txt-Update-cmake_minimum_required-to-3.5.patch"
+           file://0001-CMakeLists.txt-Update-cmake_minimum_required-to-3.5.patch \
+           file://0002-Build-Compile-on-Ubuntu-26.04-gcc-15-C23-gtest-1.17.patch"
 
 inherit cmake pkgconfig
 

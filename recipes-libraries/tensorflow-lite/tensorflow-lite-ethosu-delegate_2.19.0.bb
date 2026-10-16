@@ -6,6 +6,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 DEPENDS = "tensorflow-lite ethos-u-driver-stack tensorflow-lite-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
+require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
+require recipes-libraries/tflite-delegate/tflite-delegate-abseil.inc
 
 TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-ethosu-delegate-imx.git;protocol=https" 
 SRCBRANCH_ethosu = "lf-6.12.34_2.1.0"
