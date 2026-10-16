@@ -32,6 +32,8 @@ EXTRA_OECMAKE += " \
 "
 
 CXXFLAGS += "-fPIC -ffile-prefix-map=${WORKDIR}="
+# Without CMAKE_BUILD_TYPE, abseil's asserts need <cstdint> (gcc 16)
+CXXFLAGS += "-include cstdint"
 
 do_configure[network] = "1"
 do_configure:prepend() {
