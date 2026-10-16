@@ -19,17 +19,17 @@ ML_NNSTREAMER_PKGS_LIST = " \
 
 ML_NNSTREAMER_PKGS = ""
 ML_NNSTREAMER_PKGS:mx8-nxp-bsp:imxgpu = "${ML_NNSTREAMER_PKGS_LIST}"
-ML_NNSTREAMER_PKGS:mx8mp-nxp-bsp      = "${ML_NNSTREAMER_PKGS_LIST} nnstreamer-tvm nnstreamer-unittest"
-ML_NNSTREAMER_PKGS:mx9-nxp-bsp        = "${ML_NNSTREAMER_PKGS_LIST}"
+ML_NNSTREAMER_PKGS:mx8mp-nxp-bsp = "${ML_NNSTREAMER_PKGS_LIST} nnstreamer-tvm nnstreamer-unittest"
+ML_NNSTREAMER_PKGS:mx9-nxp-bsp = "${ML_NNSTREAMER_PKGS_LIST}"
 
 # i.MX8MP uses nnshark - other i.MX8/9 use raw gstshark
 ML_GST_PROFILER = ""
-ML_GST_PROFILER:mx8-nxp-bsp   = "gst-shark"
+ML_GST_PROFILER:mx8-nxp-bsp = "gst-shark"
 ML_GST_PROFILER:mx8mp-nxp-bsp = "nnshark"
-ML_GST_PROFILER:mx9-nxp-bsp   = "gst-shark"
+ML_GST_PROFILER:mx9-nxp-bsp = "gst-shark"
 
 # These packages don't require any acceleration
-ML_PKGS            = ""
+ML_PKGS = ""
 ML_PKGS:mx8-nxp-bsp = " \
     litert \
     onnxruntime-tests \
@@ -44,17 +44,17 @@ ML_PKGS:mx9-nxp-bsp = " \
 "
 # These packages require acceleration, which currently maps to
 # all SOCs with GPU except for 8M Mini
-ML_ACCELERATED_PKGS                    = ""
+ML_ACCELERATED_PKGS = ""
 ML_ACCELERATED_PKGS:mx8-nxp-bsp:imxgpu = " \
     litert-vx-delegate \
     tensorflow-lite-vx-delegate \
 "
-ML_ACCELERATED_PKGS:mx8mp-nxp-bsp      = " \
+ML_ACCELERATED_PKGS:mx8mp-nxp-bsp = " \
     litert-vx-delegate \
     tensorflow-lite-vx-delegate \
     tvm \
 "
-ML_ACCELERATED_PKGS:mx8mm-nxp-bsp      = ""
+ML_ACCELERATED_PKGS:mx8mm-nxp-bsp = ""
 
 
 # ARM ethos-u package
