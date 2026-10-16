@@ -32,6 +32,7 @@ EXTRA_OECMAKE += "\
     -Donnxruntime_BUILD_UNIT_TESTS=ON \
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    --compile-no-warning-as-error \
 "
 
 PYTHON_DEPENDS = "\
