@@ -7,6 +7,7 @@ DEPENDS = "tensorflow-lite neutron tensorflow-lite-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
+require recipes-libraries/tflite-delegate/tflite-delegate-abseil.inc
 
 NEUTRON_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-neutron-delegate.git;protocol=https"
 SRCBRANCH_neutron = "lf-6.12.34_2.1.0"

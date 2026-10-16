@@ -7,6 +7,7 @@ DEPENDS = "litert neutron tensorflow-lite-host-tools-native"
 
 require litert-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
+require recipes-libraries/tflite-delegate/tflite-delegate-abseil.inc
 
 NEUTRON_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-neutron-delegate.git;protocol=https"
 SRCBRANCH_neutron = "lf-6.12.34_2.1.0"
@@ -32,8 +33,6 @@ EXTRA_OECMAKE += " \
 "
 
 CXXFLAGS += "-fPIC -ffile-prefix-map=${WORKDIR}="
-# Without CMAKE_BUILD_TYPE, abseil's asserts need <cstdint> (gcc 16)
-CXXFLAGS += "-include cstdint"
 
 do_configure[network] = "1"
 do_configure:prepend() {
