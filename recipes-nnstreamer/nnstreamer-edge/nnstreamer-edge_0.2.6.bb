@@ -16,11 +16,11 @@ SRC_URI = "${NNS_EDGE_SRC};branch=${SRCBRANCH} \
 
 inherit cmake pkgconfig
 
-EXTRA_OECMAKE =  " \
+EXTRA_OECMAKE = " \
     -DENABLE_TEST=ON \
 "
 
 # The build produces a mix of versioned and unversioned libs, so custom packaging is required
 FILES_SOLIBSDEV:remove = "${libdir}/lib*${SOLIBSDEV}"
-FILES:${PN}     += "${libdir}/libnnstreamer-edge-custom-test${SOLIBSDEV}"
+FILES:${PN} += "${libdir}/libnnstreamer-edge-custom-test${SOLIBSDEV}"
 FILES:${PN}-dev += "${libdir}/libnnstreamer-edge${SOLIBSDEV}"
