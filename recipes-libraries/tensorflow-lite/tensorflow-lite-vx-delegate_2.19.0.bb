@@ -67,6 +67,6 @@ INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 SOLIBS = ".so"
 FILES_SOLIBSDEV = ""
 
-COMPATIBLE_MACHINE          = "(^$)"
+COMPATIBLE_MACHINE = "(^$)"
 COMPATIBLE_MACHINE:imxgpu3d = "(mx8-nxp-bsp)"
-COMPATIBLE_MACHINE:mx8mm-nxp-bsp    = "(^$)"
+COMPATIBLE_MACHINE:mx8mm-nxp-bsp = "(^$)"
