@@ -11,7 +11,7 @@ SRCREV = "2887d2dcf47eda7e3f20afe3c2c1f4d1a2970386"
 
 NEUTRON_TARGET = ""
 NEUTRON_TARGET:mx943-nxp-bsp = "imx943"
-NEUTRON_TARGET:mx95-nxp-bsp  = "imx95"
+NEUTRON_TARGET:mx95-nxp-bsp = "imx95"
 
 do_install () {
     # install firmware
