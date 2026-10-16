@@ -19,5 +19,5 @@ do_install () {
 }
 
 FILES:${PN} += "${bindir}/ssat \
-	    ${bindir}/ssat.sh \
-	    ${bindir}/ssat-api.sh"
+                ${bindir}/ssat.sh \
+                ${bindir}/ssat-api.sh"
