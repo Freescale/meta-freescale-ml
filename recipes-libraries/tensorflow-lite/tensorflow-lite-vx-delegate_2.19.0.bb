@@ -6,6 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=7d6260e4f3f6f85de05af9c8f87e6fb5"
 DEPENDS = "tensorflow-lite tim-vx tensorflow-lite-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
+require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
 
 TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-vx-delegate-imx.git;protocol=https" 
 SRCBRANCH_vx = "lf-6.12.34_2.1.0"

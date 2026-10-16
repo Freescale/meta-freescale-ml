@@ -8,14 +8,12 @@ DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-
     python3 jpeg zlib tensorflow-lite-host-tools-native"
 
 require litert-${PV}.inc
+require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
 SRC_URI = "${LITERT_SRC};branch=${SRCBRANCH_litert};name=litert"
 
 SRC_URI += "https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tgz;name=model-mobv1"
 SRC_URI[model-mobv1.sha256sum] = "d32432d28673a936b2d6281ab0600c71cf7226dfe4cdcef3012555f691744166"
 
-# XNNPACK's KleidiAI archive no longer matches its pinned hash; fetch it with git
-SRC_URI += "git://git.gitlab.arm.com/kleidi/kleidiai.git;protocol=https;branch=main;name=kleidiai;destsuffix=kleidiai"
-SRCREV_kleidiai = "847ebd19d0192528659b0a0fa2c6057eed674c6a"
 SRCREV_FORMAT = "litert_kleidiai"
 
 
@@ -36,15 +34,12 @@ EXTRA_OECMAKE = " \
     -DTFLITE_ENABLE_NNAPI_VERBOSE_VALIDATION=on \
     -DTFLITE_ENABLE_RUY=on \
     -DTFLITE_ENABLE_XNNPACK=on \
-    -DKLEIDIAI_SOURCE_DIR=${UNPACKDIR}/kleidiai \
     -DTFLITE_ENABLE_EXTERNAL_DELEGATE=on \
     -DTFLITE_PYTHON_WRAPPER_BUILD=on \
     ${S}/tflite/ \
 "
 
 CXXFLAGS += "-fPIC -ffile-prefix-map=${WORKDIR}="
-# KleidiAI is C and unpacks outside S, so DEBUG_PREFIX_MAP does not cover it
-CFLAGS += "-ffile-prefix-map=${WORKDIR}="
 
 do_configure[network] = "1"
 do_configure:prepend() {

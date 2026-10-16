@@ -8,14 +8,12 @@ DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-
     python3 jpeg zlib ${BPN}-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
+require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
 SRC_URI = "${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf"
 
 SRC_URI += "https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224_quant.tgz;name=model-mobv1"
 SRC_URI[model-mobv1.sha256sum] = "d32432d28673a936b2d6281ab0600c71cf7226dfe4cdcef3012555f691744166"
 
-# XNNPACK's KleidiAI archive no longer matches its pinned hash; fetch it with git
-SRC_URI += "git://git.gitlab.arm.com/kleidi/kleidiai.git;protocol=https;branch=main;name=kleidiai;destsuffix=kleidiai"
-SRCREV_kleidiai = "847ebd19d0192528659b0a0fa2c6057eed674c6a"
 SRCREV_FORMAT = "tf_kleidiai"
 
 inherit python3native cmake
@@ -37,7 +35,6 @@ EXTRA_OECMAKE = " \
     -DTFLITE_ENABLE_NNAPI_VERBOSE_VALIDATION=on \
     -DTFLITE_ENABLE_RUY=on \
     -DTFLITE_ENABLE_XNNPACK=on \
-    -DKLEIDIAI_SOURCE_DIR=${UNPACKDIR}/kleidiai \
     -DTFLITE_PYTHON_WRAPPER_BUILD_CMAKE2=on \
     -DTFLITE_ENABLE_EXTERNAL_DELEGATE=on \
     ${S}/tensorflow/lite/ \
