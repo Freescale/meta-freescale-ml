@@ -21,8 +21,8 @@ SRCREV = "cedca5ab20a0230042b7c14be1a00532f0387f1e"
 inherit pkgconfig autotools-brokensep
 
 EXTRA_OECONF = " \
-        --disable-graphviz \
-        --disable-gtk-doc \
+    --disable-graphviz \
+    --disable-gtk-doc \
 "
 
 
@@ -31,8 +31,8 @@ do_configure:prepend() {
 }
 
 FILES:${PN} += "\
-       ${libdir}/gstreamer-1.0/libgstsharktracers.so  \
-       ${libdir}/gstreamer-1.0/libgstsharktracers.la \
+    ${libdir}/gstreamer-1.0/libgstsharktracers.so  \
+    ${libdir}/gstreamer-1.0/libgstsharktracers.la \
 "
 
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"

@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 
 
 DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
-    python3 jpeg zlib ${BPN}-host-tools-native"
+           python3 jpeg zlib ${BPN}-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
