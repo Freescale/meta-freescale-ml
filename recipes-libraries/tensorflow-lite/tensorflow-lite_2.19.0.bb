@@ -19,7 +19,7 @@ SRCREV_FORMAT = "tf_kleidiai"
 inherit python3native cmake
 
 PACKAGECONFIG ??= "python-example ${PACKAGECONFIG_GPU_DELEGATE}"
-PACKAGECONFIG_GPU_DELEGATE              = ""
+PACKAGECONFIG_GPU_DELEGATE = ""
 PACKAGECONFIG_GPU_DELEGATE:mx95-nxp-bsp = "gpu-delegate"
 
 PACKAGECONFIG[gpu-delegate] = "-DTFLITE_ENABLE_GPU=on,-DTFLITE_ENABLE_GPU=off"
@@ -129,12 +129,12 @@ do_install() {
 
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
-RDEPENDS:${PN}   = " \
+RDEPENDS:${PN} = " \
     python3 \
     python3-numpy \
     ${RDEPENDS_OPENCL} \
 "
-RDEPENDS_OPENCL               = "virtual-opencl-icd"
+RDEPENDS_OPENCL = "virtual-opencl-icd"
 RDEPENDS_OPENCL:mx8mm-nxp-bsp = ""
 
 INSANE_SKIP:${PN} += "dev-deps"

@@ -13,7 +13,7 @@ SRCREV = "81d8d14cef8a8fe6987b2ae27eddd6c87bbaff81"
 
 inherit cmake
 
-EXTRA_OECMAKE =  " \
+EXTRA_OECMAKE = " \
     -DCONFIG=YOCTO \
     -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
     -DTIM_VX_ENABLE_TEST=off \
@@ -24,6 +24,6 @@ EXTRA_OECMAKE =  " \
 SOLIBS = ".so"
 FILES_SOLIBSDEV = ""
 
-COMPATIBLE_MACHINE               = "(^$)"
-COMPATIBLE_MACHINE:mx8-nxp-bsp   = "(imxviv)"
+COMPATIBLE_MACHINE = "(^$)"
+COMPATIBLE_MACHINE:mx8-nxp-bsp = "(imxviv)"
 COMPATIBLE_MACHINE:mx8mm-nxp-bsp = "(^$)"
