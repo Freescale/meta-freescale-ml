@@ -184,7 +184,7 @@ PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
 # Adjust the Python runtime dependency inherited from setuptools3-base.bbclass
 # since Python support for this recipe is conditional
-RDEPENDS:${PN}:remove:class-target = " \
+RDEPENDS:${PN}:remove:class-target = "\
     ${@bb.utils.contains('PACKAGECONFIG', 'python', '', '${PYTHON_PN}-core', d)}"
 
 # libonnxruntime_providers_shared.so is being packaged into -dev which is intended
