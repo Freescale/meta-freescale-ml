@@ -16,7 +16,7 @@ SRC_URI = "${NNS_EDGE_SRC};branch=${SRCBRANCH} \
 
 inherit cmake pkgconfig
 
-EXTRA_OECMAKE = " \
+EXTRA_OECMAKE = "\
     -DENABLE_TEST=ON \
 "
 
