@@ -9,7 +9,7 @@ PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
 inherit packagegroup
 
-ML_NNSTREAMER_PKGS_LIST = " \
+ML_NNSTREAMER_PKGS_LIST = "\
     nnstreamer \
     nnstreamer-protobuf \
     nnstreamer-python3 \
@@ -30,13 +30,13 @@ ML_GST_PROFILER:mx9-nxp-bsp = "gst-shark"
 
 # These packages don't require any acceleration
 ML_PKGS = ""
-ML_PKGS:mx8-nxp-bsp = " \
+ML_PKGS:mx8-nxp-bsp = "\
     litert \
     onnxruntime-tests \
     pytorch \
     tensorflow-lite \
 "
-ML_PKGS:mx9-nxp-bsp = " \
+ML_PKGS:mx9-nxp-bsp = "\
     litert \
     onnxruntime-tests \
     pytorch \
@@ -45,11 +45,11 @@ ML_PKGS:mx9-nxp-bsp = " \
 # These packages require acceleration, which currently maps to
 # all SOCs with GPU except for 8M Mini
 ML_ACCELERATED_PKGS = ""
-ML_ACCELERATED_PKGS:mx8-nxp-bsp:imxgpu = " \
+ML_ACCELERATED_PKGS:mx8-nxp-bsp:imxgpu = "\
     litert-vx-delegate \
     tensorflow-lite-vx-delegate \
 "
-ML_ACCELERATED_PKGS:mx8mp-nxp-bsp = " \
+ML_ACCELERATED_PKGS:mx8mp-nxp-bsp = "\
     litert-vx-delegate \
     tensorflow-lite-vx-delegate \
     tvm \
@@ -59,7 +59,7 @@ ML_ACCELERATED_PKGS:mx8mm-nxp-bsp = ""
 
 # ARM ethos-u package
 ETHOS_U_PKGS = ""
-ETHOS_U_PKGS:mx93-nxp-bsp = " \
+ETHOS_U_PKGS:mx93-nxp-bsp = "\
     ethos-u-vela \
     ethos-u-driver-stack \
     litert-ethosu-delegate \
@@ -69,18 +69,18 @@ ETHOS_U_PKGS:mx93-nxp-bsp = " \
 
 # Neutron package
 NEUTRON_PKGS = ""
-NEUTRON_PKGS:mx943-nxp-bsp = " \
+NEUTRON_PKGS:mx943-nxp-bsp = "\
     litert-neutron-delegate \
     neutron \
     tensorflow-lite-neutron-delegate \
 "
-NEUTRON_PKGS:mx95-nxp-bsp = " \
+NEUTRON_PKGS:mx95-nxp-bsp = "\
     litert-neutron-delegate \
     neutron \
     tensorflow-lite-neutron-delegate \
 "
 
-RDEPENDS:${PN} = " \
+RDEPENDS:${PN} = "\
     ${ML_PKGS} \
     ${ML_ACCELERATED_PKGS} \
     ${ML_NNSTREAMER_PKGS} \
