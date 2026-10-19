@@ -26,7 +26,7 @@ PACKAGECONFIG_GPU_DELEGATE:mx95-nxp-bsp = "gpu-delegate"
 PACKAGECONFIG[gpu-delegate] = "-DTFLITE_ENABLE_GPU=on,-DTFLITE_ENABLE_GPU=off"
 PACKAGECONFIG[python-example] = ",,,python3-pillow"
 
-EXTRA_OECMAKE = " \
+EXTRA_OECMAKE = "\
     -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
     -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
     -DTFLITE_HOST_TOOLS_DIR=${STAGING_BINDIR_NATIVE} \
@@ -77,7 +77,7 @@ do_install() {
 
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
-RDEPENDS:${PN} = " \
+RDEPENDS:${PN} = "\
     python3 \
     python3-numpy \
     ${RDEPENDS_OPENCL} \
