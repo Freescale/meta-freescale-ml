@@ -1,7 +1,7 @@
 SUMMARY = "A GStreamer NNstreamer pipelines real-time profiling plugin"
 HOMEPAGE = "https://github.com/nnstreamer/nnshark"
 
-LICENSE = "GPL-2.0-only & LGPL-2.1-only"
+LICENSE = "GPL-2.0-only AND LGPL-2.1-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=e1caa368743492879002ad032445fa97 \
                     file://COPYING.LESSER;md5=66c40c88533cd228b5b85936709801c8"
 DEPENDS = "\
