@@ -4,15 +4,10 @@ SECTION = "console/tools"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-SRCREV = "e6463926479bd6b330cbcf673f7e917803fd5831"
-SRC_URI = "git://github.com/google/flatbuffers.git;branch=master;protocol=https"
-
-PACKAGE_BEFORE_PN = "${PN}-compiler"
-
 DEPENDS = "flatbuffers-native"
 
-RDEPENDS:${PN}-compiler = "${PN}"
-RDEPENDS:${PN}-dev += "${PN}-compiler"
+SRC_URI = "git://github.com/google/flatbuffers.git;branch=master;protocol=https"
+SRCREV = "e6463926479bd6b330cbcf673f7e917803fd5831"
 
 EXTRA_OECMAKE += "\
     -DFLATBUFFERS_BUILD_TESTS=OFF \
@@ -27,6 +22,11 @@ rm_flatc_cmaketarget_for_target() {
 }
 SYSROOT_PREPROCESS_FUNCS:class-target += "rm_flatc_cmaketarget_for_target"
 
+PACKAGE_BEFORE_PN = "${PN}-compiler"
+
 FILES:${PN}-compiler = "${bindir}"
+
+RDEPENDS:${PN}-compiler = "${PN}"
+RDEPENDS:${PN}-dev += "${PN}-compiler"
 
 BBCLASSEXTEND = "native nativesdk"
