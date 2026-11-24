@@ -18,13 +18,13 @@ DEPENDS = "\
     libpng \
 "
 
-SRCREV = "9cf11e0768892636622480fe1b5fc042b5a224ad"
 SRC_URI = "git://github.com/nnstreamer/nnstreamer.git;branch=prod/tizen-9.0;protocol=https \
            file://0001-AIR-11938-tensor-filter-use-memcpy-ethosu-delegate.patch \
            file://0001-meson.build-Fix-include-path-for-numpy-YOCIMX-8735.patch \
            file://0001-rgb888_support_nnstreamer.patch \
            file://0001-Fix-libnnstreamer_customfilter_passthrough.so-path.patch \
 "
+SRCREV = "9cf11e0768892636622480fe1b5fc042b5a224ad"
 
 # Use git instead of quilt as patch tool to support patches with binary content
 PATCHTOOL = "git"
@@ -100,6 +100,8 @@ do_install:append() {
     rm -f ${D}/${bindir}/unittest-nnstreamer/tests/test_models/models/tvm_add_one.so_
 }
 
+PACKAGE_ARCH = "${MACHINE_SOCARCH}"
+
 PACKAGES =+ "\
     ${PN}-unittest \
     ${PN}-flatbuf \
@@ -111,25 +113,6 @@ PACKAGES =+ "\
     ${PN}-query \
     ${PN}-tensorflow-lite \
     ${PN}-tvm \
-"
-
-RDEPENDS:${PN} = "\
-    gstreamer1.0-plugins-base \
-"
-
-RDEPENDS:${PN}-unittest = "\
-    gstreamer1.0-plugins-good \
-    nnstreamer \
-    ssat \
-    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
 "
 
 # The libraries are unversioned
@@ -193,6 +176,25 @@ FILES:${PN}-unittest = "\
     ${libdir}/nnstreamer/unittest/* \
 "
 
+RDEPENDS:${PN} = "\
+    gstreamer1.0-plugins-base \
+"
+
+RDEPENDS:${PN}-unittest = "\
+    gstreamer1.0-plugins-good \
+    nnstreamer \
+    ssat \
+    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
+"
+
 # Libraries are unversioned, and the main package requires the symlink
 # /usr/lib/libnnstreamer.so -> /usr/lib64/gstreamer-1.0/libnnstreamer.so,
 # so disable QA dev-so
@@ -219,5 +221,3 @@ do_install:append() {
         ln -sf ${libdir}/nnstreamer_python3.so ${D}${PYTHON_SITEPACKAGES_DIR}/nnstreamer_python.so
     fi
 }
-
-PACKAGE_ARCH = "${MACHINE_SOCARCH}"
