@@ -3,18 +3,16 @@ SUMMARY = "Tensors and Dynamic neural networks in Python with strong GPU acceler
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=9c57cfb31165de565a47b65b896391c2"
 
-PV = "2.0.0"
-
 DEPENDS = "python3 python3-pip-native python3-wheel-native"
-RDEPENDS:${PN} += "python3-core python3-numpy python3-future python3-typing-extensions python3-pillow numactl libjpeg-turbo lcms openjpeg"
+
+PV = "2.0.0"
 
 PYTORCH_SRC ?= "git://github.com/nxp-imx/pytorch-release.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
-SRCREV = "cc03fda98c2ef26db2f823eaba36ca96107eee23"
-
 SRC_URI = "\
     ${PYTORCH_SRC};branch=${SRCBRANCH} \
 "
+SRCREV = "cc03fda98c2ef26db2f823eaba36ca96107eee23"
 
 inherit python3native
 
@@ -24,3 +22,5 @@ do_install(){
 
     install -m 0555 ${S}/examples/* ${D}${bindir}/${PN}/examples
 }
+
+RDEPENDS:${PN} += "python3-core python3-numpy python3-future python3-typing-extensions python3-pillow numactl libjpeg-turbo lcms openjpeg"
