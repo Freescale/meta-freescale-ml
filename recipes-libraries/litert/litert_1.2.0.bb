@@ -3,7 +3,6 @@ DESCRIPTION = "Google's open-source high-performance runtime for on-device AI"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-
 DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
            python3 jpeg zlib tensorflow-lite-host-tools-native"
 
@@ -15,7 +14,6 @@ SRC_URI += "https://storage.googleapis.com/download.tensorflow.org/models/mobile
 SRC_URI[model-mobv1.sha256sum] = "d32432d28673a936b2d6281ab0600c71cf7226dfe4cdcef3012555f691744166"
 
 SRCREV_FORMAT = "litert_kleidiai"
-
 
 inherit python3native cmake
 
@@ -52,7 +50,6 @@ do_configure:prepend() {
     # with unavailable binary.
     export FC=""
 }
-
 
 do_compile:append () {
     # build pip package
