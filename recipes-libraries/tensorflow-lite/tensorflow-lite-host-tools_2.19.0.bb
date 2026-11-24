@@ -12,7 +12,7 @@ OECMAKE_SOURCEPATH = "${S}/tensorflow/lite/tools/cmake/native_tools"
 
 BBCLASSEXTEND = "native nativesdk"
 
-EXTRA_OECMAKE = " \
+EXTRA_OECMAKE = "\
     -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
     -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
 "
