@@ -1,6 +1,7 @@
 # Copyright 2020-2025 NXP
 SUMMARY = "TensorFlow Lite VX Delegate"
 DESCRIPTION = "TensorFlow Lite delegate that offloads supported operations to the Vivante GPU or NPU through TIM-VX"
+HOMEPAGE = "https://github.com/nxp-imx/tflite-vx-delegate-imx"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=7d6260e4f3f6f85de05af9c8f87e6fb5"
 
