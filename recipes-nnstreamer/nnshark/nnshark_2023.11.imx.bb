@@ -29,9 +29,9 @@ do_configure:prepend() {
     sh autogen.sh --noconfigure
 }
 
+PACKAGE_ARCH = "${MACHINE_SOCARCH}"
+
 FILES:${PN} += "\
     ${libdir}/gstreamer-1.0/libgstsharktracers.so  \
     ${libdir}/gstreamer-1.0/libgstsharktracers.la \
 "
-
-PACKAGE_ARCH = "${MACHINE_SOCARCH}"
