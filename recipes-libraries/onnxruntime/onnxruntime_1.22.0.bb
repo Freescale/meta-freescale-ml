@@ -182,6 +182,10 @@ do_install:append() {
 # Make the package arch SOC-specific since the recipe now builds with SOC-specific configuration:
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
+# A separate tests package for the test binaries not appearing in the main package
+PACKAGE_BEFORE_PN = "${PN}-tests"
+FILES:${PN}-tests = "${bindir}/${BP}/tests/*"
+
 # Adjust the Python runtime dependency inherited from setuptools3-base.bbclass
 # since Python support for this recipe is conditional
 RDEPENDS:${PN}:remove:class-target = "\
@@ -189,10 +193,6 @@ RDEPENDS:${PN}:remove:class-target = "\
 
 # libonnxruntime_providers_shared.so is being packaged into -dev which is intended
 INSANE_SKIP:${PN}-dev += "dev-elf"
-
-# A separate tests package for the test binaries not appearing in the main package
-PACKAGE_BEFORE_PN = "${PN}-tests"
-FILES:${PN}-tests = "${bindir}/${BP}/tests/*"
 
 # libcustom_op_library.so is in bindir, which is intended;
 # onnxruntime_shared_lib_test requires the shlib to be in the same directory as testdata to run properly
