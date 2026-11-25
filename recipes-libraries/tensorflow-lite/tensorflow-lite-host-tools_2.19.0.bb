@@ -1,6 +1,7 @@
 # Copyright 2022-2025 NXP
 SUMMARY = "TensorFlow Lite host build tools"
 DESCRIPTION = "Host tools required for build of TensorFlow Lite C++ Library unit tests and Evaluation Tools"
+HOMEPAGE = "https://tensorflow.org"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 
