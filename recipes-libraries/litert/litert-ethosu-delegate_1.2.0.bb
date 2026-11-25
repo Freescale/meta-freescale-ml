@@ -20,7 +20,6 @@ SRC_URI = "${TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC};branch=${SRCBRANCH_ethosu};nam
            file://0001-ethosu_drv.h-Fix-gcc15-build-issues.patch \
 "
 
-
 inherit python3native cmake
 
 EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR}"

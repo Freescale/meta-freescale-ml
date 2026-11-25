@@ -18,7 +18,6 @@ SRC_URI = "\
 
 inherit python3native
 
-
 do_install(){
     install -d ${D}${bindir}
     install -d ${D}${bindir}/${PN}/examples

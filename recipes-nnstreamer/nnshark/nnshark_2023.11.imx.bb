@@ -25,7 +25,6 @@ EXTRA_OECONF = "\
     --disable-gtk-doc \
 "
 
-
 do_configure:prepend() {
     sh autogen.sh --noconfigure
 }

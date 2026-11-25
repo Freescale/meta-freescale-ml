@@ -3,7 +3,6 @@ DESCRIPTION = "TensorFlow Lite C++ Library"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 
-
 DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
            python3 jpeg zlib ${BPN}-host-tools-native"
 
@@ -43,7 +42,6 @@ EXTRA_OECMAKE_BUILD = "benchmark_model label_image"
 
 CXXFLAGS += "-fPIC"
 
-
 do_configure[network] = "1"
 do_configure:prepend() {
     export HTTP_PROXY=${http_proxy}
@@ -55,7 +53,6 @@ do_configure:prepend() {
     # with unavailable binary.
     export FC=""
 }
-
 
 do_compile:append () {
     # build pip package

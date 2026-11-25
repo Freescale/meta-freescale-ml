@@ -19,7 +19,6 @@ SRC_URI = "${NEUTRON_DELEGATE_SRC};branch=${SRCBRANCH_neutron};name=neutron \
            ${LITERT_SRC};branch=${SRCBRANCH_litert};name=litert;destsuffix=litertgit \
 "
 
-
 inherit python3native cmake
 
 EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR}"
