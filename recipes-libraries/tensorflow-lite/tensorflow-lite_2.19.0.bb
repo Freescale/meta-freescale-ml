@@ -126,6 +126,8 @@ do_install() {
 
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
+FILES:${PN} += "${libdir}/python*"
+
 RDEPENDS:${PN} = "\
     python3 \
     python3-numpy \
@@ -147,5 +149,3 @@ INSANE_SKIP:${PN} += "\
     staticdev \
     buildpaths \
 "
-
-FILES:${PN} += "${libdir}/python*"
