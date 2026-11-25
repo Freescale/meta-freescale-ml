@@ -74,6 +74,8 @@ do_install() {
 
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
+FILES:${PN} += "${libdir}/python*"
+
 RDEPENDS:${PN} = "\
     python3 \
     python3-numpy \
@@ -88,5 +90,3 @@ INSANE_SKIP:${PN} += "dev-deps"
 SSTATE_ALLOW_OVERLAP_FILES = "/"
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
-
-FILES:${PN} += "${libdir}/python*"
