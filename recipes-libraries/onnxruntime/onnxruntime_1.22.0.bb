@@ -1,4 +1,5 @@
 # Copyright 2020-2026 NXP
+SUMMARY = "ONNX Runtime machine learning inference engine"
 DESCRIPTION = "cross-platform, high performance scoring engine for ML models"
 SECTION = "devel"
 LICENSE = "Apache-2.0 AND MIT"
