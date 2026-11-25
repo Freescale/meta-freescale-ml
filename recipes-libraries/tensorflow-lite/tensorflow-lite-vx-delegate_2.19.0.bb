@@ -1,5 +1,6 @@
 # Copyright 2020-2025 NXP
-DESCRIPTION = "TensorFlow Lite VX Delegate"
+SUMMARY = "TensorFlow Lite VX Delegate"
+DESCRIPTION = "TensorFlow Lite delegate that offloads supported operations to the Vivante GPU or NPU through TIM-VX"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=7d6260e4f3f6f85de05af9c8f87e6fb5"
 
