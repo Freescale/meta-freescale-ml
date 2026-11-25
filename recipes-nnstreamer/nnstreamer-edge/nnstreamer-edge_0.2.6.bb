@@ -1,5 +1,6 @@
 SUMMARY = "NNStreamer-Edge library"
 DESCRIPTION = "Remote source nodes for NNStreamer pipelines without GStreamer dependencies"
+HOMEPAGE = "https://github.com/nnstreamer/nnstreamer-edge"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=095e13fef457e259d3bc155d0ed859f1"
 
