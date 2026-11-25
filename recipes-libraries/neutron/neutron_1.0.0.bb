@@ -1,5 +1,6 @@
 SUMMARY = "The firmware, library and converter for i.MX Neutron NPU"
 DESCRIPTION = "The firmware library and converter for i.MX Neutron NPU"
+HOMEPAGE = "https://github.com/nxp-imx/neutron"
 LICENSE = "LicenseRef-Proprietary"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=bc649096ad3928ec06a8713b8d787eac"
 
