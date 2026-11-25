@@ -12,7 +12,6 @@ PACKAGE_BEFORE_PN = "${PN}-compiler"
 DEPENDS = "flatbuffers-native"
 
 RDEPENDS:${PN}-compiler = "${PN}"
-RDEPENDS:${PN}-${PYTHON_PN} = "${PN}"
 RDEPENDS:${PN}-dev += "${PN}-compiler"
 
 EXTRA_OECMAKE += "\

@@ -102,15 +102,15 @@ do_install:append() {
 
 PACKAGES =+ "\
     ${PN}-unittest \
-    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
+    ${PN}-flatbuf \
+    ${PN}-grpc-flatbuf \
+    ${PN}-grpc \
+    ${PN}-protobuf \
+    ${PN}-grpc-protobuf \
+    ${PN}-python3 \
+    ${PN}-query \
+    ${PN}-tensorflow-lite \
+    ${PN}-tvm \
 "
 
 RDEPENDS:${PN} = "\
