@@ -1,5 +1,6 @@
 # Copyright 2023-2025 NXP
-DESCRIPTION = "TensorFlow Lite Neutron Delegate"
+SUMMARY = "TensorFlow Lite Neutron Delegate"
+DESCRIPTION = "TensorFlow Lite delegate that offloads supported operations to the NXP eIQ Neutron NPU"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=86d3f3a95c324c9479bd8986968f4327"
 
