@@ -39,52 +39,52 @@ PACKAGECONFIG_SOC:mx8mp-nxp-bsp ??= "tensorflow-lite tvm"
 PACKAGECONFIG_SOC:mx9-nxp-bsp ??= "tensorflow-lite"
 
 PACKAGECONFIG[flatbuf] = "\
-	-Dflatbuf-support=enabled, \
-	-Dflatbuf-support=disabled, \
-	flatbuffers-native flatbuffers, \
-	,,\
+    -Dflatbuf-support=enabled, \
+    -Dflatbuf-support=disabled, \
+    flatbuffers-native flatbuffers, \
+    ,,\
 "
 
 PACKAGECONFIG[grpc] = "\
-	-Dgrpc-support=enabled, \
-	-Dgrpc-support=disabled, \
-	grpc-native grpc, \
-	,,\
+    -Dgrpc-support=enabled, \
+    -Dgrpc-support=disabled, \
+    grpc-native grpc, \
+    ,,\
 "
 
 PACKAGECONFIG[protobuf] = "\
-	-Dprotobuf-support=enabled, \
-	-Dprotobuf-support=disabled, \
-	protobuf-native protobuf, \
-	,,\
+    -Dprotobuf-support=enabled, \
+    -Dprotobuf-support=disabled, \
+    protobuf-native protobuf, \
+    ,,\
 "
 
 PACKAGECONFIG[python3] = "\
-	-Dpython3-support=enabled, \
-	-Dpython3-support=disabled, \
-	python3 python3-numpy-native, \
-	,,\
+    -Dpython3-support=enabled, \
+    -Dpython3-support=disabled, \
+    python3 python3-numpy-native, \
+    ,,\
 "
 
 PACKAGECONFIG[query] = "\
-	-Dnnstreamer-edge-support=enabled, \
-	-Dnnstreamer-edge-support=disabled, \
-	nnstreamer-edge, \
-	,,\
+    -Dnnstreamer-edge-support=enabled, \
+    -Dnnstreamer-edge-support=disabled, \
+    nnstreamer-edge, \
+    ,,\
 "
 
 PACKAGECONFIG[tensorflow-lite] = "\
-	-Dtflite2-support=enabled, \
-	-Dtflite2-support=disabled, \
-	tensorflow-lite flatbuffers, \
-	,,\
+    -Dtflite2-support=enabled, \
+    -Dtflite2-support=disabled, \
+    tensorflow-lite flatbuffers, \
+    ,,\
 "
 
 PACKAGECONFIG[tvm] = "\
-	-Dtvm-support=enabled, \
-	-Dtvm-support=disabled, \
-	tvm, \
-	,,\
+    -Dtvm-support=enabled, \
+    -Dtvm-support=disabled, \
+    tvm, \
+    ,,\
 "
 
 EXTRA_OEMESON += "\
