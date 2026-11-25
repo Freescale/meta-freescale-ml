@@ -20,7 +20,7 @@ SRCREV = "cedca5ab20a0230042b7c14be1a00532f0387f1e"
 
 inherit pkgconfig autotools-brokensep
 
-EXTRA_OECONF = " \
+EXTRA_OECONF = "\
     --disable-graphviz \
     --disable-gtk-doc \
 "

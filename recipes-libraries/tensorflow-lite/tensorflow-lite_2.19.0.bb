@@ -25,7 +25,7 @@ PACKAGECONFIG_GPU_DELEGATE:mx95-nxp-bsp = "gpu-delegate"
 PACKAGECONFIG[gpu-delegate] = "-DTFLITE_ENABLE_GPU=on,-DTFLITE_ENABLE_GPU=off"
 PACKAGECONFIG[python-example] = ",,,python3-pillow"
 
-EXTRA_OECMAKE = " \
+EXTRA_OECMAKE = "\
     -DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR} \
     -DFETCHCONTENT_FULLY_DISCONNECTED=OFF \
     -DTFLITE_EVAL_TOOLS=on \
@@ -129,7 +129,7 @@ do_install() {
 
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
-RDEPENDS:${PN} = " \
+RDEPENDS:${PN} = "\
     python3 \
     python3-numpy \
     ${RDEPENDS_OPENCL} \
@@ -145,7 +145,7 @@ SSTATE_ALLOW_OVERLAP_FILES = "/"
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 
-INSANE_SKIP:${PN} += " \
+INSANE_SKIP:${PN} += "\
     already-stripped \
     staticdev \
     buildpaths \
