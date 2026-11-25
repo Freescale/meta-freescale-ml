@@ -9,7 +9,7 @@ require tensorflow-lite-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
 require recipes-libraries/tflite-delegate/tflite-delegate-abseil.inc
 
-TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-ethosu-delegate-imx.git;protocol=https" 
+TENSORFLOW_LITE_ETHOSU_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-ethosu-delegate-imx.git;protocol=https"
 SRCBRANCH_ethosu = "lf-6.12.34_2.1.0"
 SRCREV_ethosu = "b6e7baa28be57196e14535e8a8c94a40c8f959eb"
 

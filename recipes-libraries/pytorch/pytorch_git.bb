@@ -10,7 +10,7 @@ RDEPENDS:${PN} += "python3-core python3-numpy python3-future python3-typing-exte
 
 PYTORCH_SRC ?= "git://github.com/nxp-imx/pytorch-release.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
-SRCREV = "cc03fda98c2ef26db2f823eaba36ca96107eee23" 
+SRCREV = "cc03fda98c2ef26db2f823eaba36ca96107eee23"
 
 SRC_URI = "\
     ${PYTORCH_SRC};branch=${SRCBRANCH} \

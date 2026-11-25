@@ -8,7 +8,7 @@ DEPENDS = "litert tim-vx tensorflow-lite-host-tools-native"
 require litert-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
 
-TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-vx-delegate-imx.git;protocol=https" 
+TENSORFLOW_LITE_VX_DELEGATE_SRC ?= "git://github.com/nxp-imx/tflite-vx-delegate-imx.git;protocol=https"
 SRCBRANCH_vx = "lf-6.12.34_2.1.0"
 SRCREV_vx = "5d7eb90dc208b4a9625d6a1ba7458a623894bc48"
 
