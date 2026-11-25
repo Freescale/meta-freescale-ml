@@ -1,5 +1,6 @@
 SUMMARY = "Shell Script Automated Tester (unit testing executable files)"
 DESCRIPTION = "Shell Script Automated Tester (unit testing executable files)"
+HOMEPAGE = "https://github.com/myungjoo/SSAT"
 
 SECTION = "Development"
 LICENSE = "Apache-2.0"
