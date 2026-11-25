@@ -9,7 +9,6 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e313a9b6eda820e35716d9529001537f \
 "
 
 DEPENDS = "tim-vx"
-RDEPENDS:${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
 
 SRCBRANCH = "lf-6.12.34_2.1.0"
 TVM_SRC ?= "git://github.com/nxp-imx/eiq-tvm-imx.git;protocol=https"
@@ -78,5 +77,6 @@ INSANE_SKIP:${PN} += "dev-deps"
 
 FILES_SOLIBSDEV = ""
 FILES:${PN} = "${bindir}/* ${libdir}/*"
+RDEPENDS:${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
 
 COMPATIBLE_MACHINE = "(mx8mp-nxp-bsp)"
