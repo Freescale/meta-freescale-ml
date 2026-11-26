@@ -1,5 +1,7 @@
 # Copyright 2020-2025 NXP
-DESCRIPTION = "TensorFlow Lite C++ Library"
+SUMMARY = "TensorFlow Lite C++ Library"
+DESCRIPTION = "TensorFlow Lite runtime for on-device inference: the C++ library and headers, its Python interpreter module, and the label_image, benchmark and evaluation tools"
+HOMEPAGE = "https://tensorflow.org"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 

@@ -1,5 +1,7 @@
 # Copyright 2023-2025 NXP
+SUMMARY = "Neural network model compiler for Arm Ethos-U NPUs"
 DESCRIPTION = "The vela tool is used to compile a TensorFlow Lite for Microcontrollers neural network model into an optimised version that can run on an embedded system containing an Arm Ethos-U NPU"
+HOMEPAGE = "https://gitlab.arm.com/artificial-intelligence/ethos-u/ethos-u-vela"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=e3fc50a88d0a364313df4b21ef20c29e"
 DEPENDS = "flatbuffers python3-numpy python3-lxml python3-numpy-native"

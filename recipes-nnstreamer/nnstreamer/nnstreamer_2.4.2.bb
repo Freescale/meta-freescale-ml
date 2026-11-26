@@ -1,5 +1,6 @@
 SUMMARY = "NNStreamer, Stream Pipeline Paradigm for Neural Network Applications"
 DESCRIPTION = "NNStreamer is a GStreamer plugin allowing to construct neural network applications with stream pipeline paradigm."
+HOMEPAGE = "https://nnstreamer.ai"
 SECTION = "AI"
 LICENSE = "LGPL-2.0-or-later"
 LIC_FILES_CHKSUM = "\

@@ -1,7 +1,8 @@
 # Copyright 2019-2025 NXP
 # Released under the MIT license (see COPYING.MIT for the terms)
 
-DESCRIPTION = "Add packages for AI/ML build"
+SUMMARY = "Machine learning packages for i.MX"
+DESCRIPTION = "Machine learning runtimes, NPU and GPU delegates, NNStreamer elements and GStreamer profiling tools, selected for the SoC of the target machine"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
