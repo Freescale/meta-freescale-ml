@@ -5,8 +5,18 @@ HOMEPAGE = "https://tensorflow.org"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 
-DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
-           python3 jpeg zlib ${BPN}-host-tools-native"
+DEPENDS = "\
+    ${BPN}-host-tools-native \
+    flatbuffers \
+    jpeg \
+    python3 \
+    python3-numpy-native \
+    python3-pip-native \
+    python3-pybind11-native \
+    python3-wheel-native \
+    unzip-native \
+    zlib \
+"
 
 require tensorflow-lite-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
@@ -133,9 +143,9 @@ PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 FILES:${PN} += "${libdir}/python*"
 
 RDEPENDS:${PN} = "\
+    ${RDEPENDS_OPENCL} \
     python3 \
     python3-numpy \
-    ${RDEPENDS_OPENCL} \
 "
 RDEPENDS_OPENCL = "virtual-opencl-icd"
 RDEPENDS_OPENCL:mx8mm-nxp-bsp = ""
