@@ -6,6 +6,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=4158a261ca7f2525513e31ba9c50ae98"
 require tensorflow-lite-${PV}.inc
 SRC_URI = "${TENSORFLOW_LITE_SRC};branch=${SRCBRANCH_tf};name=tf"
 
+CVE_PRODUCT = "google:tensorflow"
+
 inherit cmake
 
 OECMAKE_SOURCEPATH = "${S}/tensorflow/lite/tools/cmake/native_tools"
