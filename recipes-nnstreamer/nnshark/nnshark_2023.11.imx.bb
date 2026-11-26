@@ -18,6 +18,8 @@ SRCBRANCH ?= "2023.11.imx"
 SRC_URI = "${NNSHARK_SRC};branch=${SRCBRANCH}"
 SRCREV = "cedca5ab20a0230042b7c14be1a00532f0387f1e"
 
+CVE_PRODUCT = "nnstreamer:nnshark"
+
 inherit pkgconfig autotools-brokensep
 
 EXTRA_OECONF = "\
