@@ -5,7 +5,7 @@ HOMEPAGE = "https://github.com/nxp-imx/tflite-vx-delegate-imx"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=7d6260e4f3f6f85de05af9c8f87e6fb5"
 
-DEPENDS = "tensorflow-lite tim-vx tensorflow-lite-host-tools-native"
+DEPENDS = "tensorflow-lite tensorflow-lite-host-tools-native tim-vx"
 
 require tensorflow-lite-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
