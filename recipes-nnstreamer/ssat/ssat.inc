@@ -1,6 +1,7 @@
 SUMMARY = "Shell Script Automated Tester (unit testing executable files)"
 DESCRIPTION = "SSAT is a testing framework for test cases written as Bash scripts. It searches a path recursively for runTest.sh test groups, runs them with the helper functions of ssat-api.sh and summarises the results, exiting non-zero on a critical failure."
 HOMEPAGE = "https://github.com/myungjoo/SSAT"
+BUGTRACKER = "https://github.com/myungjoo/SSAT/issues"
 
 SECTION = "devel"
 LICENSE = "Apache-2.0"
