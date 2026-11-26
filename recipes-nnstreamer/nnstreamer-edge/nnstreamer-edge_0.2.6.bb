@@ -14,6 +14,8 @@ SRC_URI = "${NNS_EDGE_SRC};branch=${SRCBRANCH} \
            file://0001-CMakeLists.txt-Update-cmake_minimum_required-to-3.5.patch \
            file://0002-Build-Compile-on-Ubuntu-26.04-gcc-15-C23-gtest-1.17.patch"
 
+CVE_PRODUCT = "nnstreamer:nnstreamer-edge"
+
 inherit cmake pkgconfig
 
 EXTRA_OECMAKE = "\
