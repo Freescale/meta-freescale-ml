@@ -4,7 +4,7 @@ DESCRIPTION = "The vela tool is used to compile a TensorFlow Lite for Microcontr
 HOMEPAGE = "https://gitlab.arm.com/artificial-intelligence/ethos-u/ethos-u-vela"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=e3fc50a88d0a364313df4b21ef20c29e"
-DEPENDS = "flatbuffers python3-numpy python3-lxml python3-numpy-native"
+DEPENDS = "flatbuffers python3-lxml python3-numpy python3-numpy-native"
 
 SRC_URI = "${VELA_SRC};branch=${SRCBRANCH}"
 VELA_SRC ?= "git://github.com/nxp-imx/ethos-u-vela.git;protocol=https"
@@ -23,7 +23,7 @@ do_compile:prepend() {
     export https_proxy=${https_proxy}
 }
 
-RDEPENDS:${PN} += "python3-flatbuffers python3-numpy python3-lxml"
+RDEPENDS:${PN} += "python3-flatbuffers python3-lxml python3-numpy"
 
 COMPATIBLE_MACHINE = "(mx93-nxp-bsp)"
 
