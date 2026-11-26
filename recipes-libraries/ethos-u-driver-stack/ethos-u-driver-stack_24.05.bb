@@ -11,6 +11,8 @@ ETHOS_U_SRC ?= "git://github.com/nxp-imx/ethos-u-driver-stack-imx.git;protocol=h
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "caf5daf63fc2a69733eb92387ba69bef033926b3"
 
+CVE_PRODUCT = "arm:ethos-u-linux-driver-stack"
+
 inherit cmake setuptools3
 
 SETUPTOOLS_BUILD_ARGS = "build_ext --library-dirs ${B}/driver_library"
