@@ -1,6 +1,7 @@
 SUMMARY = "A GStreamer NNstreamer pipelines real-time profiling plugin"
 DESCRIPTION = "NNShark is a GStreamer tracer plugin, forked from GstShark, for real-time performance profiling of NNStreamer pipelines. Its tracers report figures such as processing time, latency, framerate, queue level and CPU, GPU, DDR and power usage."
 HOMEPAGE = "https://github.com/nnstreamer/nnshark"
+BUGTRACKER = "https://github.com/nnstreamer/nnshark/issues"
 SECTION = "multimedia"
 
 LICENSE = "GPL-2.0-only AND LGPL-2.1-only"
