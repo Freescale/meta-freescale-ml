@@ -1,6 +1,7 @@
 SUMMARY = "The firmware of Cortex(R)-M33 for Arm(R) Ethos(TM)-U NPU"
 DESCRIPTION = "Prebuilt firmware for the Cortex-M33 core of the i.MX 93, which runs the Arm Ethos-U core driver and serves NPU inference requests from Linux. It is built from Arm's Ethos-U core software and the NXP MCUXpresso SDK, with one binary per board variant."
 HOMEPAGE = "https://github.com/nxp-imx/ethos-u-firmware"
+BUGTRACKER = "https://github.com/Freescale/meta-freescale-ml/issues"
 SECTION = "firmware"
 LICENSE = "Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only"
 LIC_FILES_CHKSUM = "\
