@@ -8,6 +8,8 @@ EIQ_EXAMPLES_SRC ?= "git://github.com/nxp-imx/eiq-example.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "a900ed92dd27f79e832dca7b184c7f621ea0c97f"
 
+CVE_PRODUCT = "nxp:eiq-example"
+
 do_install () {
     # install scripts to /usr/bin
     install -d ${D}${bindir}/${PN}-${PV}/
