@@ -5,7 +5,7 @@ HOMEPAGE = "https://github.com/nxp-imx/tflite-ethosu-delegate-imx"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-DEPENDS = "litert ethos-u-driver-stack tensorflow-lite-host-tools-native"
+DEPENDS = "ethos-u-driver-stack litert tensorflow-lite-host-tools-native"
 
 require litert-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
