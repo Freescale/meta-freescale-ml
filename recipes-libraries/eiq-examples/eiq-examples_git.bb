@@ -22,8 +22,14 @@ do_install () {
     cp -r ${S}/gesture_detection ${D}${bindir}/${PN}-${PV}/
 }
 
-RDEPENDS:${PN} = "python3 python3-numpy python3-pillow python3-requests \
-                  python3-opencv python3-pillow tensorflow-lite"
+RDEPENDS:${PN} = "\
+    python3 \
+    python3-numpy \
+    python3-opencv \
+    python3-pillow \
+    python3-requests \
+    tensorflow-lite \
+"
 
 #Only support imx93 currently, will add other plantform support.
 COMPATIBLE_MACHINE = "(mx93-nxp-bsp)"
