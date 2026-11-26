@@ -1,5 +1,5 @@
 SUMMARY = "The eiq examples based on Tf-lite"
-DESCRIPTION = "The eiq examples based on Tf-lite"
+DESCRIPTION = "Python demos of the NXP eIQ machine learning software that run TensorFlow Lite models for image classification, object detection, face recognition, gesture detection and driver monitoring, optionally offloaded to an NPU through an external delegate. The models are fetched at run time by download_models.py."
 HOMEPAGE = "https://github.com/nxp-imx/eiq-example"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
