@@ -16,6 +16,8 @@ ONNXRUNTIME_SRC ?= "gitsm://github.com/nxp-imx/onnxruntime-imx.git;protocol=http
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "868cb88cd799d12d201829d51f93c72365567957"
 
+CVE_PRODUCT = "microsoft:onnxruntime"
+
 inherit cmake python3native
 
 OECMAKE_SOURCEPATH = "${S}/cmake"
