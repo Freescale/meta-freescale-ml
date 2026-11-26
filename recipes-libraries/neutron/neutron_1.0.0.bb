@@ -8,6 +8,8 @@ NEUTRON_SRC ?= "git://github.com/nxp-imx/neutron.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "2887d2dcf47eda7e3f20afe3c2c1f4d1a2970386"
 
+CVE_PRODUCT = "nxp:neutron"
+
 NEUTRON_TARGET = ""
 NEUTRON_TARGET:mx943-nxp-bsp = "imx943"
 NEUTRON_TARGET:mx95-nxp-bsp = "imx95"

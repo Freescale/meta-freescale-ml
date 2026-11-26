@@ -18,6 +18,8 @@ SRC_URI = "${TENSORFLOW_LITE_VX_DELEGATE_SRC};branch=${SRCBRANCH_vx};name=vx \
            ${LITERT_SRC};branch=${SRCBRANCH_litert};name=litert;destsuffix=litertgit \
 "
 
+CVE_PRODUCT = "nxp:tflite-vx-delegate"
+
 inherit python3native cmake
 
 EXTRA_OECMAKE = "-DCMAKE_SYSROOT=${PKG_CONFIG_SYSROOT_DIR}"

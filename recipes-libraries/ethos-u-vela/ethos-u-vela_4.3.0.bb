@@ -9,6 +9,8 @@ VELA_SRC ?= "git://github.com/nxp-imx/ethos-u-vela.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "7c3791e2b659fc3a11e28b2bbc5635bba05434e9"
 
+CVE_PRODUCT = "arm:ethos-u-vela"
+
 inherit setuptools3
 
 do_compile[network] = "1"

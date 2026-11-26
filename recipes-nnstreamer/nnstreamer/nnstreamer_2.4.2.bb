@@ -26,6 +26,8 @@ SRC_URI = "git://github.com/nnstreamer/nnstreamer.git;branch=prod/tizen-9.0;prot
            file://0001-Fix-libnnstreamer_customfilter_passthrough.so-path.patch \
 "
 
+CVE_PRODUCT = "nnstreamer:nnstreamer"
+
 # Use git instead of quilt as patch tool to support patches with binary content
 PATCHTOOL = "git"
 

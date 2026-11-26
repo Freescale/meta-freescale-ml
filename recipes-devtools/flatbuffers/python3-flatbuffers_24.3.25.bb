@@ -10,6 +10,8 @@ SRC_URI = "git://github.com/google/flatbuffers.git;branch=master;protocol=https 
            file://0001-Fixes-LICENSE-file-in-python.patch;patchdir=${UNPACKDIR}/${BP}"
 S = "${UNPACKDIR}/${BP}/python"
 
+CVE_PRODUCT = "google:flatbuffers"
+
 RDEPENDS:${PN} = "flatbuffers"
 
 inherit setuptools3

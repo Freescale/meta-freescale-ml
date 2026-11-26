@@ -16,6 +16,9 @@ SRC_URI = "\
     ${PYTORCH_SRC};branch=${SRCBRANCH} \
 "
 
+# Ships only the example script, not PyTorch itself
+CVE_PRODUCT = "nxp:pytorch-release"
+
 inherit python3native
 
 do_install(){

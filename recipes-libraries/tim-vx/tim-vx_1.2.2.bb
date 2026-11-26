@@ -11,6 +11,8 @@ TIM_VX_SRC ?= "git://github.com/nxp-imx/tim-vx-imx.git;protocol=https"
 SRCBRANCH = "lf-6.12.34_2.1.0"
 SRCREV = "81d8d14cef8a8fe6987b2ae27eddd6c87bbaff81"
 
+CVE_PRODUCT = "verisilicon:tim-vx"
+
 inherit cmake
 
 EXTRA_OECMAKE = "\

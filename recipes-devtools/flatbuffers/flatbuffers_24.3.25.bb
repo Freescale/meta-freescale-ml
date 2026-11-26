@@ -14,6 +14,8 @@ DEPENDS = "flatbuffers-native"
 RDEPENDS:${PN}-compiler = "${PN}"
 RDEPENDS:${PN}-dev += "${PN}-compiler"
 
+CVE_PRODUCT = "google:flatbuffers"
+
 EXTRA_OECMAKE += "\
     -DFLATBUFFERS_BUILD_TESTS=OFF \
     -DFLATBUFFERS_BUILD_SHAREDLIB=ON \

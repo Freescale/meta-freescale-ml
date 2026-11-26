@@ -15,6 +15,8 @@ SRC_URI[model-mobv1.sha256sum] = "d32432d28673a936b2d6281ab0600c71cf7226dfe4cdce
 
 SRCREV_FORMAT = "litert_kleidiai"
 
+CVE_PRODUCT = "google:litert"
+
 inherit python3native cmake
 
 PACKAGECONFIG ??= "python-example ${PACKAGECONFIG_GPU_DELEGATE}"
