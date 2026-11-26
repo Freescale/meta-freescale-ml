@@ -2,6 +2,7 @@
 SUMMARY = "ONNX Runtime machine learning inference engine"
 DESCRIPTION = "cross-platform, high performance scoring engine for ML models"
 HOMEPAGE = "https://onnxruntime.ai"
+BUGTRACKER = "https://github.com/microsoft/onnxruntime/issues"
 SECTION = "devel"
 LICENSE = "Apache-2.0 AND MIT"
 LIC_FILES_CHKSUM_runtime = "file://LICENSE;md5=0f7e3b1308cb5c00b372a6e78835732d"
