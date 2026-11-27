@@ -11,12 +11,12 @@ LIC_FILES_CHKSUM = "\
 DEPENDS = "\
     bison-native \
     flex-native \
-    orc-native \
     glib-2.0 \
     gstreamer1.0 \
     gstreamer1.0-plugins-base \
     gtest \
     libpng \
+    orc-native \
 "
 
 SRC_URI = "git://github.com/nnstreamer/nnstreamer.git;branch=prod/tizen-9.0;protocol=https \
@@ -184,18 +184,18 @@ RDEPENDS:${PN} = "\
 "
 
 RDEPENDS:${PN}-unittest = "\
-    gstreamer1.0-plugins-good \
-    nnstreamer \
-    ssat \
     ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf','${PN}-flatbuf', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'grpc','${PN}-grpc', '', d)} \
-    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'flatbuf grpc','${PN}-grpc-flatbuf', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'protobuf grpc','${PN}-grpc-protobuf', '', d)} \
+    ${@bb.utils.contains('PACKAGECONFIG', 'protobuf','${PN}-protobuf', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'python3','${PN}-python3', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'query','${PN}-query', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'tensorflow-lite','${PN}-tensorflow-lite', '', d)} \
     ${@bb.utils.contains('PACKAGECONFIG', 'tvm','${PN}-tvm', '', d)} \
+    gstreamer1.0-plugins-good \
+    nnstreamer \
+    ssat \
 "
 
 # Libraries are unversioned, and the main package requires the symlink

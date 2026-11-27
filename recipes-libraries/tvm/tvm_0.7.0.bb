@@ -80,6 +80,6 @@ INSANE_SKIP:${PN} += "dev-deps"
 
 FILES_SOLIBSDEV = ""
 FILES:${PN} = "${bindir}/* ${libdir}/*"
-RDEPENDS:${PN} = "tim-vx python3-decorator python3-numpy python3-attrs python3-psutil python3"
+RDEPENDS:${PN} = "python3 python3-attrs python3-decorator python3-numpy python3-psutil tim-vx"
 
 COMPATIBLE_MACHINE = "(mx8mp-nxp-bsp)"

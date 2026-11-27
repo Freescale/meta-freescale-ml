@@ -5,7 +5,7 @@ HOMEPAGE = "https://github.com/nxp-imx/tflite-neutron-delegate"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=86d3f3a95c324c9479bd8986968f4327"
 
-DEPENDS = "tensorflow-lite neutron tensorflow-lite-host-tools-native"
+DEPENDS = "neutron tensorflow-lite tensorflow-lite-host-tools-native"
 
 require tensorflow-lite-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc

@@ -6,10 +6,10 @@ LICENSE = "GPL-2.0-only AND LGPL-2.1-only"
 LIC_FILES_CHKSUM = "file://COPYING;md5=e1caa368743492879002ad032445fa97 \
                     file://COPYING.LESSER;md5=66c40c88533cd228b5b85936709801c8"
 DEPENDS = "\
-    gtk-doc-native \
     gstreamer1.0 \
-    gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-bad \
+    gstreamer1.0-plugins-base \
+    gtk-doc-native \
     libgpuperfcnt \
     perf \
 "

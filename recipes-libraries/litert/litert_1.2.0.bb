@@ -5,8 +5,18 @@ HOMEPAGE = "https://ai.google.dev/edge/litert"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 
-DEPENDS = "flatbuffers python3-numpy-native python3-pip-native python3-pybind11-native python3-wheel-native unzip-native \
-           python3 jpeg zlib tensorflow-lite-host-tools-native"
+DEPENDS = "\
+    flatbuffers \
+    jpeg \
+    python3 \
+    python3-numpy-native \
+    python3-pip-native \
+    python3-pybind11-native \
+    python3-wheel-native \
+    tensorflow-lite-host-tools-native \
+    unzip-native \
+    zlib \
+"
 
 require litert-${PV}.inc
 require recipes-libraries/xnnpack/xnnpack-kleidiai.inc
@@ -81,9 +91,9 @@ PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 FILES:${PN} += "${libdir}/python*"
 
 RDEPENDS:${PN} = "\
+    ${RDEPENDS_OPENCL} \
     python3 \
     python3-numpy \
-    ${RDEPENDS_OPENCL} \
 "
 RDEPENDS_OPENCL = "virtual-opencl-icd"
 RDEPENDS_OPENCL:mx8mm-nxp-bsp = ""

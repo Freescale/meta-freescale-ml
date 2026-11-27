@@ -28,4 +28,4 @@ do_install(){
     install -m 0555 ${S}/examples/* ${D}${bindir}/${PN}/examples
 }
 
-RDEPENDS:${PN} += "python3-core python3-numpy python3-future python3-typing-extensions python3-pillow numactl libjpeg-turbo lcms openjpeg"
+RDEPENDS:${PN} += "lcms libjpeg-turbo numactl openjpeg python3-core python3-future python3-numpy python3-pillow python3-typing-extensions"
