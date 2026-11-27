@@ -24,7 +24,8 @@ inherit cmake python3native
 rm_flatc_cmaketarget_for_target() {
     rm -f "${SYSROOT_DESTDIR}/${libdir}/cmake/flatbuffers/FlatcTargets.cmake"
 }
-SYSROOT_PREPROCESS_FUNCS:class-target += "rm_flatc_cmaketarget_for_target"
+rm_flatc_cmaketarget_for_target[doc] = "Drops FlatcTargets.cmake from the target sysroot: it expects a flatc binary there, which is never staged for the target"
+SYSROOT_PREPROCESS_FUNCS:append:class-target = " rm_flatc_cmaketarget_for_target"
 
 PACKAGE_BEFORE_PN = "${PN}-compiler"
 
