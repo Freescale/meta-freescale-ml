@@ -6,7 +6,7 @@ Subject: [PATCH] Fix libnnstreamer_customfilter_passthrough.so path
 Custom filter path is set to Yocto build path which will trigger an error on target.
 The appropriate path is /usr/lib/nnstreamer/customfilters/libnnstreamer_customfilter_passthrough.so.
 
-Upstream-Status: Inappropriate [i.MX specific]
+Upstream-Status: Inappropriate [OE specific]
 
 Signed-off-by: Nolann Chobert <nolann.chobert@nxp.com>
 ---

@@ -9,7 +9,7 @@ Padding is used for dimensions that are not multiple of 4.
 NNStreamer tensor_converter padding removal is done using a padding size calculated on the 4-bytes alignment of width value in bytes.
 The attached patch fixes the mismatch by adjusting the offset used for padding removal in NNStreamer to the actual stride value coming in video meta from the GStreamer plugins.
 
-Upstream-Status: Inappropriate [i.MX specific]
+Upstream-Status: Inappropriate [embedded specific]
 
 Signed-off-by: Elliot Chen <elliot.chen@nxp.com>
 Signed-off-by: Nicolas Goueslain <nicolas.goueslain@nxp.com>
