@@ -41,22 +41,22 @@ EXTRA_OECMAKE += "\
 "
 
 PYTHON_DEPENDS = "\
-    ${PYTHON_PN} \
-    ${PYTHON_PN}-pip-native \
-    ${PYTHON_PN}-numpy \
-    ${PYTHON_PN}-numpy-native \
-    ${PYTHON_PN}-packaging-native\
-    ${PYTHON_PN}-pybind11\
-    ${PYTHON_PN}-pybind11-native\
+    python3 \
+    python3-pip-native \
+    python3-numpy \
+    python3-numpy-native \
+    python3-packaging-native\
+    python3-pybind11\
+    python3-pybind11-native\
 "
 
 PYTHON_RDEPENDS = "\
-    ${PYTHON_PN} \
-    ${PYTHON_PN}-numpy \
-    ${PYTHON_PN}-protobuf \
-    ${PYTHON_PN}-coloredlogs \
-    ${PYTHON_PN}-flatbuffers \
-    ${PYTHON_PN}-sympy \
+    python3 \
+    python3-numpy \
+    python3-protobuf \
+    python3-coloredlogs \
+    python3-flatbuffers \
+    python3-sympy \
 "
 
 PACKAGECONFIG ?= "crosscompiling sharedlib python kleidiai ${PACKAGECONFIG_NPU}"
@@ -194,7 +194,7 @@ FILES:${PN}-tests = "${bindir}/${BP}/tests/*"
 # Adjust the Python runtime dependency inherited from setuptools3-base.bbclass
 # since Python support for this recipe is conditional
 RDEPENDS:${PN}:remove:class-target = "\
-    ${@bb.utils.contains('PACKAGECONFIG', 'python', '', '${PYTHON_PN}-core', d)}"
+    ${@bb.utils.contains('PACKAGECONFIG', 'python', '', 'python3-core', d)}"
 
 # libonnxruntime_providers_shared.so is being packaged into -dev which is intended
 INSANE_SKIP:${PN}-dev += "dev-elf"
