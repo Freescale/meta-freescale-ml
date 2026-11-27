@@ -99,10 +99,6 @@ EXTRA_OEMESON += "\
 # FIXME: Remove this when the source warnings are fixed
 CFLAGS += "-Wno-error"
 
-do_install:append() {
-    rm -f ${D}/${bindir}/unittest-nnstreamer/tests/test_models/models/tvm_add_one.so_
-}
-
 PACKAGE_ARCH = "${MACHINE_SOCARCH}"
 
 PACKAGES =+ "\
@@ -213,6 +209,8 @@ INSANE_SKIP:${PN}-unittest = "libdir"
 INSANE_SKIP:${PN}-dbg = "libdir"
 
 do_install:append() {
+    rm -f ${D}/${bindir}/unittest-nnstreamer/tests/test_models/models/tvm_add_one.so_
+
     # Fixes: 076a78ea [TVM/test] Add models for more architectures
     bash -c "shopt -s extglob;
     rm -f ${D}/${bindir}/unittest-nnstreamer/tests/test_models/models/tvm_add_one_!(${HOST_ARCH}).so_;
