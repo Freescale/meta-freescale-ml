@@ -1,6 +1,8 @@
 SUMMARY = "The firmware, library and converter for i.MX Neutron NPU"
 DESCRIPTION = "Prebuilt NXP software for the eIQ Neutron NPU of the i.MX 95 and i.MX 943: the NPU firmware, plus the static NeutronDriver library and headers that the TensorFlow Lite and LiteRT Neutron delegates build against. The SoC variant installed is selected by the machine."
 HOMEPAGE = "https://github.com/nxp-imx/neutron"
+BUGTRACKER = "https://github.com/nxp-imx/neutron/issues"
+SECTION = "libs"
 LICENSE = "LicenseRef-Proprietary"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=bc649096ad3928ec06a8713b8d787eac"
 

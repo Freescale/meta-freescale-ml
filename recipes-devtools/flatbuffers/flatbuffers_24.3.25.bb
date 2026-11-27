@@ -1,6 +1,7 @@
 SUMMARY = "Memory Efficient Serialization Library"
 DESCRIPTION = "FlatBuffers is a cross platform serialization library architected for maximum memory efficiency. Serialized data is accessed directly, without parsing or unpacking it first, while keeping forwards and backwards compatibility."
 HOMEPAGE = "https://github.com/google/flatbuffers"
+BUGTRACKER = "https://github.com/google/flatbuffers/issues"
 SECTION = "console/tools"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"

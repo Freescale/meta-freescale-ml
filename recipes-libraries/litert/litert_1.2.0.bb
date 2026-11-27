@@ -2,6 +2,8 @@
 SUMMARY = "LiteRT on-device machine learning runtime"
 DESCRIPTION = "Google's open-source high-performance runtime for on-device AI"
 HOMEPAGE = "https://ai.google.dev/edge/litert"
+BUGTRACKER = "https://github.com/google-ai-edge/LiteRT/issues"
+SECTION = "libs"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86d3f3a95c324c9479bd8986968f4327"
 

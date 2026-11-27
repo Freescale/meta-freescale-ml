@@ -2,6 +2,8 @@
 SUMMARY = "Tensors and Dynamic neural networks in Python with strong GPU acceleration"
 DESCRIPTION = "PyTorch is a Python package providing tensor computation with strong GPU acceleration and deep neural networks built on a tape-based autograd system. This recipe installs the example from the NXP pytorch-release repository and the runtime dependencies it needs, not the PyTorch wheel itself."
 HOMEPAGE = "https://pytorch.org"
+BUGTRACKER = "https://github.com/Freescale/meta-freescale-ml/issues"
+SECTION = "devel/python"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=9c57cfb31165de565a47b65b896391c2"
 
